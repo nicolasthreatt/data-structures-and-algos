@@ -25,7 +25,7 @@ def productExceptSelf(self, nums: List[int]) -> List[int]:
     # Create an output list the size of the input list
     res = [1] * len(nums)
 
-    # Pass through list once, in ORDER, to calculate the PREFIX multipler for each element in list
+    # Pass through list once, in ORDER, to store the PREFIX multipler for each element in list
     prefix = 1
     for i in range(len(nums)):
         res[i] = prefix
