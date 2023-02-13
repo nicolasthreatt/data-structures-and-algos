@@ -1,0 +1,35 @@
+Abstract Data Types (ADTs)
+    - A theoretical concept to specify what kind of data a data structure
+    can hold and waht operations are allowed on that data
+        + Expresses an idea
+    - Language agnostic
+    - From the perspective of the person using the ADT
+        + Not the person implementing it
+
+Two Styles of ADTs
+    - Imperative ADTs
+        + The ADT is MUTABLE
+            > The same ADT can take on different states
+        + Thus, the order in which operations are executed matters
+        + Examples:
+            > Stacks
+            > Queues
+    - Functional ADTs
+        + The ADT is IMMUTABLE
+            > A seperate instance of the ADT for each new state
+        + The order in which operations are executed doesn't matter, since 
+        no operation is ever changing the present state
+
+Advantages of ADTs
+    - Abstraction
+        + All a user needs to know is the allowable data types and allowable operations
+        + No understanding of the implementation is required
+    - Consistency
+        + The implementation can change as long as the interface to the data structure
+          stays the same
+          > The user doesn't have to alter thier code
+
+Data Structures
+    - Concrete implementations of ADTs that organize and retrieve data stored in memory
+    - From the perspective of the programmer (the person implementing it)
+        + Not the person using the ADT
