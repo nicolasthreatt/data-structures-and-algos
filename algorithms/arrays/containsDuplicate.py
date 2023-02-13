@@ -21,6 +21,9 @@ Constraints:
 -109 <= nums[i] <= 109
 """
 
+from typing import List
+
+
 # Time Complexity O(n)
 def containsDuplicate(self, nums: List[int]) -> bool:
     # Create a set for the elements 

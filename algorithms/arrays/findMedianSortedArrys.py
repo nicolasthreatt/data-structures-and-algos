@@ -1,8 +1,8 @@
 """
 https://leetcode.com/problems/median-of-two-sorted-arrays/
-https://www.youtube.com/watch?v=q6IEA26hvXc&t=1055s
 
-Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+Given two sorted arrays nums1 and nums2 of size m and n respectively,
+return the median of the two sorted arrays.
 The overall run time complexity should be O(log (m+n)).
 NOTE: Binary search tress have run time complexity O(log(n))
 
@@ -15,8 +15,10 @@ Example 2:
 - Input: nums1 = [1,2], nums2 = [3,4]
 - Output: 2.50000
 - Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
-
 """
+
+from typing import List
+
 
 # Binary Search - log(min(A, B))
 def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:

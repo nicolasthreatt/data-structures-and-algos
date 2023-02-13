@@ -27,6 +27,9 @@ Only one valid answer exists.
 Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 """
 
+from typing import List
+
+
 def twoSum_On(self, nums: List[int], target: int) -> List[int]:
     # Create hash map
     prevMap = {} # val : index
