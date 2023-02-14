@@ -1,6 +1,6 @@
 Abstract Data Types (ADTs)
-    - A theoretical concept to specify what kind of data a data structure
-    can hold and waht operations are allowed on that data
+    - A theoretical concept to specify what kind of data a data structure 
+      can hold and waht operations are allowed on that data
         + Expresses an idea
     - Language agnostic
     - From the perspective of the person using the ADT
@@ -14,6 +14,7 @@ Two Styles of ADTs
         + Examples:
             > Stacks
             > Queues
+            > Linked List (Sequenital-Access Data Structure)
     - Functional ADTs
         + The ADT is IMMUTABLE
             > A seperate instance of the ADT for each new state
@@ -33,3 +34,4 @@ Data Structures
     - Concrete implementations of ADTs that organize and retrieve data stored in memory
     - From the perspective of the programmer (the person implementing it)
         + Not the person using the ADT
+    - One ADT  = One method in DS
