@@ -4,8 +4,6 @@
     - left-right  (left rotaion on left node then right rotation on new root)
     - right-left  (right rotation of right node then left rotation on new root)
     - right-right (left roation)
-
-TODO: MAKE INTERACTIVE
 """
 import argparse
 from binarySearchTree import Tree, Node, rotateRight, rotateLeft
