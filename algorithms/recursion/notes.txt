@@ -1,0 +1,49 @@
+Recursion:
+    - Powerful tool in breaking down complex problems into more manageable segments
+
+3 Laws of Recursion
+    1. Must have a base case
+    2. Must change its state and move toward its base case
+    3. Must call itself, recursively
+
+Stages of a Recursion Algorithm
+    - There are two stages of a recursive algorithm
+        1. What happens before we hit the base case (winding)
+        2. What happens after we hit the base case (unwiding)
+    - The turnaround point between winding and unwinding in a recursive algorithm
+      is the base case
+
+Traversing Data Structures Using Recursion
+    - Traversing a data structure means systematically visiting each item stored within it
+    - One common use of recurision is to traverse data structures that have a naturally
+      recursive definition
+        + A particularly important case of this is the tree data structure
+    - Data Structures Suitabe for Recursive Traversal:
+        + DOM (Document Object Model) tree
+        + XML Trees
+        + Singly linked lists
+        + File systems
+        + Binary search trees
+    - Traversing a Linked List Using Recursion
+        + A linkedd list is a data structure consisting of nodes, where each node contains
+          a data cargo with a reference to the next node, which may be null (or None in Python)
+
+Recursion vs. Iteration
+    - In principle, you can turn any recursive algorithm into an iterative one and vice versa
+
+Advantages of Recursion
+    - Recursion can reduce time complexity
+    - Recursion code is often simpler, thus saving costly development time
+    - Often a recursive solution involves less code, making debugging and maintenance easier
+    - Recusion is ideal for tree traversal
+
+Choosing a Recusrive Solution
+    - Important things to consider:
+        + Managing memory
+        + The exit condition
+        + The order in which results will be obtained
+
+Adantages of Iteration
+    - Often uses less memory and avoids stack overflow problems
+    - Can be more robust
+    - Easier for people who don't understand recursion

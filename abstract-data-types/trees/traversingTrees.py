@@ -1,17 +1,28 @@
 """
 3 Types of Traversals
     - In-Order:
-        + Prints nodes in ascending numerical order
+        + Prints nodes in ascending numerical order (left-root-right)
+        + Use Cases:
+            > If you know that a tree has an inherent sequence in the nodes and you
+              want to flatten the tree back into its original sequence, then an in-order
+              traversal should be used
+            > For example, used to get the values of the nodes in non-decreasing order in
+              a binary search tree
     - Pre-Order
         + Follows a left-first path, so it is common to see nodes initially
-          printed in descending order, before being forced to go to the right.
+          printed in descending order, before being forced to go to the right. (root-left-right)
+        + Use Cases"
+            > If you know you need to explore the roots before inspecting any leaves
+            > Pre-order is used to create a copy of a tree
     - Post-Order
-        + Will print leaf nodes first starting on the left
+        + Will print leaf nodes first starting on the left (left-right-root)
+        + Use Cases:
+            > If you know you need to visit all the leaves before visiting any nodes, use
+              post-order traversal so you won't waste time insepcting roots in search for leaves
+            > Post-order traversal is used to delete leaf nodes from a tree, for examle
 
 max number of nodes = 2^(h+1)-1
 min number of nodes = h+1
-
-TODO: MAKE INTERACTIVE
 """
 
 import argparse
