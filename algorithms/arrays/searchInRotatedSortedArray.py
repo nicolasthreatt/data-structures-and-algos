@@ -36,7 +36,10 @@ Constraints:
 
 from typing import List
 
-# Binary Search
+
+# Algorithm Used: Binary Search
+# Time Complexity: O(log(n))
+# Space Complexity: O(1)
 def search(self, nums: List[int], target: int) -> int:
     l, r = 0, len(nums) - 1
 
@@ -62,7 +65,7 @@ def search(self, nums: List[int], target: int) -> int:
             else: 
                 r = mid - 1
         
-        # Middle a part of right sorted portion
+        # Middle is a part of right sorted portion
         else:
 
             # If target less than middle value OR

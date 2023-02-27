@@ -38,7 +38,9 @@ Constraints:
 from typing import List
 
 
-# Binary Search
+# Algorithm Used: Binary Search
+# Time Complexity: O(log(n))
+# Space Complexity: O(1)
 def findMin(nums: List[int]) -> int:
     # Initialize the result to the first element in the array
     res = nums[0]
@@ -62,9 +64,14 @@ def findMin(nums: List[int]) -> int:
         m = (l + r) // 2
         res = min(res, nums[m])
 
-        # If the midpoint is part of the left portion of the array, increament the left pointer one spot past the mid point.
-        # If the midpoint is part of the right portion of the array, increament the rught pointer one spot before the mid point.
-        # This ensures the next search range will be apart of the smaller sorted portion of the array
+        # If the midpoint is part of the left portion of the array,
+        #   increament the left pointer one spot past the mid point.
+        #   This means we want to search right sorted portion
+        # If the midpoint is part of the right portion of the array,
+        #   increament the rught pointer one spot before the mid point.
+        #   This means we want to search left sorted portion
+        # These ensures the next search range will be apart of the smaller
+        #   sorted portion of the array
         if nums[m] >= nums[l]:
             l = m + 1
         else:
