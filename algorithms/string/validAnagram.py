@@ -25,14 +25,14 @@ Follow up: What if the inputs contain Unicode characters? How would you adapt yo
 # Time Complexity: O(n) = O(s + t)
 # Memory Complexity: O(n) = O(s + t)
 def isAnagramI(s: str, t: str) -> bool:
-    # Check to see if the two lists are equal length first
+    # Check to see if the two strings are equal length first
     if len(s)!= len(t):
         return False
 
-    # Create a hash map for each input array
+    # Create a hash map for each input string
     hashS, hashT = {}, {}
 
-    # Index through both arrays and store their values in seperate hash maps
+    # Index through both strings and store their values in seperate hash maps
     for i in range(len(s)):
         # Count the number of occurances a key is in the hash map
         hashS[s[i]] = hashS.get(s[i], 0) + 1
@@ -47,7 +47,7 @@ def isAnagramI(s: str, t: str) -> bool:
     return True
 
 
-# Time Complexity: O(n)
+# Time Complexity: O(s + t)
 # Memory Complexity: O(1)
 def isAnagramII(s: str, t: str) -> bool:
     return sorted(s) == sorted(t)

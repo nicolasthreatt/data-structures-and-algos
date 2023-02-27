@@ -38,7 +38,7 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
     # Initialize an empty list to store the return result
     res = []
 
-    # Sort the input array
+    # Sort the input array - O(nlog(n))
     nums.sort()
 
     # Iterate through list with an index
@@ -48,7 +48,7 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
         if i > 0 and a == nums[i - 1]:
             continue
 
-        # Perform Two Sum with the current element in iteration in the list
+        # Perform Two Pointers with the current element in iteration in the list
         # with rest of the array to see if the triplet sums to 0
         l, r = i + 1, len(nums) - 1
         while l < r:
@@ -57,7 +57,7 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
                 r -= 1
             elif threeSum < 0:
                 l += 1
-            else:
+            else: # 3Sum Match Found
                 res.append([a, nums[l], nums[r]])
 
                 # To prevent an infinite loop, increment the left pointer
@@ -67,4 +67,5 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
                 # the same as previous value and less the r
                 while nums[l] == nums[l - 1] and l < r:
                     l += 1
+
     return res
