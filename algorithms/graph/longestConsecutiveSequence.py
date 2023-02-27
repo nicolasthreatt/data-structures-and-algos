@@ -40,7 +40,7 @@ def longestConsecutive(self, nums: List[int]) -> int:
         if (n - 1) not in numsSet:
             length = 0
 
-            # Iterating through numsSet to keeo count of the 
+            # Iterating through numsSet to keep count of the 
             # sequence length until the its no longer valid
             while (n + length) in numsSet:
                 length += 1

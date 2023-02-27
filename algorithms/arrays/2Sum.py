@@ -30,7 +30,7 @@ Follow-up: Can you come up with an algorithm that is less than O(n2) time comple
 from typing import List
 
 
-def twoSum_On(self, nums: List[int], target: int) -> List[int]:
+def twoSum_On(nums: List[int], target: int) -> List[int]:
     # Create hash map
     prevMap = {} # val : index
 
@@ -47,7 +47,8 @@ def twoSum_On(self, nums: List[int], target: int) -> List[int]:
         prevMap[n] = i
     return
 
-def twoSum_On2(self, nums: List[int], target: int) -> List[int]:
+
+def twoSum_On2(nums: List[int], target: int) -> List[int]:
     # Loop through list
     for i in range(len(nums)):
         # Loop through list again, but at one index ahead of previous loop
