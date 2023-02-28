@@ -24,8 +24,11 @@ Constraints:
 from typing import List
 
 
-def maxProfit(self, prices: List[int]) -> int:
-    l, r = 0, 1 # left=buy, right=sell
+# Algorithm Used: Two Pointers
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def maxProfit(prices: List[int]) -> int:
+    l, r = 0, 1 # left=buy day, right=sell day
     max_profit = 0
 
     # Apply Sliding Window Algorithm
