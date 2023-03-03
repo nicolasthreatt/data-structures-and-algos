@@ -37,9 +37,10 @@ Constraints:
 # Time Complexity: O(s)
 # Space Complexity: O(1)
 def minFlips(s: str) -> int:
+    # Target Window Length
     n = len(s)
 
-    # Concatenate s with itself
+    # Concatenate s with itself (Type-I)
     s = s + s
 
     # Create the two alternating strings
@@ -49,7 +50,8 @@ def minFlips(s: str) -> int:
         alt1 += "0" if i % 2 else "1"
         alt2 += "1" if i % 2 else "0"
     
-    # Set the result variable initially to be high
+    # Set the result variable initially to be some extremely high number,
+    # since the objective if to find the MINIMUM number of flips
     res = float('inf')
 
     # Sliding Window Algorithm:
@@ -65,19 +67,20 @@ def minFlips(s: str) -> int:
     for r in range(len(s)):
         # Count the number of differences there are between the input string
         # and the the two seperate alternating strings
-        if s[r] != alt2[r]:
+        if s[r] != alt1[r]:
             diff1 += 1
         if s[r] != alt2[r]:
             diff2 += 1
 
         # Update differences and left index if window size becomes out of range
+        # current_window_length = r - l + 1
         if (r - l + 1) > n:
             if s[l] != alt1[l]:
                 diff1 -= 1
             if s[l] != alt2[l]:
                 diff2 -= 1
             l += 1
-        
+
         # Update result once the window size equals size of the input string
         if (r - l + 1) == n:
             res = min(res, diff1, diff2)
