@@ -43,14 +43,14 @@ class SingleLinkedListNode:
 
 class SingleLinkedList:
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.head = None
         # self.next = SingleLinkedListNode()
 
     def __repr__(self) -> str:
         return "SingleLinkedList object: head={}".format(self.head)
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """Returns True if the Linked List is empty. Otherwise, returns False"""
 
         return self.head is None
@@ -67,6 +67,12 @@ class SingleLinkedList:
         # Set the head of the linked list to the temportary node, which had just
         # stored the old head
         self.head = tmp
+
+    def add_between(self, new_data):
+        pass
+
+    def add_rear(self, new_data):
+        pass
 
     def remove(self, data):
         """Removes the first occurence of a Node that contains the data argument
@@ -108,6 +114,62 @@ class SingleLinkedList:
         # previou
         else:
             previous.set_next(current.get_next())
+
+    def reverseI(self):
+        """
+        Iteratively reverses the Linked List.
+
+        The time complexity is O(n) because every Node in the Linked List must
+        be vsisted in order to reverse the Linked List.
+
+        The space complexity is O(1).
+        """
+
+        # Initialize a previous and current ListNode
+        previous = None
+        current = self.head
+
+        # Iterate through the linked list
+        #   - Store the next ListNode in a temporary varaible
+        #   - Swap the next pointer with previous pointer
+        #   - Swap the previous and curent pointers
+        #   - Update the current pointer
+        while current:
+            next = current.next
+            current.set_next(previous)
+            previous = current
+
+            current = next
+
+        return previous
+
+    def reverseII(self):
+        """
+        Recursively reverses the Linked List.
+
+        The time complexity is O(n) because every Node in the Linked List must
+        be vsisted in order to reverse the Linked List.
+
+        The space complexity is O(1).
+        """
+
+        # Base Case:
+        #   - Return nothing if there is no head. This ensure no more recursive calls
+        if self.head:
+            return None
+
+        # Recursive Case
+        #   - Check if the the head has a next node
+        #   - If there is a next node, and if so recursively swap links
+        #   - After set the head's next node to none.
+        #     This marks the end of the reversed linked list
+        newHead = self.head
+        if self.head.next:
+            newHead = self.reverseII(self)
+            self.head.next.set_next(self.head)
+        self.head = None
+
+        return newHead
 
     def size(self) -> int:
         """Traverses the Linked List and returns an integer value representing

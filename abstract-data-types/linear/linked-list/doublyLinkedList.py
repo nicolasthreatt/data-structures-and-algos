@@ -116,14 +116,14 @@ class DoubleLinkedList:
         # Check to see if the list is at the head, 1st index, position. 
         # This is because in a doubly linked list the previous only needs
         # to be set after the 1st node
-        if self.head is not None:
+        if self.head:
             self.head.set_previous(tmp)
 
         # Set the head of the linked list to the temportary node, which had just
         # stored the old head
         self.head = tmp
 
-    def add_middle(self, data) -> None:
+    def add_middle(self, data, pos) -> None:
         pass
 
     def remove(self, data):
@@ -133,6 +133,7 @@ class DoubleLinkedList:
         The time complexity is O(n) because in the worst case, we have to visit
         every Node before finding the one we want to remove.
         """
+        found = False
 
         # Check to see if head is empty
         if self.head is None:
@@ -140,7 +141,6 @@ class DoubleLinkedList:
 
         # Traverse through linked list till the node which contains the data is found
         current = self.head
-        found = False
         while not found:
             if current.get_data() == data:
                 found = True
@@ -157,3 +157,5 @@ class DoubleLinkedList:
         else:
             current.prev.set_next(current.get_next())
             current.next.set_previous(current.get_previous())
+
+        return found
