@@ -136,6 +136,7 @@ class SingleLinkedList:
         #   - Update the current pointer
         while current:
             next = current.next
+
             current.set_next(previous)
             previous = current
 
@@ -155,7 +156,7 @@ class SingleLinkedList:
 
         # Base Case:
         #   - Return nothing if there is no head. This ensure no more recursive calls
-        if self.head:
+        if not self.head:
             return None
 
         # Recursive Case
@@ -165,7 +166,7 @@ class SingleLinkedList:
         #     This marks the end of the reversed linked list
         newHead = self.head
         if self.head.next:
-            newHead = self.reverseII(self)
+            newHead = self.reverseII(self.head.next)
             self.head.next.set_next(self.head)
         self.head = None
 
