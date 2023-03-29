@@ -17,8 +17,17 @@ Output: 2
 Constraints:
     * The number of nodes in the tree is in the range [0, 104].
     * -100 <= Node.val <= 100
+
+Breadth First Search:
+    * Tree traversal algorithm that explores nodes level by level.
+    * Using a queue to store frontier nodes supports the behavior of this search.
+
+Depth First Search:
+    * Tree traversal algorithm that goes deep into a tree exploring for nodes branch by branch.
+    * Using a stack to store frontier nodes supports the behavior of this search.
 '''
 
+import collections
 from typing import Optional
 
 
@@ -30,11 +39,42 @@ class TreeNode:
         self.right = right
 
 
-# Algorithm Used: Recursion
+# Algorithm Used: Breadth First Search, Queue (FIFO)
 # Time Complexity: O(n)
 # Space Complexity: O(n)
-def maxDepth(root: Optional[TreeNode]) -> int:
+def maxDepthI(root: Optional[TreeNode]) -> int:
+
+    # Initialize a queue (FIFO) to hold the current nodes at each level
+    queue = collections.deque()
+    queue.append(root)
+
+    # Breath-First Search
+    # Iterate while the queue is non-empty
+    # For the length of the queue size, pop the least recent node from the queue (FIFO):
+    #   - If a node exists, add it to the level and append the node's left and right child to the queue
+    #   - Note, here the queue's size is being updated
+    # After looping through the queue size, update levels
+    levels = 0
+    while queue:
+        queue_size = len(queue)
+        for _ in range(queue_size):
+            node = queue.popleft()
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+        levels += 1
+
+    return levels
+
+
+# Algorithm Used: Depth First Traversals, Recursion
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def maxDepthII(root: Optional[TreeNode]) -> int:
     if not root:
         return 0
     
-    return 1 + max(maxDepth(root.left), maxDepth(root.right))
+    return 1 + max(maxDepthII(root.left), maxDepthII(root.right))
+
