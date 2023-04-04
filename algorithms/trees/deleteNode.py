@@ -47,7 +47,7 @@ class TreeNode:
 
 
 # Algorithm Used: Recursive
-# Time Complexity: O(h)
+# Time Complexity: O(h), h = height of tree
 # Space Complexity: O(1)
 def deleteNodeI(root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
     # If the root is null then there is nothing to delete (Base Case)
@@ -72,13 +72,13 @@ def deleteNodeI(root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
             return root.right
         elif not root.right: # No right node, then return left node
             return root.left
-        
+
         # Both nodes (left and right) exists so find the minimum value from right subtree,
         # which due to the definition of a BST is done by traversing left
         current = root.right
         while current.left:
             current = current.left
-        
+
         # Since the node to be deleted is found and both subtrees exist, replace its value 
         # with the minimum value found in the right subtree
         # NOTE: THIS WILL CAUSE DUPLICATE VALUES

@@ -46,7 +46,7 @@ class TreeNode:
 def insertIntoBSTI(root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
     if not root:
         return TreeNode(val)
-    
+
     current = root
     while True:
         if current.val < val:
