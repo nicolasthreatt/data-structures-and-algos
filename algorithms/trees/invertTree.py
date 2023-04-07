@@ -38,7 +38,7 @@ def invertTree(root: Optional[TreeNode]) -> Optional[TreeNode]:
     # Check to see if root exist
     if not root:
         return None
-    
+
     # Swap Child Nodes
     temp = root.left
     root.left = root.right

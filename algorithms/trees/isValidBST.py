@@ -37,23 +37,24 @@ class TreeNode:
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def isValidBST(root: Optional[TreeNode]) -> bool:
+
+    # Helper Function which validates the node of a binary tree
+    def valid(node, left, right):
+        # If the node does not exist then this means that the tree has finished
+        # traversing down a particular path, thus return true
+        if not node:
+            return True
+
+        # A binary search tree can only have its node val between it's left and right parent node
+        # If this is not the case, return False
+        if not (left < node.val < right):
+            return False
+
+        # Recursively work way down the tree
+        # Valid the left the right subtrees
+        return (
+            valid(node.left, left, node.val) and
+            valid(node.right, node.val, right)
+        )
+
     return valid(root, float('-inf'), float('inf'))
-
-# Helper Function which validates the node of a binary tree
-def valid(node, left, right):
-    # If the node does not exist then this means that the tree has finished
-    # traversing down a particular path, thus return true
-    if not node:
-        return True
-
-    # A binary search tree can only have its node val between it's left and right parent node
-    # If this is not the case, return False
-    if not (left < node.val < right):
-        return False
-
-    # Recursively work way down the tree
-    # Valid the left the right subtrees
-    return (
-        valid(node.left, left, node.val) and
-        valid(node.right, node.val, right)
-    )
