@@ -36,7 +36,8 @@ class TreeNode:
 def kthSmallestI(root: Optional[TreeNode], k: int) -> int:
     pass
 
-# Algorithm Used: Stack, Iterative
+
+# Algorithm Used: In-Order Traversal, Stack, Iterative
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def kthSmallestII(root: Optional[TreeNode], k: int) -> int:
@@ -46,14 +47,13 @@ def kthSmallestII(root: Optional[TreeNode], k: int) -> int:
     # Initialize a stack
     stack = []
 
-    # Began iterating through the tree while the stack is not null
+    # Began iterating through the tree while the current node and stack both exist
     current = root
-    while current or stack:
+    while current and stack:
 
         # For each traversal, append the left node the stack and traverse as far left as possible.
-        # This ensures each that during each traversal the smallest node value will be the last
-        # node in the stack.
-        # Note that stacks are Last In, First Out (LIFO)
+        #   - This ensures that during each traversal the smallest node value will be the last node in stack.
+        # NOTE Stacks are Last In, First Out (LIFO)
         while current:
             stack.append(current)
             current = current.left
