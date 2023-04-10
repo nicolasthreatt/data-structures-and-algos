@@ -39,21 +39,22 @@ class TreeNode:
         self.right = right
 
 
-# Algorithm Used: Breadth First Search, Queue (FIFO)
+# Algorithm Used: Level Order Traversal, Breadth First Search, Queue (FIFO)
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def maxDepthI(root: Optional[TreeNode]) -> int:
-
-    # Initialize a queue (FIFO) to hold the current nodes at each level
-    queue = collections.deque()
-    queue.append(root)
+    # Empty nodes do not have a depth
+    if not root:
+        return 0
 
     # Breath-First Search
+    # Initialize a queue (FIFO) to hold the current nodes at each level
     # Iterate while the queue is non-empty
     # For the length of the queue size, pop the least recent node from the queue (FIFO):
     #   - If a node exists, add it to the level and append the node's left and right child to the queue
     #   - Note, here the queue's size is being updated
     # After looping through the queue size, update levels
+    queue = collections.deque([root])
     levels = 0
     while queue:
         queue_size = len(queue)
@@ -69,12 +70,43 @@ def maxDepthI(root: Optional[TreeNode]) -> int:
     return levels
 
 
-# Algorithm Used: Depth First Traversals, Recursion
+# Algorithm Used: Pre-Order Depth First Traversals, Iterative, Stack (LIFO)
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def maxDepthII(root: Optional[TreeNode]) -> int:
+    # Empty nodes do not have a depth
     if not root:
         return 0
     
-    return 1 + max(maxDepthII(root.left), maxDepthII(root.right))
+    # Set the initial maximum depth to be 1
+    max_depth = 1
 
+    # Create a stack to store the nodes when performing pre-order traversal
+    # stack = [[node, depth]]
+    stack = [[root, max_depth]]
+
+    # Iterate while the stack is not empty
+    #   - For reach iteration pop the last item inserted into the stack, which
+    #     will contain a node and its depth within the tree
+    #   - If the node exist, recompute the maximum depth and add its childen to the stack
+    # NOTE: root is originally in stack
+    while stack:
+        node, depth = stack.pop()
+
+        if node:
+            max_depth = max(max_depth, depth)
+            stack.append([node.left, depth + 1])
+            stack.append([node.right, depth + 1])
+
+    return max_depth
+
+
+# Algorithm Used: Depth First Traversals, Recursion
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def maxDepthIII(root: Optional[TreeNode]) -> int:
+    # Empty nodes do not have a depth
+    if not root:
+        return 0
+    
+    return 1 + max(maxDepthIII(root.left), maxDepthIII(root.right))

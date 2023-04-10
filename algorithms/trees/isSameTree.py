@@ -35,11 +35,11 @@ class TreeNode:
         self.right = right
 
 
-# Algorithm Used: Recursion
+# Algorithm Used: Pre-Order Traversal, Depth First Search, Recursion
 # Time Complexity: O(p + q)
-# Space Complexity: O(1)
+# Space Complexity: O(p + q)
 def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-    # If both p and q are empty, then both trees have finished traversing at the same time
+    # If both p and q are empty, then both trees have finished traversing at the same time (Base Case)
     if not p and not q:
         return True
 
@@ -48,7 +48,7 @@ def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
     #       + This means one has finished travering before the other
     #   - Check is p and q differ in values.
     #       + This means the nodes are different
-    # For either scenario, return False
+    # For either scenario, return False (Base Case)
     if not p or not q or p.val != q.val:
         return False
 

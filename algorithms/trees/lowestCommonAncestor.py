@@ -45,12 +45,12 @@ class TreeNode:
 # Algorithm Used: Recursion
 # Time Complexity: O(log(n))
 # Space Complexity: O(1)
-def lowestCommonAncestor(root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+def lowestCommonAncestor(root: Optional[TreeNode], p: Optional[TreeNode], q: Optional[TreeNode]) -> Optional[TreeNode]:
 
     # Iterate through root
-    # If both p and q are GREATER than the current root, search RIGHT subtree
-    # If both p and q are LESS than the current root, search LEFT subtree
-    # When p and q are BETWEEN the current root, return node
+    # If current root is LESS THAN both p and q, search RIGHT subtree
+    # If current root is GREATER THAN both p and q, search LEFT subtree
+    # If current root is BETWEEN p and q, return current node (LCA)
     current = root
     while current:
         if current.val < p.val and current.val < q.val:

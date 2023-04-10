@@ -34,15 +34,14 @@ class TreeNode:
 
 
 # Algorithm Used: Breadth First Search, Queue (FIFO)
-# Time Complexity: O(n)
+# Time Complexity: O(n), n = number of nodes
 # Space Complexity: O(n)
 def levelOrder(root: Optional[TreeNode]) -> List[List[int]]:
     # Initialize a list to return the node values from each level
     nodes = []
 
     # Initialize a queue (FIFO) to hold the current nodes at each level
-    queue = deque()
-    queue.append(root)
+    queue = deque([root])
 
     # Breath-First Search
     # Iterate while the queue is non-empty
