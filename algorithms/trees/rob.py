@@ -39,7 +39,7 @@ class TreeNode:
 
 # Algorithm Used: Post-Order Traversal, Depth First Search
 # Time Complexity: O(n), n = number of nodes
-# Space Complexity: 
+# Space Complexity: O(n)
 def rob(root: Optional[TreeNode]) -> int:
     
     # NOTE: return pair: [withRoot, withoutRoot]
