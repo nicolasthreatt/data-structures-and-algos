@@ -37,15 +37,15 @@ class TreeNode:
 # Time Complexity: O(root * subRoot)
 # Space Complexity: O(1)
 def isSubtree(root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-    # Check if subroot is a null node, note that every root will have a null node
-    # at some point thus will make it a subtree. (Base Case I)
+    # Check if subroot is a null node
+    # NOTE: every root will have a null node at some point thus will make it a subtree. (Base Case I)
     if not subRoot:
         return True
 
     # Check if root is a null node and that the subRoot tree exists.
     # This will mean that there are no more child nodes left to traverse in the root tree
     #   meaning that no match was found.
-    # Note from the condition above it is now known that the SUB-ROOT EXISTS (Base Case II)
+    # NOTE: from the condition above it is now known that the SUB-ROOT EXISTS (Base Case II)
     if not root:
         return False
 
