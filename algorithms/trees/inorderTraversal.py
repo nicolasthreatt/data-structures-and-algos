@@ -31,7 +31,7 @@ class TreeNode:
         self.right = right
 
 
-# Algorithm Used: Inorder Traversal, Stack (LIFO), Iterative
+# Algorithm Used: Inorder Traversal, Stack (LIFO), Depth First Search, Iterative
 # Time Complexity: O(n)
 # Space Complexity:O(n)
 def inorderTraversalI(root: Optional[TreeNode]) -> List[int]:
@@ -44,8 +44,8 @@ def inorderTraversalI(root: Optional[TreeNode]) -> List[int]:
     # Iterate through the root node and stack while both are not null
     # For each iteration:
     #   1. Traverse the path as far left as possible, adding each node the the stack (LIFO)
-    #   2. After, pop the node the last node placed on the stack and store it as the current node.
-    #     Then add its value to the inorder nodes list.
+    #   2.  After, pop the node the last node placed on the stack and store it as the current node.
+    #      Then add its value to the inorder nodes list.
     #   3. Update the current node to the right then attemp to repeat iteration
     current = root
     while current or stack:
