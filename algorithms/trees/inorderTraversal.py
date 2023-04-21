@@ -69,7 +69,7 @@ def inorderTraversalII(root: Optional[TreeNode]) -> List[int]:
     nodes = []
 
     def dfs_inorder(root: Optional[TreeNode]) -> None:
-        # If the node does not exist there is nothing to return (Base Case )
+        # If the node does not exist there is nothing to return (Base Case)
         if not root:
             return None
         

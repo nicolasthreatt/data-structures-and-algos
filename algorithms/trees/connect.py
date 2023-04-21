@@ -36,8 +36,8 @@ Constraints:
     * -1000 <= Node.val <= 1000
 '''
 
-from collections import deque
 from typing import Optional
+
 
 # Definition for a Node.
 class Node:
@@ -48,14 +48,22 @@ class Node:
         self.next = next
 
 
+# Algorithm Used: Breadth First Search, Queue, Iterative
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def connectI(root: Optional[Node]) -> Optional[Node]:
+    pass
+
+
 # Algorithm Used: Breadth First Search, Iterative
 # Time Complexity: O(n)
 # Space Complexity: O(1)
-def connect(root: Optional[Node]) -> Optional[Node]:
+def connectII(root: Optional[Node]) -> Optional[Node]:
     # Initialize a pointer to keep track of the current node when travesersing the tree
     current = root
 
     # Initialize a pointer to keep track of the next node when traversing the tree
+    # This will always be the left child node of the current node
     next = root.left if root else None
 
     # Traversing through tree while the current and next pointers are not null
