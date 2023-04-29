@@ -1,4 +1,6 @@
 """
+https://leetcode.com/problems/implement-trie-prefix-tree/
+
 A trie (pronounced as "try") or prefix tree is a tree data structure used to
 efficiently store andretrieve keys in a dataset of strings. There are various
 applications of this data structure, such as autocomplete and spellchecker.
@@ -57,11 +59,15 @@ class TrieNode:
 
 class Trie:
     def __init__(self):
-        """Initialize the root node of the trie."""
+        """Initialize the root node of the trie.
+        Time Complexity: O(1), constant time for the 26 elements in the list.
+
+        """
         self.root = TrieNode()
 
     def insert(self, word: str) -> None:
         """Inserts a word into the trie.
+            Time Comexity: O(n), n is the length of the word.
 
         Args:
             word: The word to insert into the trie.
@@ -84,6 +90,7 @@ class Trie:
 
     def search(self, word: str) -> bool:
         """Searches a word in the trie.
+            Time Complexity: O(n), n is the length of the word.
 
         Args:
             word: The word to insert into the trie.
@@ -107,6 +114,7 @@ class Trie:
 
     def startsWith(self, prefix: str) -> bool:
         """Check if the prefix is in the trie.
+            Time Complexity: O(n), n is the length of the prefix.
 
         Args:
             prefix: The prefix to check if it is in the trie.
