@@ -68,7 +68,7 @@ class KthLargest:
         self.k = k
 
         # Remove the smallest elements from the min heap until the size of the min heap is k
-        # This will leave the k largest elements in the min heap
+        # This will leave the k largest elements in the min heap and the kth largest element at the top of the min heap
         while len(self.minHeap) > k:
             heapq.heappop(self.minHeap)
 
