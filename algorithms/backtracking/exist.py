@@ -56,13 +56,26 @@ def existI(board: List[List[str]], word: str) -> bool:
 
     # Create depth first search function to traverse the board which takes in the row, column, and index of the word.
     # Returns True if the word exists in the board, False otherwise.
-    def dfs(r, c, i):
+    def dfs(r: int, c: int, i: int) -> bool:
+        """
+        DFS function to traverse the board.
+
+        Parameters:
+            r (int): The row of the current cell.
+            c (int): The column of the current cell.
+            i (int): The index of the current letter in the word.
+
+        Returns:
+            bool: True if the word exists in the board, False otherwise.
+        """
         # If the current length is equal to the length of the word, return True.
         # This means that we have found the word.
         if i == len(word):
             return True
 
-        # If the current row or column is out of bounds, return False.
+        # If the current row or column is out of bounds or
+        # current letter does not exist in the board or
+        # if the current path has been visited, return False.
         if (
             r < 0  # Check if row is out of bounds.
             or r >= ROWS  # Check if row is out of bounds.
@@ -90,10 +103,16 @@ def existI(board: List[List[str]], word: str) -> bool:
 
         return exists
 
+    # Iterate through the board.
     for r in range(ROWS):
         for c in range(COLS):
+            # If the dfs function returns True this means that the word exists in the board,
+            # so return True.
             if dfs(r, c, 0):
                 return True
+
+    # If we have not found the word, return False.
+    return False
 
 
 # Algorithms Used:
