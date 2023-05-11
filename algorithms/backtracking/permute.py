@@ -25,7 +25,7 @@ Constraints:
 from typing import List
 
 
-# Algorithm Used: Backtracking
+# Algorithm Used: Backtracking, Recursion
 # Time Complexity: O(n!)
 # Space Complexity: O(n!)
 def permute(nums: List[int]) -> List[List[int]]:
