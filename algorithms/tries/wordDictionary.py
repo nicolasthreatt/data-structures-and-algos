@@ -72,7 +72,7 @@ class WordDictionary:
         self.root = TrieNode()
 
     def addWord(self, word: str) -> None:
-        """Adds a word to the trie.
+        """Adds a word to the trie. Time Complexity: O(n), where n is the length of the word.
 
         Args:
             word: A string representing the word to add to the trie.
@@ -92,11 +92,11 @@ class WordDictionary:
         current.isEndOfWord = True
 
     def search(self, word: str) -> bool:
-        """Searches for a word in the trie."""
+        """Searches for a word in the trie. (DFS)"""
         return self.searchHelper(word, self.root)
 
     def searchHelper(self, word: str, node: TrieNode) -> bool:
-        """Helper function for search.
+        """Helper function for search. Time Complexity: O(n), where n is the length of the word.
 
         Args:
             word: A string representing the word to search for in the trie.

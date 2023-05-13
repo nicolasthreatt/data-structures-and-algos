@@ -80,7 +80,7 @@ class BSTIterator:
         # before traversing right, add the right most node(s) to the end of the stack
         right_child = parent.right
         while right_child:
-            self.stack(right_child)
+            self.stack.append(right_child)
             right_child = right_child.left
 
         # Return the value after moving pointer to the right node in-order

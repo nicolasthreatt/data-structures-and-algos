@@ -1,4 +1,4 @@
-'''
+"""
 https://leetcode.com/problems/path-sum/
 
 Given the root of a binary tree and an integer targetSum,
@@ -28,7 +28,7 @@ Constraints:
     * The number of nodes in the tree is in the range [0, 5000].
     * -1000 <= Node.val <= 1000
     * -1000 <= targetSum <= 1000
-'''
+"""
 
 from typing import Optional
 
@@ -45,25 +45,21 @@ class TreeNode:
 # Time Complexity: O(n), n is number of nodes
 # Space Complexity: O(n), n is number of nodes
 def hasPathSum(root: Optional[TreeNode], targetSum: int) -> bool:
-
     def dfs(node, currentSum):
         # If the node does not exist there is nothing to return (Base Case I)
         if not node:
             return False
-        
+
         # Update the current sum to include the current node value
         currentSum += node.val
 
         # If the node is a leaf node, then check whether the current sum is equal to the target
         if not node.left and not node.right:
             return currentSum == targetSum
-        
+
         # Since there are two potential paths (left and right) at each node in the tree,
         # the sum can be found from either path
-        return (
-            dfs(node.left, currentSum) or
-            dfs(node.right, currentSum)
-        )
+        return dfs(node.left, currentSum) or dfs(node.right, currentSum)
 
     # Began recursive depth first search
     return dfs(root, 0)
