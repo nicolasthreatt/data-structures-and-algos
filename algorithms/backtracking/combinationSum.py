@@ -58,7 +58,6 @@ def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
             current (int): The current combination.
             total (int): The current sum of the current combination.
         """
-
         # BASE CASE I (SUCCESS):
         #   - If the current combination total is equal to the target,
         #     append the current combination to the combinations list and return.
@@ -68,6 +67,7 @@ def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
 
         # BASE CASE II (FAILURE):
         #   - If if the index is out-of-bounds or the current combination total is greater than the target, return.
+        #     This is because the current combination is invalid.
         if i >= len(candidates) or total > target:
             return
 
