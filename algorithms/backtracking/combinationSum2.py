@@ -56,6 +56,7 @@ def combinationSum2(candidates: List[int], target: int) -> List[List[int]]:
         # BASE CASE II (FAILURE):
         # If the target is less than or equal to 0, then the current combination is invalid
         # Return nothing and backtrack
+        # A negative target means the current combination is invalid because it went over the target
         if target <= 0:
             return
 
