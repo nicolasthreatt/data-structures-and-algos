@@ -76,10 +76,12 @@ def leastInterval(tasks: List[str], n: int) -> int:
             # and will be negative since the tasks are stored as negative values in the max heap.
             # Add 1 to account for the current task being processed. (i.e. 1 + (-3)).
             cnt = 1 + heapq.heappop(maxHeap)  # O(log(n))
-            if cnt:  # Once reaches 0, then a task has been processed.
-                queue.append([-cnt, time + n])
 
-        # Note that the queue stores the count of the task as the first element and the idle time as the second element.
+            # Once reaches 0, then a task has been processed so no need to update the queue.
+            if cnt:
+                queue.append([cnt, time + n])
+
+        # Remember that the queue stores the count of the task as the first element and the idle time as the second element
         if queue and queue[0][1] == time:
             heapq.heappush(maxHeap, queue.popleft()[0])
 

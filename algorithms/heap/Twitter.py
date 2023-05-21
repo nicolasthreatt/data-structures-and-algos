@@ -70,7 +70,8 @@ class Twitter:
 
         # Create a dictionary of users to map their tweets
         # Note the dictionary is a list because a user can post multiple tweets
-        # Count will represent the time the tweet was posted
+        # Count will represent the number of tweets a user has posted.
+        #   - This will help determine the latest tweet.
         self.tweets = defaultdict(list)  # {userId: [(tweetId, count)]}
 
         # Create a dictionary of users to map who they follow
@@ -118,7 +119,7 @@ class Twitter:
         for follweeId in self.follows[userId]:
             # If the follweeId has tweets, add the latest tweet to the heap
             if follweeId in self.tweets:
-                index = len(self.tweets[follweeId]) - 1  # Get the latest tweet
+                index = len(self.tweets[follweeId]) - 1  # Get the latest tweet index
                 count, tweetId = self.tweets[follweeId][index]
                 minHeap.append([count, tweetId, follweeId, index - 1])
 
