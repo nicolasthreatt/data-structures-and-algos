@@ -1,0 +1,52 @@
+Graphs
+    - Non-linear data structure
+    - Consists of nodes and edges
+
+Common Uses
+    - Networks' representation such as computer or telephone networks, city roads and 
+      points of interest, etc.
+    - Social media outlets, such as Facebook and LinkedIn, use graphs to represent friends
+      or connections betwen users
+        + Each user is represented as a node and is connected with the nodes that are friends.
+
+Basic Operations
+    - Graph traversal
+    - Add components (nodes, edges) to the graph
+    - Find the shortest path from a node to another
+    - Find the path with the lower weight between two nodes
+    - Check if a node exists in a graph
+
+Terminology
+    - Nodes are also referred to as "vertices"
+    - Formal representation of a graph is G = (V, E)
+        + V is the set of vertices (nodes)
+        + E is the set of edges
+            > Edsges are used to connect any two nodes
+    - In most cases, graphs have a weight value on each edge, taht defines the "cost" of 
+      movement between the nodes connected by the particular edge.
+    - The sequence of edges that allows a graph to be traversed from an initial starting node
+      to the final node is called a path.
+        + The length of the path is defined as the number of edges that the path contains
+        + However, in some applications, the total weight of the path is more import than the length
+
+Undirected Graphs
+    - Movement between tw oconnected nodes is possible in BOTH directions
+
+Directed Graphs
+    - Connection between two connected nodes is defined from the direction of the edge
+
+Graph Representation
+    - Adjacency Matrix
+        + A two-dimensional array of size V x V, where V is the number of vertices
+        + If there is an edge from a vertex i to a vertex j, then the value of the array at
+          row i and column j is 1, otherwise 0
+    - Adjacency List
+        + A collection of linked lists or array that lists all of the other vertices that are
+          adjacent to each vertex
+
+Common Algorithms
+    - Breadth-First Search
+    - Depth-First Search
+    - A*
+    - Dijkstra
+    - UnionFind
