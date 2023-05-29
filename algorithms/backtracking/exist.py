@@ -38,7 +38,6 @@ from typing import List
 # Algorithms Used:
 #   - Backtracking
 #   - Recursion
-#   - DFS
 # Time Complexity: O(m*n*4^s), where
 #   - m is the number of rows
 #   - n is the number of columns
@@ -56,9 +55,9 @@ def existI(board: List[List[str]], word: str) -> bool:
 
     # Create depth first search function to traverse the board which takes in the row, column, and index of the word.
     # Returns True if the word exists in the board, False otherwise.
-    def dfs(r: int, c: int, i: int) -> bool:
+    def backtrack(r: int, c: int, i: int) -> bool:
         """
-        DFS function to traverse the board.
+        Backtracking function to traverse the board.
 
         Parameters:
             r (int): The row of the current cell.
@@ -89,13 +88,13 @@ def existI(board: List[List[str]], word: str) -> bool:
         # Add the current cell to the path since it has not been visited yet.
         path.add((r, c))
 
-        # Create a variable to store the result of the dfs function.
+        # Create a variable to store the result of the backtrack function.
         # Note that we are incrementing the index by 1 since we have found the current letter.
         exists = (
-            dfs(r + 1, c, i + 1)  # Check the cell below.
-            or dfs(r - 1, c, i + 1)  # Check the cell above.
-            or dfs(r, c + 1, i + 1)  # Check the cell to the right.
-            or dfs(r, c - 1, i + 1)  # Check the cell to the left.
+            backtrack(r + 1, c, i + 1)  # Check the cell below.
+            or backtrack(r - 1, c, i + 1)  # Check the cell above.
+            or backtrack(r, c + 1, i + 1)  # Check the cell to the right.
+            or backtrack(r, c - 1, i + 1)  # Check the cell to the left.
         )
 
         # Remove the current cell from the path since we have already visited it.
@@ -106,17 +105,10 @@ def existI(board: List[List[str]], word: str) -> bool:
     # Iterate through the board.
     for r in range(ROWS):
         for c in range(COLS):
-            # If the dfs function returns True this means that the word exists in the board,
+            # If the backtrack function returns True this means that the word exists in the board,
             # so return True.
-            if dfs(r, c, 0):
+            if backtrack(r, c, 0):
                 return True
 
     # If we have not found the word, return False.
     return False
-
-
-# Algorithms Used:
-# Time Complexity:
-# Space Complexity:
-def existII(board: List[List[str]], word: str) -> bool:
-    pass

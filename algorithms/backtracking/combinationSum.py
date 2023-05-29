@@ -50,8 +50,8 @@ def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
     # Create a list to store all combinations to be returned
     combinations = []
 
-    def dfs(i: int, current: int, total: int) -> None:
-        """Depth-first search (DFS) helper function. Recursively generate all combinations.
+    def backtrack(i: int, current: int, total: int) -> None:
+        """Backtracking helper function. Recursively generate all combinations.
 
         Args:
             i (int): The current index of the input array.
@@ -76,17 +76,17 @@ def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
         #   - Append the current element to the current combination.
         #   - Recursively call the helper function to get the rest of the combinations.
         current.append(candidates[i])
-        dfs(i, current, total + candidates[i])
+        backtrack(i, current, total + candidates[i])
 
         # RECURSIVE CASE II (EXCLUDE CURRENT ELEMENT):
         #   - Decision to exclude the current element in the current combination.
         #   - Pop the current element from the current combination.
         #   - Recursively call the helper function to get the rest of the combinations.
         current.pop()  # BACKTRACKING - Remove the current element from the current combination
-        dfs(i + 1, current, total)
+        backtrack(i + 1, current, total)
 
     # Call the helper function to get all combinations
-    dfs(0, [], 0)
+    backtrack(0, [], 0)
 
     # Return all combinations
     return combinations

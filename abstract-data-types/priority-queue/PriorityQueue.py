@@ -5,7 +5,7 @@ import heapq
 
 
 class PriorityQueue:
-    """Priority Queue
+    """Priority Queue class.
 
     A priority queue is a data structure that stores elements in a queue.
     Each element has a priority associated with it and elements are dequeued
