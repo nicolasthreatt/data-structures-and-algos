@@ -51,7 +51,7 @@ def existI(board: List[List[str]], word: str) -> bool:
 
     # Initialize a set to store the visited cells.
     # This is necessary because we cannot visit the same cell twice.
-    path = set()
+    visited = set()
 
     # Create depth first search function to traverse the board which takes in the row, column, and index of the word.
     # Returns True if the word exists in the board, False otherwise.
@@ -81,12 +81,12 @@ def existI(board: List[List[str]], word: str) -> bool:
             or c < 0  # Check if column is out of bounds.
             or c >= COLS  # Check if column is out of bounds.
             or word[i] != board[r][c]  # Check if letter isnt equal to letter in board.
-            or (r, c) in path  # Check if cell has already been visited.
+            or (r, c) in visited  # Check if cell has already been visited.
         ):
             return False
 
         # Add the current cell to the path since it has not been visited yet.
-        path.add((r, c))
+        visited.add((r, c))
 
         # Create a variable to store the result of the backtrack function.
         # Note that we are incrementing the index by 1 since we have found the current letter.
@@ -98,7 +98,9 @@ def existI(board: List[List[str]], word: str) -> bool:
         )
 
         # Remove the current cell from the path since we have already visited it.
-        path.remove((r, c))
+        # This is necessary because we are backtracking.
+        # If we do not remove the cell from the path, then we will not be able to visit it again.
+        visited.remove((r, c))
 
         return exists
 

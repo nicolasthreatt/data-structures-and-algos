@@ -62,7 +62,7 @@ def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
         #   - If the current combination total is equal to the target,
         #     append the current combination to the combinations list and return.
         if total == target:
-            combinations.append(current.copy())
+            combinations.append(current[:])
             return
 
         # BASE CASE II (FAILURE):
@@ -82,6 +82,7 @@ def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
         #   - Decision to exclude the current element in the current combination.
         #   - Pop the current element from the current combination.
         #   - Recursively call the helper function to get the rest of the combinations.
+        #   - i + 1 because can't reuse the same element, so move on to the next element.
         current.pop()  # BACKTRACKING - Remove the current element from the current combination
         backtrack(i + 1, current, total)
 
