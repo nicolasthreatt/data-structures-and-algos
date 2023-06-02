@@ -1,0 +1,58 @@
+Dynamic Programming
+    - Intro
+        + Technique used to solve complex problems by breaking them down into subproblems
+        + Based on the idea of reusing solutions to subproblems to solve larger problems more efficiently
+    - Explanation
+        + Useful when a problem exhibits the following characteristics:
+            * Overlapping subproblems
+                > Occurs when the same subproblems are solved multiple times in the process
+                  of solving the larger problem
+            * Optimal substructure
+                > Means that an optimal solution can be constructed from optimal solutions
+                  of its subproblems
+        + Apprached in Two Ways
+            * Top-Down (Memorization)
+                > Start by solving the larger problem and break it down into smaller subproblems
+                > As the subproblems are solved, they are stored in a cache (tpyically an array or hash table)
+                  so that they can be reused later when needed
+                > Before solving a subproblem, the cache is checked to see if it already contains the solution
+                  to the subproblem
+                    ~ If the solution is found, it is returned from the cache
+                - This approach is recursive in nature, as it involves solving the same problem multiple times
+                  until the base case is reached.
+                > The top-down approach saves time by avoiding redundant computations and reusing previously computed
+                  solutions.
+            * Bottom-Up
+                > Start by solving the smallet subproblems and gradually building up to the larger problem
+                > Subproblems are solved in a systematic order, typically in a loop, starting from the base cases
+                  and progressing towards the final problem
+                > The solutions to the subproblems are stored in a table or an aarray so that they can be reused later
+                  when needed
+                > By solving the subproblems in a bottom-up manner, its ensured that all necessary subproblems are
+                  computed before solving the larger problem
+                > This approach is iterative in nature, as it involves solving subproblems iteratively rather than
+                  making recursive calls
+                > the bottom-up approach avoids the overhead of recursive function calls and is often more efficient
+                  in terms of both time and space complexity
+    - Useful Algorithms
+        + Fibonacci sequence
+            * Computing the nth Fibonacci number efficiently using dynamic programming
+        + Shortest Paths
+            * Finding the shortest path between two points in a graph
+        + Sequence Alighnment
+            * Finding the optimal alignment between two sequences
+                > DNA
+                > Protein sequences
+        + Knapsack Problem
+            * Determining the optimal selection of items to maximize value within a weight constraint
+    - Common Use Cases
+        + Optimization Problems
+            * Finding the best solution among a set of feasible solutions
+        + Combinational Problems
+            * Solving problems that involve counting or generating combinations of objects
+        + Resource Allocation Problems
+            * Allocating resources in an optimal way, considering constraints
+    - Time Complexity
+        + O(n)
+    - Space Complexity
+        + O(n)
