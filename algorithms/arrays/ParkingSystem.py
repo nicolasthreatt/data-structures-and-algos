@@ -35,6 +35,9 @@ Constraints:
 """
 
 
+# Algorithm Used: Array
+# Time Complexity: O(1)
+# Space Complexity: O(1)
 class ParkingSystem:
     def __init__(self, big: int, medium: int, small: int):
         self.spaces = [big, medium, small]
