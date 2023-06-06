@@ -70,7 +70,9 @@ def robII(nums: List[int]) -> int:
             #           This means there is a gap between the current house and the previous house.
             # rob2: The current house is not being robbed, so use the previous rob2 value
             #       This means there is no gap between the current house and the previous house. (Includes previous house)
-            new_house_robbed = max(n + rob1, rob2)
+            steal = n + rob1
+            skip = rob2
+            new_house_robbed = max(steal, skip)  # [rob1, rob2, n, n+1, ..]
 
             # Update rob1 and rob2
 
