@@ -43,6 +43,8 @@ def lengthOfLISI(nums: List[int]) -> int:
             # increasing subsequence that ends at current index by 1.
             # For example, if nums = [1, 2, 3, 4, 5], then LIS = [1, 2, 3, 4, 5] since each element is a subsequence
             # of length 1. However, if nums = [1, 2, 3, 4, 5, 0], then LIS = [1, 2, 3, 4, 5, 1] since the longest.
+            # NOTE: 1 + LIS[next_index] is used instead of LIS[current_index] + 1 because LIS[current_index] may
+            # already be greater than LIS[next_index] if the longest increasing subsequence that ends at current_index
             if nums[current_index] < nums[next_index]:
                 LIS[current_index] = max(LIS[current_index], 1 + LIS[next_index])
 
