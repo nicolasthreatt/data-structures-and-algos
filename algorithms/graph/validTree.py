@@ -20,9 +20,9 @@ from typing import List
 
 
 # Algorithm Used: Graph, Depth First Search
-# Time Complexity: O(n + e), where n is the number of nodes and e is the number of edges
-# Space Complexity: O(n + e), where n is the number of nodes and e is the number of edges
-def validTree(n: int, edges: List[List[int]]) -> bool:
+# Time Complexity: O(e + v), where e is the number of edges and v is the number of vertices
+# Space Complexity: O(e + v), where e is the number of edges and v is the number of vertices
+def validTreeI(n: int, edges: List[List[int]]) -> bool:
     # If there are no nodes, return True.
     # Empty graph is a valid tree.
     if n == 0:
@@ -42,6 +42,12 @@ def validTree(n: int, edges: List[List[int]]) -> bool:
     def dfs(curr_node: int, prev_node: int) -> bool:
         """Depth First Search helper function to traverse the graph.
 
+        If the current node has already been visited, then there is a cycle in the graph.
+        Otherwise, recursively call dfs on all the neighbor nodes of the current node after
+        adding the current node to the visited set.
+        If any of the neighbor nodes is the previous node, then skip it.
+        If DFS was able to traverse the entire graph without finding a cycle, then return True.
+
         Args:
             curr_node (int): The current node to traverse.
             prev_node (int): The previous node that was traversed.
@@ -51,7 +57,6 @@ def validTree(n: int, edges: List[List[int]]) -> bool:
         """
         # BASE CASE (INVALID CALL/PATH)
         # If the current node has already been visited, then there is a cycle in the graph.
-        # Return False.
         if curr_node in visit:
             return False
 
@@ -62,6 +67,7 @@ def validTree(n: int, edges: List[List[int]]) -> bool:
         # Iterate through the neighbor nodes of the current node.
         for neighbor_node in neighbor_nodes_map[curr_node]:
             # If the neighbor node is the previous node, then skip it.
+            # This is to prevent the graph from going back to the previous node.
             if neighbor_node == prev_node:
                 continue
 
@@ -70,6 +76,7 @@ def validTree(n: int, edges: List[List[int]]) -> bool:
             if not dfs(neighbor_node, curr_node):
                 return False
 
+        # BASE CASE (VALID PATH)
         # No cycle was found, so return True.
         return True
 
@@ -77,3 +84,10 @@ def validTree(n: int, edges: List[List[int]]) -> bool:
     # The previous node is -1 since there is no previous node.
     # After traversing the graph, check if all nodes were visited, which means all nodes are connected with no cycles.
     return dfs(0, -1) and n == len(visit)
+
+
+# Algorithm Used: Graph, Breadth First Search
+# Time Complexity: O(e + v), where e is the number of edges and v is the number of vertices
+# Space Complexity:O(e + v), where e is the number of edges and v is the number of vertices
+def validTreeII(n: int, edges: List[List[int]]) -> bool:
+    pass

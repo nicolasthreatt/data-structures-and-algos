@@ -37,7 +37,7 @@ from typing import List
 # Time Complexity: O(n + p), where n is the number of courses and p is the number of prerequisites
 # Space Complexity: O(n + p), O(n + p), where n is the number of courses and p is the number of prerequisites
 def canFinishI(numCourses: int, prerequisites: List[List[int]]) -> bool:
-    # Map each course to an empty list of prerequisites
+    # Map each course to an empty list of prerequisites (course -> [])
     prerequisitesMap = {course: [] for course in range(numCourses)}
 
     # Iterate through the prerequisites and map each course to its prerequisites
@@ -52,6 +52,12 @@ def canFinishI(numCourses: int, prerequisites: List[List[int]]) -> bool:
 
     def dfs(course: int) -> bool:
         """Depth First Search helper function to traverse the graph.
+
+        If the course has already been visited, then there is a cycle in the graph.
+        If the course has no prerequisites, then it can be finished.
+        Otherwise, recursively call dfs on all the prerequisites of the course.
+        If any of the prerequisites cannot be finished, then the course cannot be finished.
+        If all the prerequisites can be finished, then the course can be finished.
 
         Args:
             course (int): The current course to traverse.
@@ -91,7 +97,7 @@ def canFinishI(numCourses: int, prerequisites: List[List[int]]) -> bool:
     # For each course, call dfs on it, which will look for a valid path to finish the course.
     # If any of the courses cannot be finished, then return False.
     for course in range(numCourses):
-        if not dfs(prereq):
+        if not dfs(course):
             return False
 
     # All the courses can be finished, so return True.

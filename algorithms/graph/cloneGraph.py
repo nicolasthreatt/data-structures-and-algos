@@ -66,7 +66,7 @@ def cloneGraph(node: Node) -> Node:
     # Create a hashmap to store the mapping of old nodes to their copy
     oldToNewMapping = {}
 
-    def clone_dfs(node: Node) -> Node:
+    def clone_dfs(curr_node: Node) -> Node:
         """Depth First Search helper function to clone the graph.
 
         Checks if a copy of the node already exist in the hashmap.
@@ -82,25 +82,26 @@ def cloneGraph(node: Node) -> Node:
         """
 
         # BASE CASE (NO NODE)
-        # If a node does not exist, which will most likely occur at the beginning at the graph,
+        # If current node does not exist, which will most likely occur at the beginning at the graph,
         # then there is nothing to return.
-        if not node:
+        if not curr_node:
             return None
 
         # BASE CASE (CLONE EXIST):
-        # If the node already exist in the hashamp, then a copy has been made.
+        # If the current node already exist in the hashamp, then a copy has been made.
         # Thus all that is needed is to return the COPY of the node.
-        if node in oldToNewMapping:
-            return oldToNewMapping[node]
+        # This is similar to checking if a node has been visited in a graph.
+        if curr_node in oldToNewMapping:
+            return oldToNewMapping[curr_node]
 
         # Here it is known that a copy of the node does not exist, so make a clone
         # of it then add it to the hashmap that maps old nodes to their copy
-        copy = Node(node.val)
+        copy = Node(curr_node.val)
         oldToNewMapping[node] = copy
 
-        # Recursively clone all the neighbors of the node.
+        # Recursively clone all the neighbors of the current node.
         # This is done by iterating through each of a node's neighbors calling the clone_dfs function on each neighbor.
-        for neighbor in node.neighbors:
+        for neighbor in curr_node.neighbors:
             copy.neighbors.append(clone_dfs(neighbor))
 
         # Return the copy of the node after all its neighbors have been cloned.

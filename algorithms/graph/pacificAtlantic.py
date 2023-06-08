@@ -56,6 +56,8 @@ from typing import List
 # Space Complexity: O(m*n), where m is the number of rows and n is the number of columns
 def pacificAtlantic(heights: List[List[int]]) -> List[List[int]]:
     ROWS, COLS = len(heights), len(heights[0])
+
+    # Initialize two sets to store the visited cells for each ocean
     pacific, atlantic = set(), set()
 
     def dfs(r: int, c: int, visit: set, prev_height: int) -> None:

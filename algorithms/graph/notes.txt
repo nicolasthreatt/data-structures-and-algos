@@ -1,0 +1,68 @@
+Graph Algorithms
+    - Depth First Search
+        + Overview
+            - Traverses a graph in a depthward motion.
+               > Follows entire path from the starting vertex before moving to the next vertex
+            - Uses a stack to remember to get the next vertex to start a search,
+              when a dead end occurs in any iteration
+            - Recursive implementation (MOST COMMON)
+                > Uses recursion to go deeper into the graph
+            - Iterative implementation
+                > Uses an explicit stack to hold visited vertices
+        + Time Complexity:
+            - O(n), n is the number of nodes
+        + Data Structures:
+            - HashSets
+                > Helps detect cycles
+            - Stacks
+    - Breadth First Search
+        + Overview
+            - Traverses a graph in a breadthward motion.
+               > Iterates through the neighbor nodes first, before moving to the next level neighbors
+            - Uses a queue to remember to get the next vertex to start a search, 
+                when a dead end occurs in any iteration
+            - Iterative implementation
+                > Uses an explicit queue to hold visited vertices
+        + Time Complexity:
+            - O(n), n is the number of nodes
+        + Data Structures:
+            - HashSets
+                > Helps detect cycles
+            - Queues
+    - Union Find
+        + Overview
+            - A data structure that keeps track of elements which are split into one or more disjoint sets
+                > Find number of connected components in a graph
+            - Used to determine whether two elements are in the same set or not
+            - Used to merge two sets into one
+        + Time Complexity:
+            - O(nlog(n)), n is the number of nodes
+        + Data Structures:
+            - Forest of trees
+                > A collection of disjoint sets
+    - Topological Sort
+        + Overview
+            - A linear ordering of vertices such that for every directed edge uv, vertex u comes before v in the ordering
+            - Can only be applied to DAGs (Directed Acyclic Graphs)
+               > A graph with no directed cycles with edges pointing one way only
+            - Built using DFS
+            - Does not have to be unique, meaning there can be multiple topological sorts
+        + Time Complexity:
+            - O(n), n is the number of nodes
+        + Data Structures:
+            - HashSets (Recursive implementation)
+                > Helps detect cycles
+            - Stacks (Iterative implementation)
+    - Dijkstra's Shortest Path Algorithms
+        + Overview
+            - Finds the shortest path between two vertices in a graph
+            - Works for both directed and undirected graphs
+            - Works with weighted graphs
+            - Does not work with negative weights
+        + Time Complexity:
+            - O(elog(v)), e is the number of edges, v is the number of vertices
+        + Data Structures:
+            - HashSets
+                > Helps detect cycles
+            - Heap/Priority Queues
+                > Helps find the next closest node

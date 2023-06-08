@@ -43,10 +43,3 @@ Graph Representation
     - Adjacency List
         + A collection of linked lists or array that lists all of the other vertices that are
           adjacent to each vertex
-
-Common Algorithms
-    - Breadth-First Search
-    - Depth-First Search
-    - A*
-    - Dijkstra
-    - UnionFind

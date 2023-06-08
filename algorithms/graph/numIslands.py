@@ -67,16 +67,22 @@ def numIslandsI(grid: List[List[str]]) -> int:
         # BASE CASE:
         # If the current cell is not land and has been visited, return.
         # This is to avoid infinite recursion.
-        if r in range(rows) and c in range(cols) and grid[r][c] == "1" and (r, c) not in visit:
-            return
+        if (
+            r not in range(rows)  # Out-of-bounds check
+            or c not in range(cols)  # Out-of-bounds check
+            or grid[r][c] != "1"  # Non-land cell
+            or (r, c) in visit  # Visited cell
+        ):
+            return  # End the recursion which signifies the end of an island
 
+        # Here its known that the current cell is land and has not been visited.
         # For each recursive call, mark the current cell as visited
         visit.add((r, c))
 
         # Recursively visit all adjacent cells, which will treat each adjacent cell as first cell in island.
-        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]  # right, left, above, below
-        for dr, dc in directions:
-            dfs(r + dr, c + dc)
+        adjacent_cells = [[1, 0], [-1, 0], [0, 1], [0, -1]]  # right, left, above, below
+        for adjacent_r, adjacent_c in adjacent_cells:
+            dfs(r + adjacent_r, c + adjacent_c)
 
     # Iterate through the grid and find all islands
     for r in range(rows):
