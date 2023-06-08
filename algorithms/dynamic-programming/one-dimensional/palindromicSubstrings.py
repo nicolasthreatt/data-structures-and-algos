@@ -20,33 +20,47 @@ Constraints:
     * s consists of lowercase English letters.
 """
 
+
+# Algorithm Used: Dynamic Programming (1-D), Two Pointers
+# Time Complexity: O(n^2)
+# Space Complexity: O(1)
 def countSubstrings(s: str) -> int:
-    palindromeCount = 0
+    total_palindromes = 0
 
     # Iterate through the input string
-    # Use index as the MIDDLE of a palindromic string
     for i in range(len(s)):
         # Count odd length palindrones - "bab"
-        palindromeCount += countPalindromes(s, i, i)
+        total_palindromes += countPalindromes(s, l=i, r=i)
 
         # Count even length palindrones - "bb"
-        palindromeCount += countPalindromes(s, i, i + 1)
-        
-    return palindromeCount
+        total_palindromes += countPalindromes(s, l=i, r=i + 1)
+
+    return total_palindromes
 
 
+# Algorithm Used: Two Pointers
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def countPalindromes(s, l, r):
     """
     Count the number of palindrones in a specified window
+
+    Args:
+        s (str): Input string
+        l (int): Left index of window
+        r (int): Right index of window
+
+    Returns:
+        int: Number of palindromes in window
     """
 
-    palindromeCount = 0
+    num_palindromes = 0
 
     # Check left and right indexes are inbounds and the two characters match
     # Continue to iterate over window if palindrome is found
     while l >= 0 and r < len(s) and s[l] == s[r]:
-        palindromeCount += 1
+        num_palindromes += 1
         l -= 1
         r += 1
 
-    return palindromeCount
+    return num_palindromes
