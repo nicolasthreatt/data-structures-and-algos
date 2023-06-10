@@ -37,6 +37,10 @@ Dynamic Programming
     - Useful Algorithms
         + Fibonacci sequence
             * Computing the nth Fibonacci number efficiently using dynamic programming
+                > Climbing Stairs
+                > House Robber
+                > Fibonacci Number
+                > Maximum Alternating Subsequence Sum
         + Shortest Paths
             * Finding the shortest path between two points in a graph
         + Sequence Alighnment
@@ -45,6 +49,24 @@ Dynamic Programming
                 > Protein sequences
         + Knapsack Problem
             * Determining the optimal selection of items to maximize value within a weight constraint
+            * Zero / One Knapsack (Can only use at most one of each item)
+                 > Partition Equal Subset Sum
+                 > Target Sum   
+            * Unbounded Knapsack
+                  > Coin Change
+                  > Coin Change 2
+                  > Minimum Cost for Tickets
+        + Longest Common Subsequence
+            * Finding the longest subsequence that is common to two sequences
+                > Longest Common Subsequence
+                > Longest Increasing Subsequence
+                > Edit Distance
+                > Distinct Subsequences
+        + Palindromes
+            * Finding the longest palindromic subsequence
+                > Longest Palindromic Subsequence
+                > Longest Palindromic Substring
+                > Palindromic Substrings
     - Common Use Cases
         + Optimization Problems
             * Finding the best solution among a set of feasible solutions
@@ -56,3 +78,6 @@ Dynamic Programming
         + O(n)
     - Space Complexity
         + O(n)
+
+Common Algorithms
+  - 
