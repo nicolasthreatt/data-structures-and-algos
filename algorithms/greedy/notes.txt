@@ -1,0 +1,64 @@
+Greedy Algorithms Notes
+    - Introduction
+        + Greedy algorithms are a class of algorithms that make local optimal choices at each iteration
+          in the hope of finding a globablly optimal solution.
+        + They follow a "greedy" strategy by always selecting the best possible option at the current moment,
+          without considering the overall effect on the future iterations or the global solution
+        + Greedy algorithms are used to solve optimization problems
+    - Explanation
+        + Greedy algorithms are simple and easy to implement compared to other complex optimization techniques
+        + They are based on the greedy choice property, which states that the optimal solution can be reached 
+          by making a series of locally optimal choices
+        + However, the greedy choice property does not always hold for all problems, and in such cases, 
+            greedy algorithms fail to produce the optimal solution
+            - Example: The coin change problem
+                + Given a set of coins, find the minimum number of coins required to make a certain amount of change
+                + Coins: 1, 5, 10, 25
+                + Amount: 36
+                + Solution: 1 * 25 + 1 * 10 + 1 * 1 = 3 coins
+                + Greedy Solution: 3 * 10 + 6 * 1 = 9 coins
+                + Greedy Solution is not optimal
+    - Pros
+        + Simple and easy to understand and implement
+        + Often efficient with linear or near-linear time complexity
+        + Can often provide good solutions quickly
+        + Well-suited for problems with the greedy choice property, where the locally optimal choices lead to
+          a globally optimal solution.
+        - Requires less memory compared to some other complex optimization techniques
+    - Cons
+        + Do not guarantee an optimal solution in all cases
+        + May fail to find the globally optimal solution if the greedy choice property does not hold for the problem
+        + Require careful analysis and proof of correctness for each specific problem
+        + Lack of backtracking may lead to irreversible choices that negatively impact the final solution
+        + Greedy algorithms may not be suitable for problems with complex dependencies or constraints
+    - Greedy Algorithms vs Dynamic Programming
+        + Greedy algorithms are similar to dynamic programming algorithms in that they both are used to solve optimization problems
+        + However, greedy algorithms differ from dynamic programming algorithms in that they make the locally optimal choice
+          at each iteration, without considering the overall effect on the future iterations or the global solution
+        + Dynamic programming algorithms, on the other hand, make each iteration based on the previous one, and 
+          the overall solution is a result of the previous decisions
+        + Greedy algorithms are simpler and easier to implement than dynamic programming algorithms, but they do not 
+          always produce the optimal solution
+    - Useful Algorithms
+        + Minimum Spanning Tree (MST)
+            - Finding the smallest tree that connects all vertices in a weighted graph
+        + Knapsack Problem
+            - Selecting items with maximum value while staying within a weight constraints
+        + Dijkstra's Algorithm
+            - Finding the shortest path between two vertices in a graph with non-negative edge weights
+        + Interval Scheduling
+            - Selecting the maximum number of non-overlapping intervals
+        + Huffman Coding
+            - Constructing an optimal prefix-free binary code for data compression
+    - Common Use Cases
+        * Problems on which greedy approach works has two properties
+            - Greedy Choice Property
+                + A global optimum can be arrived at by selecting a local optimum
+            - Optimal Substructure
+                + An optimal solution to the problem contains an optimal solution
+                  to subproblems
+    - Time Complexity
+        + O(n)
+        + O(n log n)
+    - Space Complexity
+        - O(1)
