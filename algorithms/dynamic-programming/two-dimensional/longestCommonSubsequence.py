@@ -59,6 +59,8 @@ def longestCommonSubsequence(text1: str, text2: str) -> int:
             if text1[i] == text2[j]:  # MATCH FOUND
                 lcs_grid[i][j] = 1 + lcs_grid[below_subseqs][right_subseqs]  # UPDATE
             else:
+                # lcs_grid[i][right_subseqs] is the cell to the right
+                # lcs_grid[below_subseqs][j] is the cell below
                 lcs_grid[i][j] = max(lcs_grid[i][right_subseqs], lcs_grid[below_paths][j])
 
     # Return the cell at the top left of the grid which will be the length of the longest common subsequence.

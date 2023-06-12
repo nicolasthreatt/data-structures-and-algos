@@ -29,7 +29,7 @@ Constraints:
 """
 
 
-# Algorithm Used: Dynamic Programming, Two-Dimensional, Buttom-Up, 0-1 Knapsack
+# Algorithm Used: Dynamic Programming, Two-Dimensional, Buttom-Up
 # Time Complexity: O(m * n)
 # Memory Complexity: O(n)
 def uniquePaths(m: int, n: int) -> int:
@@ -39,18 +39,20 @@ def uniquePaths(m: int, n: int) -> int:
     # NOTE: Each cell will represent the number of paths to the bottom right corner
     paths_to_bottom_right = [1] * n
 
-    # Iterate through the grid, starting from the second to last row
-    # (since the bottom row is already set to 1's)
+    # Iterate through each row (except the last one since the bottom row is already set to 1's)
+    # to calculate the number of paths to the bottom right corner for each cell in the current row.
     for i in range(m - 1):
         # Initialize the current row with all cells set to 1
         # This is done because initially, each cell in the current row has only one possible path
         # to reach the bottom right corner, which is to move directly right.
         current_row = [1] * n
 
-        # Iterate through the row, starting from the second to last column
-        # Calculate the number of paths (right and below) to the bottom
-        # right corner for each cell in the current row.
+        # Iterate through each column (from right to left) in the current row
+        # to calculate the number of paths from the current cell to the bottom right corner
         for j in range(n - 2, -1, -1):
+            # The number of paths from the current cell to the bottom right corner is the sum of
+            # the number of paths from the cell to the right of the current cell and the number of
+            # paths from the cell below the current cell.
             paths_to_right = current_row[j + 1]
             paths_below = paths_to_bottom_right[j]
             current_row[j] = paths_to_right + paths_below
