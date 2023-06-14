@@ -24,17 +24,19 @@ Constraints:
 
 from typing import List
 
+
 class Interval:
     def __init__(self, start: int, end: int):
         self.start = start
         self.end = end
+
 
 # Algorithm Used: Sorting, Intervals
 # Time Complexity: O(nlogn)
 # Space Complexity: O(1)
 def canAttendMeetings(intervals: List[List[int]]) -> bool:
     # Sort the intervals by their start time
-    intervals.sort(key = lambda i : i.start)
+    intervals.sort(key=lambda i: i.start)
 
     # Iterate through the intervals
     # Keep track of the previous interval and the current interval
