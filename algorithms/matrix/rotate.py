@@ -36,6 +36,7 @@ from typing import List
 
 def rotate(matrix: List[List[int]]) -> None:
     # Initialize the left and right boundaries
+    # -1 in the right boundary because the right boundary is not inclusive
     left, right = 0, len(matrix[0]) - 1
 
     # Continue rotating until the left boundary becomes greater than the right boundary

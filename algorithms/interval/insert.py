@@ -50,9 +50,6 @@ def insert(intervals: List[List[int]], new_interval: List[int]) -> List[List[int
     # Initialize a list to store the merged intervals
     merged_intervals = []
 
-    # Get the start and end values of the new interval
-    new_start, new_end = new_interval
-
     # Iterate through the list of intervals
     #     + Check for nonoverlapping intervals
     #        - If the new interval's end time is less than the current interval's start time,
@@ -63,16 +60,21 @@ def insert(intervals: List[List[int]], new_interval: List[int]) -> List[List[int
     #        - If the new interval's end time is greater than the current interval's end time,
     #          then the new interval's end time is the current interval's end time
     for i in range(len(intervals)):
+        # Get the start and end values of the new interval
+        new_start, new_end = new_interval
+
+        # Get the start and end values of the current interval
         current_start, current_end = intervals[i]
 
         if new_end < current_start:  # nonoverlapping (new end time < current start time)
             merged_intervals.append(new_interval)
             return merged_intervals + intervals[i:]
-        elif new_end > current_end:  # nonoverlapping (new start time > current end time)
+        elif new_start > current_end:  # nonoverlapping (new start time > current end time)
             merged_intervals.append(intervals[i])
         else:  # overlapping (new end time > current end time)
             new_interval = [min(new_start, current_start), max(new_end, current_end)]
 
     # Add the new interval to the list of merged intervals and return the list of merged intervals
     # This is for cases where new interval is nonoverlapping and should be inserted at the end of list of intervals
-    return merged_intervals.append(new_interval)
+    merged_intervals.append(new_interval)
+    return merged_intervals
