@@ -37,7 +37,7 @@ def countComponentI(n: int, edges: List[List[int]]) -> int:
     rank = [1] * n
 
     def find(n):
-        """Find the parent of the node.
+        """Find the root parent of the node.
 
         Time Complexity: O(n), where n is the number of nodes
         Space Complexity: O(1)
@@ -49,8 +49,9 @@ def countComponentI(n: int, edges: List[List[int]]) -> int:
         Returns:
             int: The parent of the node.
         """
-        # Iterate through the parents until the initial parent from the path is found.
+        # Iterate through the parents until the initial root from the path is found.
         # This is done by setting the parent of each node to its grandparent (parents[parents[n]]).
+        # In other words, each node will be set
         data = n
         while data != parents[data]:
             parents[data] = parents[parents[data]]  # Path compression
@@ -77,7 +78,7 @@ def countComponentI(n: int, edges: List[List[int]]) -> int:
         # Find the parents of the nodes
         p1, p2 = find(n1), find(n2)
 
-        # If the parents are the same, the nodes are already unioned
+        # If the parents are the same, the nodes are already unioned so no need to union.
         # Could also note a cycle if the parents are the same
         if p1 == p2:
             return 0
