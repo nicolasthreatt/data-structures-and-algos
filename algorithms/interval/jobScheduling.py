@@ -71,7 +71,7 @@ def jobSchedulingII(startTime: List[int], endTime: List[int], profit: List[int])
     # Sort the jobs by start time
     jobs.sort()
 
-    # Create a max heap, which will store the jobs by end time
+    # Create a min heap, which will store the jobs by end time
     heap = []
 
     # Create a variable to store the max profit
