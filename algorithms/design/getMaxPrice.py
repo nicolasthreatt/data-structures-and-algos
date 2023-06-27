@@ -58,7 +58,7 @@ def get_max_price(start_time: int, end_time: int, d_starts: List[int], d_ends: L
         
         # Push the dasher onto the heap, with the end time as the key
         heapq.heappush(heap, (dasher.end, dasher.pay + max_price))
-    
+
     while heap:
         max_price = max(max_price, heapq.heappop(heap)[-1])
 
