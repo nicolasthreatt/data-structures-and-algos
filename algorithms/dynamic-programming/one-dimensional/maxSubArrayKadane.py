@@ -48,8 +48,8 @@ def maxSubArrayKadane(self, nums: List[int]) -> int:
         or the sum of the value at index `i` and the maximum sum ending at index `i-1` (extending the current subarray).
 
         The algorithm maintains two variables: `max_sum` and `current_sum`.
-        - `max_sum` keeps track of the overall maximum subarray sum seen so far.
-        - `current_sum` represents the maximum sum of a subarray ending at the current position.
+            - `max_sum` keeps track of the overall maximum subarray sum seen so far.
+            - `current_sum` represents the maximum sum of a subarray ending at the current position.
 
         We initialize `max_sum` with negative infinity to handle cases where all the numbers in the array are negative.
         By updating `max_sum` and `current_sum` dynamically as we iterate through the array,
