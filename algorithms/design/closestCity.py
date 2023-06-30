@@ -54,6 +54,7 @@ def closest_city(cities: List[str], x: List[int], y: List[int], query: List[str]
     for i in range(len(cities)):
         if cities[i] == query[0]:
             query_x, query_y = x[i], y[i]
+            break
 
     # Initialize the minimum distance to infinity.
     # This will be used to compare the distance between the query and the city.
