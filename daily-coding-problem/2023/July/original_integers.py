@@ -1,6 +1,6 @@
 """
 Daily Coding Problem: #755 (Easy) - Slack
-Date: 07/03/2023
+Date: 07/02/2023
 
 You are given a string formed by concatenating several words corresponding
 to the integers zero through nine and then anagramming.

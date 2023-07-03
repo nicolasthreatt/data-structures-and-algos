@@ -1,6 +1,6 @@
 """
 Daily Coding Problem: #754 (Medium) - Square
-Date: 07/02/2023
+Date: 06/30/2023
 
 In front of you is a row of N coins, with values v1, v1, ..., vn.
 
