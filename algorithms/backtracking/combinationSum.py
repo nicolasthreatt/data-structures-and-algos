@@ -47,7 +47,6 @@ from typing import List
 # Time Complexity: O(2^target)
 # Space Complexity: O(2^target)
 def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
-    # Create a list to store all combinations to be returned
     combinations = []
 
     def backtrack(i: int, current: int, total: int) -> None:
@@ -78,12 +77,14 @@ def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
         current.append(candidates[i])
         backtrack(i, current, total + candidates[i])
 
+        # BACKTRACKING - Remove the current element from the current combination
+        current.pop()
+
         # RECURSIVE CASE II (EXCLUDE CURRENT ELEMENT):
         #   - Decision to exclude the current element in the current combination.
         #   - Pop the current element from the current combination.
         #   - Recursively call the helper function to get the rest of the combinations.
         #   - i + 1 because can't reuse the same element, so move on to the next element.
-        current.pop()  # BACKTRACKING - Remove the current element from the current combination
         backtrack(i + 1, current, total)
 
     # Call the helper function to get all combinations

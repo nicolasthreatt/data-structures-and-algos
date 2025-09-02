@@ -67,21 +67,21 @@ def existI(board: List[List[str]], word: str) -> bool:
         Returns:
             bool: True if the word exists in the board, False otherwise.
         """
+        # Base Case
         # If the current length is equal to the length of the word, return True.
         # This means that we have found the word.
         if i == len(word):
             return True
 
+        # Base Case
         # If the current row or column is out of bounds or
         # current letter does not exist in the board or
         # if the current path has been visited, return False.
         if (
-            r < 0  # Check if row is out of bounds.
-            or r >= ROWS  # Check if row is out of bounds.
-            or c < 0  # Check if column is out of bounds.
-            or c >= COLS  # Check if column is out of bounds.
-            or word[i] != board[r][c]  # Check if letter isnt equal to letter in board.
-            or (r, c) in visited  # Check if cell has already been visited.
+            (not 0 <= r < ROWS)  # invalid_row
+            or (not 0 <= c < COLS)  # invalid_col
+            or (word[i] != board[r][c])  # invalid_word
+            or ((r, c) in path)  # position_has_been_visited
         ):
             return False
 
