@@ -82,3 +82,19 @@ Example 1:
 Constraints:
     * There are no employees with the exact same name, salary and department.
 */
+
+SELECT
+    Department.name AS Department,
+    E1.name AS Employee,
+    E1.salary AS Salary
+FROM
+    Employee E1
+JOIN
+    Department
+ON
+    E1.departmentId = Department.id
+WHERE (
+    SELECT COUNT(DISTINCT E2.salary)
+    FROM Employee E2
+    WHERE E2.salary > E1.salary AND E2.departmentId = E1.departmentId
+) < 3

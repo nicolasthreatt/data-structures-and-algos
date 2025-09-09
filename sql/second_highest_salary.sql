@@ -56,7 +56,9 @@ SELECT (
     SELECT DISTINCT salary
     FROM Employee
     ORDER BY salary DESC
-    LIMIT 1 OFFSET 1
+    OFFSET 1 ROWS  -- MSSQL
+    FETCH NEXT 1 ROWS ONLY  -- MSSQL
+    -- LIMIT 1 OFFSET 1  -- MySQL
 ) AS SecondHighestSalary;
 
 
