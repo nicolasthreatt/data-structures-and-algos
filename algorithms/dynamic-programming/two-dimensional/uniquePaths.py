@@ -28,38 +28,50 @@ Constraints:
     * 1 <= m, n <= 100
 """
 
+from functools import cache
+
+
+# Algorithm Used: Depth First Search
+# Time Complexity: O(m * n)
+# Memory Complexity: O(m * n)
+def uniquePathsI(m: int, n: int) -> int:
+    @cache
+    def dfs(i: int, j: int) -> :
+        # Base Case: Out of Bound
+        if i >= m or j >= n:
+            return 0
+        
+        # Base Case: End of Valid Path
+        if i == m - 1 and j == n - 1:
+            return 1
+        
+        down, right = dfs(i + 1, j), dfs(i, j + 1)
+        return down + right
+
+    return dfs(0, 0)
+
 
 # Algorithm Used: Dynamic Programming, Two-Dimensional, Buttom-Up
 # Time Complexity: O(m * n)
 # Memory Complexity: O(n)
-def uniquePaths(m: int, n: int) -> int:
-    # Initialize the bottom row of the grid with all cells set to 1
-    # This is because there is only one way for each cell in the bottom row
-    # to reach the bottom right corner, which is to move right.
+def uniquePathsII(m: int, n: int) -> int:
+    # Start with the bottom row: only one path from each cell (move right)
     # NOTE: Each cell will represent the number of paths to the bottom right corner
     paths_to_bottom_right = [1] * n
 
-    # Iterate through each row (except the last one since the bottom row is already set to 1's)
-    # to calculate the number of paths to the bottom right corner for each cell in the current row.
-    for i in range(m - 1):
-        # Initialize the current row with all cells set to 1
-        # This is done because initially, each cell in the current row has only one possible path
-        # to reach the bottom right corner, which is to move directly right.
-        current_row = [1] * n
+    # Work upwards through the grid, row by row
+    for _ in range(m - 1):
+        current_row = [1] * n  # Right-most cell always has one path (move down)
 
-        # Iterate through each column (from right to left) in the current row
-        # to calculate the number of paths from the current cell to the bottom right corner
+        # Loop from second-last column to first (right to left)
+        # NOTE: Skip last column because it's already 1 and has no right neighbor
         for j in range(n - 2, -1, -1):
-            # The number of paths from the current cell to the bottom right corner is the sum of
-            # the number of paths from the cell to the right of the current cell and the number of
-            # paths from the cell below the current cell.
-            paths_to_right = current_row[j + 1]
-            paths_below = paths_to_bottom_right[j]
-            current_row[j] = paths_to_right + paths_below
+            # Paths from this cell = right neighbor + below (from previous row)
+            current_row[j] = current_row[j + 1] + paths_to_bottom_right[j]
 
-        # Update the paths_to_bottom_right variable to be used in the next iteration
+        # Prepare for next iteration (move up one row)
         paths_to_bottom_right = current_row
-    
-    # Return the number of paths to the bottom right corner from the top left corner
-    return paths_to_bottom_right[0]
+
+    return paths_to_bottom_right[0]  # Number of paths from top-left
+
 
