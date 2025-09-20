@@ -27,8 +27,11 @@ Constraints:
 
 from typing import List
 
-# Binary Search
-def search(self, nums: List[int], target: int) -> int:
+
+# Algorithm Used: Binary Search
+# Time Complexity: O(log(n))
+# Space Complexity: O(1)
+def search(nums: List[int], target: int) -> int:
     l, r = 0, len(nums) -1
 
     while l <= r:
@@ -51,3 +54,20 @@ def search(self, nums: List[int], target: int) -> int:
             return m
     
     return -1
+
+
+if __name__ == "__main__":
+    # Examples
+    assert search([-1, 0, 3, 5, 9, 12], 9) == 4
+    assert search([-1, 0, 3, 5, 9, 12], 2) == -1
+
+    # Additional edge cases
+    assert search([1], 1) == 0                       # Single element, match
+    assert search([1], 0) == -1                      # Single element, no match
+    assert search([1, 2, 3, 4, 5], 1) == 0           # First element
+    assert search([1, 2, 3, 4, 5], 5) == 4           # Last element
+    assert search([1, 2, 3, 4, 5], 3) == 2           # Middle element
+    assert search([1, 2, 3, 4, 5], 6) == -1          # Not in list
+    assert search([-10, -5, 0, 3, 8, 12], -10) == 0  # Negative numbers, match
+    assert search([-10, -5, 0, 3, 8, 12], -11) == -1 # Below minimum
+    assert search([-10, -5, 0, 3, 8, 12], 13) == -1  # Above maximum
