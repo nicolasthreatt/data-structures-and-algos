@@ -28,11 +28,11 @@ Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
  
 
 Constraints:
-> n == nums.length
-> 1 <= n <= 5000
-> -5000 <= nums[i] <= 5000
-> All the integers of nums are unique.
-> nums is sorted and rotated between 1 and n times.
+    n == nums.length
+    1 <= n <= 5000
+    -5000 <= nums[i] <= 5000
+    All the integers of nums are unique.
+    nums is sorted and rotated between 1 and n times.
 """
 
 from typing import List
@@ -41,38 +41,40 @@ from typing import List
 # Algorithm Used: Binary Search
 # Time Complexity: O(log(n))
 # Space Complexity: O(1)
-def findMin(nums: List[int]) -> int:
-    # Initialize the result to the first element in the array
+def findMinI(nums: List[int]) -> int:
+    l, r = 0, len(nums) - 1
+    while l < r:
+        mid = (l + r) // 2
+        
+        if nums[r] < nums[mid]:  # If mid element is greater than right, then min must be right of mid
+            l = mid + 1
+        else:  # Otherwise, min is at mid or to the left of mid
+            r = mid
+
+    # After loop l == r (NOT l > r), meaning the search space is narrowed to one element, the minimum
+    return nums[l]
+
+# Algorithm Used: Binary Search
+# Time Complexity: O(log(n))
+# Space Complexity: O(1)
+def findMinII(nums: List[int]) -> int:
     res = nums[0]
 
-    # Set left pointer to the first index of the array
-    # Set right pointer to the last index of the array
     l, r = 0, len(nums) - 1
-
-    # Begin binary search
     while l <= r:
+        m = (l + r) // 2
 
-        # If the left element node is less than the right element node, then
-        # the left and right nodes are in the sorted portion of the array, thus
-        # the left node node element will be the mininum of the entire array.
+        # Subarray is fully sorted and nums[l] is the minimum
         if nums[l] < nums[r]:
             res = min(res, nums[l])
             break
 
-        # We now know that the right node is greater than the left node
-        # Determine mid point node
-        m = (l + r) // 2
+        # Update result with the current minimum
         res = min(res, nums[m])
 
-        # If the midpoint is part of the left portion of the array,
-        #   increament the left pointer one spot past the mid point.
-        #   This means we want to search right sorted portion
-        # If the midpoint is part of the right portion of the array,
-        #   increament the rught pointer one spot before the mid point.
-        #   This means we want to search left sorted portion
-        # These ensures the next search range will be apart of the smaller
-        #   sorted portion of the array
-        if nums[m] >= nums[l]:
+        # If mid is in the left sorted portion, discard it and search right
+        # If mid is in the right unsorted portion, search left
+        if nums[l] <= nums[m]:
             l = m + 1
         else:
             r = m - 1
