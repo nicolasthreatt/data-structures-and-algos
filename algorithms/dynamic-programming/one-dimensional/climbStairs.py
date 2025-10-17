@@ -1,4 +1,5 @@
 """
+Climbing Stairs
 https://leetcode.com/problems/climbing-stairs/
 
 You are climbing a staircase. It takes n steps to reach the top.
@@ -7,7 +8,6 @@ Each time you can either climb 1 or 2 steps.
 
 In how many distinct ways can you climb to the top?
 
-Example 1:
     Input: n = 2
     Output: 2
     Explanation:
@@ -29,52 +29,66 @@ Constraints:
 """
 
 
-# Algorithms Used: Dynamic Programming (1-D), Bottom-Up, Fibonacci
-# Time Complexity: O(n)
+# Algorithms Used: Brute Force
+# Time Complexity: O(n^2)
 # Space Complexity: O(n)
 def climbStairsI(n: int) -> int:
-    # Create two variables to store the number of ways to reach the top and initialize them to 1.
-    # Starting from top and work your way down, so matter the value of n, the nth and (n-1)th steps are always one step
-    # away from the top.
-    #   - one_step_away: Initially starts (n - 1) steps away from the top.
-    #   - two_steps_away: Initially starts at the nth step, which is the top step.
-    # NOTE: If n = 5, then at the 4th step, we are already one step away from the top.
-    one_step_away, two_steps_away = 1, 1
+    # Base cases: 1 way to climb 1 or 0 stairs (either take 1 step, or do nothing)
+    if n <= 1:
+        return 1
 
-    # Starting the top stair, work your way down to the first stair.
-    # At each step, update the number of ways to reach the top from one step away and two steps away.
-    # This is done by adding the number of ways to reach the top from one step away and the number of
-    # ways to reach the top from two steps away.
-    # NOTE: The number of ways to reach the top is the sum of the number of ways to reach the
-    # top from one step away and the number of ways to reach the top from two steps away.
-    for _ in range(n - 1):
-        tmp = one_step_away
-        # Add two_steps_away to one_step_away to get the number of ways to reach the top from one step away.
-        # This is because after taking one step, we are now two step away from the top.
-        # Recall that one_step_away is initially at the (n - 1)th step, so if we take one step, are now at the nth step.
-        one_step_away += two_steps_away
-
-        # Update two_steps_away to be the number of ways to reach the top from two steps away.
-        # This is now only one step away from the top since we just took one step.
-        # Recall that two_steps_away is initially at the top step, so if take only one step,
-        # we are now one step away from the top.
-        two_steps_away = tmp
-
-    # Return the number of ways to reach the top from one step away.
-    # This is because after walking down the stairs, one_step_away will be at the group floor.
-    # However, two_steps_away will be one step above from the ground floor.
-    return one_step_away
+    # Recursively calculate number of ways by trying 1-step and 2-step moves
+    return climbStairsI(n - 1) + climbStairsI(n - 2)
 
 
 # Algorithms Used: Decision Tree, Depth First Search
 # Time Complexity: O(2^n)
 # Space Complexity: O(2^n)
 def climbStairsII(n: int) -> int:
-    pass
+    def dfs(steps_remaining: int) -> int:
+        # Base Case 1: Reached the top exactly
+        if steps_remaining == 0:
+            return 1
+
+        # Base Case 2: Over-reached the top
+        if steps_remaining < 0:
+            return 0
+        
+        # Try taking 1 step and 2 steps recursively
+        return dfs(steps_remaining - 1) + dfs(steps_remaining -2)
+
+    return dfs(n)
 
 
-# Algorithms Used: Brute Force
-# Time Complexity:
-# Space Complexity:
+# Algorithms Used: Dynamic Programming (1-D), Bottom-Up, Fibonacci
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def climbStairsIII(n: int) -> int:
-    pass
+    # Base case: Only 1 way to climb 0 or 1 stair
+    if n <= 1:
+        return 1
+
+    # Base case: 1 way to climb 1 or 0 stairs (either take 1 step, or do nothing)
+    one_step_away, two_steps_away = 1, 1
+
+    # Starting from the 2nd-to-last stair, build up the number of ways to climb to the top
+    for _ in range(n - 1):
+        one_step_away, two_steps_away = one_step_away + two_steps_away, one_step_away
+
+    # Final result is the number of ways from the ground (n steps away)
+    return one_step_away
+
+
+if __name__ == "__main__":
+    test_cases = [
+        (1, 1),  # Only one way: [1]
+        (2, 2),  # [1+1], [2]
+        (3, 3),  # [1+1+1], [1+2], [2+1]
+        (4, 5),  # [1+1+1+1], [1+2+1], [2+1+1], [2+2], [1+1+2]
+        (5, 8),  # Fibonacci-like growth
+    ]
+
+    for func in [climbStairsI, climbStairsII, climbStairsIII]:
+        for n, expected in test_cases:
+            result = func(n)
+            assert result == expected, f"{func.__name__}({n}) = {result}, expected {expected}"
