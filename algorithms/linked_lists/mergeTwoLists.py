@@ -36,6 +36,7 @@ class ListNode:
         self.next = next
 
 
+# Algorithm Used: Dummy Node
 # Time Complexity: O(list1 + list2) = O(n + m)
 # Memory Complexity: O(1)
 def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
@@ -56,8 +57,8 @@ def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optio
         tail = tail.next
 
     # Remember the while loop above only iterates while both linked list have nodes.
-    # There is a high possibility that one of the nodes still has data.
-    # Attached the additional data from the node to the end of the tail pointer
+    # There is a possibility that one of the nodes still has data.
+    # Attach the additional data from the node to the end of the tail pointer
     if list1:
         tail.next = list1
     elif list2:

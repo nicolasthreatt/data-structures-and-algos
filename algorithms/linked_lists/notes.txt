@@ -1,0 +1,235 @@
+Linked List Algorithms
+
+
+- List Node
+    + Overview:
+        * Singly-linked lists contains a value (val) and reference to the next node (next)
+        * The next pointer is used to link nodes together in the list
+        * The list can be traversed starting from the head node until next is None,
+          indicating the end of the list.
+    + Sample Code:
+        class ListNode:
+            def __init__(self, val=0, next=None):
+                self.val = val
+                self.next = next
+
+
+- Dummy Node
+    + Overview:
+        * Placeholder node that is often added at the beginning of a linked list.
+        * Its purpose is to simplify operations like:
+            > Inserting nodes
+            > Deleting nodes
+            > Reversing nodes
+        * The dummy node is especially helpful when dealing with edge cases, such as:
+            > When the head of the list might change
+            > When removing the first node
+    + Example Problems:
+        * Remove N-th node from the end of the list.
+        * Merge two sorted linked lists.
+        * Insert a node into a sorted linked list.
+    + Sample Code:
+        def add(head: ListNode):
+            dummy = ListNode()
+            curr = dummy
+            while head:
+                curr.next = ListNode(head.val * 2)
+                curr = curr.next
+                head = head.next
+            return dummy.next
+
+
+- Two Passes
+    + Overview:
+        * A strategy where you traverse the linked list twice:
+            1. First to gather information (i.e. list length)
+            2. Second to process (e.g., delete or modify nodes based on information gathered)
+    + Time Complexity: O(n)
+    + Example Problems:
+        * Remove N-th node from the end of the list.
+        * Reverse a linked list in groups.
+        * Find the intersection of two linked lists.
+    + Sample Code:
+        def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+            length = 0
+            current = head
+            while current:  # First pass to find the length
+                length += 1
+                current = current.next
+            dummy = ListNode(0)
+            dummy.next = head
+            current = dummy
+            for _ in range(length - n):  # Second pass to remove nth node from end
+                current = current.next
+            current.next = current.next.next
+            return dummy.next
+
+
+- Delete a Node
+    + Overview:
+        * Can be tricky when you don't have access to the previous node.
+        * A common method to delete a node is
+            > To copy the value from the next node into the current node
+            > Then delete the next node.
+        * This avoids the need to find the previous node.
+    + Time Complexity:
+        * O(n), if you have direct access to the head
+        * O(1), if you have direct access to the node to be deleted
+    + Example Problems:
+        * Delete a given node in a singly linked list.
+        * Remove a node without knowing its previous node.
+    + Sample Code:
+        def deleteNode(node: Optional[ListNode]) -> None:
+            if not node or not node.next:
+                return None
+            node.val = node.next.val
+            node.next = node.next.next
+
+
+- Detecting a Cycle (Using Hash Set)
+    + Overview:
+        * Detect cycles in a linked list by storing visited nodes in a hash set
+        * When you revisit a node, a cycle is detected.
+    + Time Complexity: O(n)
+    + Example Problems:
+        * Detect cycles in a linked list.
+        * Find the starting point of the cycle in a linked list.
+    + Sample Code:
+        def hasCycle(head: Optional[ListNode]) -> bool:
+            visited = set()
+            current = head
+            while current:
+                if current in visited:
+                    return True
+                visited.add(current)
+                current = current.next
+            return False
+
+
+- Floyd's Tortoise & Hare
+    + Overview:
+        * Two pointers
+        * Used to find cyles in a linked list.
+        * Initialize the slow and fast pointers to the head
+        * Iterate through linked list with fast pointer. Through each iteration:
+            > Update slow pointer 1 position
+            > Update next pointer 2 positions
+        * If there is a loop slow and next pointers will be equal.
+    + Time Complexity: O(n)
+    + Example Problems:
+        * Find the middle node of a linked list
+        * Detect cycles in a linked list.
+        * Find the starting point of the cycle in a linked list.
+    + Sample Code:
+        def floydTortoiseHare(head: Optional[ListNode]) -> bool:
+            slow, fast = head, head  
+            while fast and fast.next:
+                slow = slow.next
+                fast = fast.next.next
+                if slow == fast:
+                    return True
+            return False
+
+
+- Reversing a Linked List
+    + Overview:
+        * Two pointers (`prev` and `curr`)
+        * Involves changing the direction of the pointers
+        * First node becomes the last, and vice versa.
+        * Operation can be done iteratively or recursively.
+    + Time Complexity: O(n)
+    + Example Problems:
+        * Reverse a linked list
+        * Determine if a linked list is a palindrome 
+        * Reverse a linked list in groups of k nodes
+    + Sample Code:
+        def reverseList(head: Optional[ListNode]) -> Optional[ListNode]:
+            prev = None
+            current = head
+            while current:
+                next_node = current.next
+                current.next = prev
+                prev = current
+                current = next_node
+            return prev
+
+
+- Merge Two Sorted Linked Lists
+    + Overview:
+        * Merging two SROTED linked lists into a single SORTED linked list
+        * Compares the values from both lists and attaches smaller value to the result list.
+        * Once one list is traversed, the remaining nodes in other list are directly added.
+    + Time Complexity: O(n + m), where n and m are the lengths of the two linked lists.
+    + Example Problems:
+        * Merge k sorted lists
+        * Merge two sorted arrays
+        * Merge intervals
+    + Sample Code:
+        def mergeTwoLists(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+            dummy = ListNode(0)
+            current = dummy
+            while l1 and l2:
+                if l1.val < l2.val:
+                    current.next = l1
+                    l1 = l1.next
+                else:
+                    current.next = l2
+                    l2 = l2.next
+                current = current.next
+            if l1:
+                current.next = l1
+            if l2:
+                current.next = l2
+            return dummy.next
+
+
+- Intersection of Two Linked Lists
+    + Overview:
+        * Find the node where two singly linked lists intersect.
+        * Iterate over both lists at the same pace, while they is no common node
+        * After one list ends assign it to the head of the other list
+        * At end of iteration, both list would have been iterated n + m nodes, which would be null
+          traverse both lists together to find the intersection.
+    + Time Complexity: O(n + m), where n and m are the lengths of the two lists.
+    + Space Complexity: O(1)
+    + Example Problems:
+        * Find the intersection of two linked lists.
+        * Check if two linked lists have a common intersection point.
+        * Find the starting point of a cycle in a linked list (in case of cyclic lists).
+    + Sample Code:
+        def getIntersectionNode(headA: Optional[ListNode], headB: Optional[ListNode]) -> Optional[ListNode]:
+            if not headA or not headB:
+                return None
+            a, b = headA, headB
+            while a != b:
+                a = a.next if a else headB
+                b = b.next if b else headA
+            return a
+
+
+- Remove N-th Node From End of List
+    + Overview:
+        * Two pointers
+        * Remove the N-th node from the end of the list using the two-pointer technique.
+        * Use a fast pointer to advance N steps
+        * Then move both the fast and slow pointers together until fast pointer reaches end
+            > Slow pointer will now be just before the node to be deleted.
+        * Adjust the pointers to bypass the node to be removed.
+    + Time Complexity: O(n)
+    + Space Complexity: O(1)
+    + Example Problems:
+        * Remove the nth node from the end of the list.
+        * Remove all nodes with a specific value.
+        * Find the middle node of a linked list and remove it.
+    + Sample Code:
+        def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+            dummy = ListNode(0)
+            dummy.next = head
+            fast = slow = dummy
+            for _ in range(n + 1):
+                fast = fast.next
+            while fast:
+                fast = fast.next
+                slow = slow.next
+            slow.next = slow.next.next
+            return dummy.next
