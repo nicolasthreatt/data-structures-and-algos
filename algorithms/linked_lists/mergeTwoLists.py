@@ -1,4 +1,5 @@
 """
+Merge Two Sorted Lists
 https://leetcode.com/problems/merge-two-sorted-lists/
 
 You are given the heads of two sorted linked lists list1 and list2.
@@ -9,16 +10,16 @@ The list should be made by splicing together the nodes of the first two lists.
 Return the head of the merged linked list.
 
 Example 1:
-Input: list1 = [1,2,4], list2 = [1,3,4]
-Output: [1,1,2,3,4,4]
+    Input: list1 = [1,2,4], list2 = [1,3,4]
+    Output: [1,1,2,3,4,4]
 
 Example 2:
-Input: list1 = [], list2 = []
-Output: []
+    Input: list1 = [], list2 = []
+    Output: []
 
 Example 3:
-Input: list1 = [], list2 = [0]
-Output: [0]
+    Input: list1 = [], list2 = [0]
+    Output: [0]
 
 Constraints:
     * The number of nodes in both lists is in the range [0, 50].
@@ -26,7 +27,7 @@ Constraints:
     * Both list1 and list2 are sorted in non-decreasing order.
 """
 
-from typing import Optional
+from typing import List, Optional
 
 
 # Definition for singly-linked list.
@@ -40,8 +41,6 @@ class ListNode:
 # Time Complexity: O(list1 + list2) = O(n + m)
 # Memory Complexity: O(1)
 def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-
-    # Create a dummy node to avoid the error of inserting into an empty linked list
     dummy = ListNode()
     tail = dummy
 
@@ -65,3 +64,35 @@ def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optio
         tail.next = list2
 
     return dummy.next
+
+
+if __name__ == "__main__":
+    def build_linked_list(values: List) -> Optional[ListNode]:
+        dummy = tail = ListNode()
+        for v in values:
+            tail.next = ListNode(v)
+            tail = tail.next
+        return dummy.next
+
+    def linked_list_to_list(head: ListNode) -> List:
+        res = []
+        while head:
+            res.append(head.val)
+            head = head.next
+        return res
+
+    test_cases = [
+        # (list1_nodes, list2_nodes, expected_merged_list)
+        ([1, 2, 4], [1, 3, 4], [1, 1, 2, 3, 4, 4]),
+        ([], [], []),
+        ([], [0], [0]),
+        ([5, 6], [1, 2, 3], [1, 2, 3, 5, 6]),
+        ([1, 3, 5], [2, 4, 6], [1, 2, 3, 4, 5, 6]),
+    ]
+
+    for list1_nodes, list2_nodes, expected in test_cases:
+        l1 = build_linked_list(list1_nodes)
+        l2 = build_linked_list(list2_nodes)
+        result = mergeTwoLists(l1, l2)
+        result_list = linked_list_to_list(result)
+        assert result_list == expected
