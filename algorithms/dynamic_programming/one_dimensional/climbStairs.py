@@ -8,21 +8,20 @@ Each time you can either climb 1 or 2 steps.
 
 In how many distinct ways can you climb to the top?
 
-    Input: n = 2
-    Output: 2
-    Explanation:
-        There are two ways to climb to the top.
-            1. 1 step + 1 step
-            2. 2 steps
+Input: n = 2
+Output: 2
+Explanation:
+    There are two ways to climb to the top.
+        1. 1 step + 1 step
+        2. 2 steps
 
-Example 2:
-    Input: n = 3
-    Output: 3
-    Explanation:
-        There are three ways to climb to the top.
-            1. 1 step + 1 step + 1 step
-            2. 1 step + 2 steps
-            3. 2 steps + 1 step
+Input: n = 3
+Output: 3
+Explanation:
+    There are three ways to climb to the top.
+        1. 1 step + 1 step + 1 step
+        2. 1 step + 2 steps
+        3. 2 steps + 1 step
 
 Constraints:
     * 1 <= n <= 45
@@ -33,11 +32,11 @@ Constraints:
 # Time Complexity: O(n^2)
 # Space Complexity: O(n)
 def climbStairsI(n: int) -> int:
-    # Base cases: 1 way to climb 1 or 0 stairs (either take 1 step, or do nothing)
+    # Base Case: Only 1 way to climb 1 or 0 stairs (either take 1 step, or do nothing)
     if n <= 1:
         return 1
 
-    # Recursively calculate number of ways by trying 1-step and 2-step moves
+    # Recursively calculate number of 1-step moves and 2-step moves
     return climbStairsI(n - 1) + climbStairsI(n - 2)
 
 
@@ -91,4 +90,4 @@ if __name__ == "__main__":
     for func in [climbStairsI, climbStairsII, climbStairsIII]:
         for n, expected in test_cases:
             result = func(n)
-            assert result == expected, f"{func.__name__}({n}) = {result}, expected {expected}"
+            assert result == expected
