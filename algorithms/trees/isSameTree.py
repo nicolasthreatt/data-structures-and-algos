@@ -1,5 +1,6 @@
 '''
-https://leetcode.com/problems/same-tree/
+Same Tree
+https://leetcode.com/problems/same-tree
 
 Given the roots of two binary trees p and q,
 write a function to check if they are the same or not.
@@ -8,20 +9,20 @@ Two binary trees are considered the same if they are structurally identical,
 and the nodes have the same value.
 
 Example 1:
-Input: p = [1,2,3], q = [1,2,3]
-Output: true
+    Input: p = [1,2,3], q = [1,2,3]
+    Output: true
 
 Example 2:
-Input: p = [1,2], q = [1,null,2]
-Output: false
+    Input: p = [1,2], q = [1,null,2]
+    Output: false
 
 Example 3:
-Input: p = [1,2,1], q = [1,1,2]
-Output: false
+    Input: p = [1,2,1], q = [1,1,2]
+    Output: false
 
 Constraints:
     * The number of nodes in both trees is in the range [0, 100].
-    * -104 <= Node.val <= 104
+    * -10^4 <= Node.val <= 10^4
 '''
 
 from typing import Optional
@@ -44,17 +45,12 @@ def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         return True
 
     # Now that it is known that p and q are BOTH not null:
-    #   - Check if p or q is null.
-    #       + This means one has finished travering before the other
-    #   - Check is p and q differ in values.
-    #       + This means the nodes are different
-    # For either scenario, return False (Base Case)
+    #   - Check if p or q is null, to see if one has finished travering before the other
+    #   - Check if p and q differ in values, to see if the nodes are different
+    #   - For either scenario above, return False (Base Case)
     if not p or not q or p.val != q.val:
         return False
 
     # Here it is known that p.val == q.val
     # Two trees can only be the same if their left and right subtrees are also the same
-    return (
-        isSameTree(p.left, q.left) and
-        isSameTree(p.right, q.right)
-    )
+    return bool(isSameTree(p.left, q.left) and isSameTree(p.right, q.right))
