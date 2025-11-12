@@ -31,7 +31,7 @@ package algorithms.dynamic_programming.one_dimensional;
 public class ClimbStairs {
 
     // Algorithm Used: Brute Force
-    // Time Complexity: O(n^2)
+    // Time Complexity: O(2^n)
     // Space Complexity: O(n)
     public int climbStairsI(int n) {
         // Base Case: Only 1 way to climb 0 or 1 stairs (either take 1 step, or do nothing)
@@ -46,7 +46,7 @@ public class ClimbStairs {
 
     // Algorithm Used: Depth First Seach
     // Time Complexity: O(2^n)
-    // Space Complexity: O(2^n)
+    // Space Complexity: O(n)
     private int dfs(int steps_remaining) {
         // Base Case 1: Reached top stair exactly
         if (steps_remaining == 0) {
@@ -63,7 +63,7 @@ public class ClimbStairs {
 
     // Algorithm Used: Decision Tree, Depth First Search
     // Time Complexity: O(2^n)
-    // Space Complexity: O(2^n)
+    // Space Complexity: O(n)
     public int climbStairsII(int n) {
         return dfs(n);
     }
@@ -89,7 +89,7 @@ public class ClimbStairs {
             // If one step below, then can move either 1 or 2 steps up
             one_step_moves = one_step_moves + two_step_moves;
 
-            // Update two_steps_Away to represent the enxt lower position
+            // Update two_step_moves to represent the next lower position
             two_step_moves = tmp;
         }
 

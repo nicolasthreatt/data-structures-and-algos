@@ -29,7 +29,7 @@ Constraints:
 
 
 # Algorithms Used: Brute Force
-# Time Complexity: O(n^2)
+# Time Complexity: O(2^n)
 # Space Complexity: O(n)
 def climbStairsI(n: int) -> int:
     # Base Case: Only 1 way to climb 1 or 0 stairs (either take 1 step, or do nothing)
@@ -42,7 +42,7 @@ def climbStairsI(n: int) -> int:
 
 # Algorithms Used: Decision Tree, Depth First Search
 # Time Complexity: O(2^n)
-# Space Complexity: O(2^n)
+# Space Complexity: O(n)
 def climbStairsII(n: int) -> int:
     def dfs(steps_remaining: int) -> int:
         # Base Case 1: Reached the top exactly
@@ -67,7 +67,6 @@ def climbStairsIII(n: int) -> int:
     if n <= 1:
         return 1
 
-    # Base case: 1 way to climb 1 or 0 stairs (either take 1 step, or do nothing)
     one_step_away, two_steps_away = 1, 1
 
     # Starting from the 2nd-to-last stair, build up the number of ways to climb to the top
