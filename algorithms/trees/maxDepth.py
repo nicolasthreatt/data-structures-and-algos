@@ -1,4 +1,5 @@
 '''
+Maximum Depth of Binary Tree
 https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
 Given the root of a binary tree, return its maximum depth.
@@ -7,12 +8,12 @@ A binary tree's maximum depth is the number of nodes along
 the longest path from the root node down to the farthest leaf node.
 
 Example 1:
-Input: root = [3,9,20,null,null,15,7]
-Output: 3
+    Input: root = [3,9,20,null,null,15,7]
+    Output: 3
 
 Example 2:
-Input: root = [1,null,2]
-Output: 2
+    Input: root = [1,null,2]
+    Output: 2
 
 Constraints:
     * The number of nodes in the tree is in the range [0, 104].
@@ -47,8 +48,8 @@ def maxDepthI(root: Optional[TreeNode]) -> int:
     if not root:
         return 0
 
-    # Breath-First Search
-    # Initialize a queue (FIFO) to hold the current nodes at each level
+    # Breath-First Search:
+    # Initialize a queue (FIFO) to hold current nodes at each level
     # Iterate while the queue is non-empty
     # For the length of the queue size, pop the least recent node from the queue (FIFO):
     #   - If a node exists, add it to the level and append the node's left and right child to the queue
@@ -79,14 +80,14 @@ def maxDepthII(root: Optional[TreeNode]) -> int:
         return 0
     
     # Set the initial maximum depth to be 1
-    max_depth = 1
+    max_depth = 0
 
     # Create a stack to store the nodes when performing pre-order traversal
     # stack = [[node, depth]]
-    stack = [[root, max_depth]]
+    stack = [[root, 1]]
 
     # Iterate while the stack is not empty
-    #   - For reach iteration pop the last item inserted into the stack, which
+    #   - For each iteration pop the last item inserted into the stack, which
     #     will contain a node and its depth within the tree
     #   - If the node exist, recompute the maximum depth and add its childen to the stack
     # NOTE: root is originally in stack
