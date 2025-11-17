@@ -3,39 +3,38 @@ Department Top Three Salaries
 https://leetcode.com/problems/department-top-three-salaries/
 
 Table: Employee
-+--------------+---------+
-| Column Name  | Type    |
-+--------------+---------+
-| id           | int     |
-| name         | varchar |
-| salary       | int     |
-| departmentId | int     |
-+--------------+---------+
+    +--------------+---------+
+    | Column Name  | Type    |
+    +--------------+---------+
+    | id           | int     |
+    | name         | varchar |
+    | salary       | int     |
+    | departmentId | int     |
+    +--------------+---------+
 - id is the primary key (column with unique values) for this table.
 - departmentId is a foreign key (reference column) of the ID from the Department table.
 - Each row of this table indicates the ID, name, and salary of an employee.
   It also contains the ID of their department.
- 
 
 Table: Department
-+-------------+---------+
-| Column Name | Type    |
-+-------------+---------+
-| id          | int     |
-| name        | varchar |
-+-------------+---------+
+    +-------------+---------+
+    | Column Name | Type    |
+    +-------------+---------+
+    | id          | int     |
+    | name        | varchar |
+    +-------------+---------+
 - id is the primary key (column with unique values) for this table.
 - Each row of this table indicates the ID of a department and its name.
  
-A company's executives are interested in seeing who earns the most money in each of the company's departments.
-A high earner in a department is an employee who has a salary in the top three unique salaries for that department.
+A company's executives are interested in seeing
+who earns the most money in each of the company's departments.
+
+A high earner in a department is an employee
+who has a salary in the top three unique salaries for that department.
 
 Write a solution to find the employees who are high earners in each of the departments.
 
-Return the result table in any order.
-
-Example 1:
-    Input: 
+Input: 
     Employee table:
     +----+-------+--------+--------------+
     | id | name  | salary | departmentId |
@@ -56,7 +55,7 @@ Example 1:
     | 2  | Sales |
     +----+-------+
 
-    Output: 
+Output: 
     +------------+----------+--------+
     | Department | Employee | Salary |
     +------------+----------+--------+
@@ -68,16 +67,15 @@ Example 1:
     | Sales      | Sam      | 60000  |
     +------------+----------+--------+
 
-    Explanation: 
-        In the IT department:
-            + Max earns the highest unique salary
-            + Both Randy and Joe earn the second-highest unique salary
-            + Will earns the third-highest unique salary
-        In the Sales department:
-            + Henry earns the highest salary
-            + Sam earns the second-highest salary
-            + There is no third-highest salary as there are only two employees
- 
+Explanation: 
+    - In the IT department:
+        + Max earns the highest unique salary
+        + Both Randy and Joe earn the second-highest unique salary
+        + Will earns the third-highest unique salary
+    - In the Sales department:
+        + Henry earns the highest salary
+        + Sam earns the second-highest salary
+        + There is no third-highest salary as there are only two employees
 
 Constraints:
     * There are no employees with the exact same name, salary and department.
@@ -97,4 +95,4 @@ WHERE (
     SELECT COUNT(DISTINCT E2.salary)
     FROM Employee E2
     WHERE E2.salary > E1.salary AND E2.departmentId = E1.departmentId
-) < 3
+) < 3;
