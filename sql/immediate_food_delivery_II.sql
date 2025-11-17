@@ -58,9 +58,7 @@ FROM (
     SELECT
         customer_id,
         CASE
-            WHEN DATEDIFF(DAY, MIN(order_date), MIN(customer_pref_delivery_date)) = 0
-                THEN 1
-            ELSE 0
+            WHEN DATEDIFF(DAY, MIN(order_date), MIN(customer_pref_delivery_date)) = 0 THEN 1 ELSE 0
         END AS orders
     FROM Delivery
     GROUP BY customer_id
