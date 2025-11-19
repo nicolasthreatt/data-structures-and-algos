@@ -51,8 +51,6 @@ def maxProfitI(prices: List[int]) -> int:
     return max_profit
 
 
-
-
 # Algorithm Used: Kadane, Two Pointers
 # Time Complexity: O(n)
 # Space Complexity: O(1)
