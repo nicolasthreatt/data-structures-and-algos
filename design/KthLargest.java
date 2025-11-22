@@ -53,12 +53,12 @@ public class KthLargest {
     
     public int add(int val) {
         // Add to heap if under k items or val exceeds current kth-largest
-        // NOTE: minHeap.peek() = Only Retrieves head of queue
+        // NOTE: poll() = Removes AND Retrieves head of queue
         if (minHeap.size() < k || minHeap.poll() < val) {
             minHeap.add(val);
             if (minHeap.size() > k) minHeap.remove(); // If heap became too large, remove top element
         }
 
-        return minHeap.peek();
+        return minHeap.peek(); // NOTE: peek() = Only Retrieves head of queue
     }
 }
