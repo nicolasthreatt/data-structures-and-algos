@@ -1,44 +1,61 @@
 """
+Contains Duplicate
 https://leetcode.com/problems/contains-duplicate/
 
 Given an integer array nums, return true if any value appears at least twice in the array,
 and return false if every element is distinct.
 
 Example 1:
-Input: nums = [1,2,3,1]
-Output: true
+    Input: nums = [1,2,3,1]
+    Output: true
 
 Example 2:
-Input: nums = [1,2,3,4]
-Output: false
+    Input: nums = [1,2,3,4]
+    Output: false
 
 Example 3:
-Input: nums = [1,1,1,3,3,4,3,2,4,2]
-Output: true
+    Input: nums = [1,1,1,3,3,4,3,2,4,2]
+    Output: true
 
 Constraints:
-1 <= nums.length <= 105
--109 <= nums[i] <= 109
+    * 1 <= nums.length <= 10^5
+    * -10^9 <= nums[i] <= 10^9
 """
 
 from typing import List
 
 
-# Time Complexity O(n)
+# Algorithm(s) Used: Hash Map
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 def containsDuplicate(self, nums: List[int]) -> bool:
-    # Create a set for the elements 
-    hashset = set()
+    seen = set()
 
-    # Loop through list ONCE
     for n in nums:
 
-        # Check to see if number is in hash set
-        # This means there is a duplicate
-        if n in hashset:
+        # Check to see if number is in hash set, indicating a duplicate.
+        if n in seen:
             return True
 
         # Add number to hash set if NOT in hash set
-        hashset.add(n)
+        seen.add(n)
 
-    # Return False is there are no duplicates
     return False
+
+
+if __name__ == "__main__":
+    test_cases = [
+        ([1, 2, 3, 1], True),
+        ([1, 2, 3, 4], False),
+        ([1, 1, 1, 3, 3, 4, 3, 2, 4, 2], True),
+        ([0], False),
+        ([5, 5], True),
+        ([-1, -1], True),
+        ([10, 20, 30], False),
+    ]
+
+    funcs = [containsDuplicate]
+
+    for func in funcs:
+        for nums, expected in test_cases:
+            assert func(None, nums) == expected
