@@ -1,4 +1,5 @@
 """"
+Valid Anagram
 https://leetcode.com/problems/valid-anagram/
 
 Given two strings s and t, return true if t is an anagram of s, and false otherwise.
@@ -7,55 +8,95 @@ An Anagram is a word or phrase formed by rearranging the letters of a different 
 typically using all the original letters exactly once.
 
 Example 1:
-Input: s = "anagram", t = "nagaram"
-Output: true
+    Input: s = "anagram", t = "nagaram"
+    Output: true
 
 Example 2:
-Input: s = "rat", t = "car"
-Output: false
+    Input: s = "rat", t = "car"
+    Output: false
 
 Constraints:
     * 1 <= s.length, t.length <= 5 * 104
     * s and t consist of lowercase English letters.
 
-Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
+Follow up:
+    * What if the inputs contain Unicode characters?
+    * How would you adapt your solution to such a case?
 """
 
 
-# Time Complexity: O(n) = O(s + t)
-# Memory Complexity: O(n) = O(s + t)
+# Algorithm(s) Used: Sorting
+# Time Complexity: O(nlogn)
+# Space Complexity: O(1)
 def isAnagramI(s: str, t: str) -> bool:
-    # Check to see if the two strings are equal length first
+    return sorted(s) == sorted(t)
+
+
+# Algorithm(s) Used: Counter
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def isAnagramII(s: str, t: str) -> bool:
+    from collections import Counter
+
+    return Counter(s) == Counter(t)
+
+
+# Algorithm(s) Used: Two Passes, Hash Map
+# Time Complexity: O(n) = O(s)
+# Space Complexity: O(n) = O(s + t)
+def isAnagramIII(s: str, t: str) -> bool:
     if len(s)!= len(t):
         return False
 
-    # Create a hash map for each input string
-    hashS, hashT = {}, {}
+    seenS, seenT = {}, {}
 
-    # Index through both strings and store their values in seperate hash maps
     for i in range(len(s)):
-        # Count the number of occurances a key is in the hash map
-        hashS[s[i]] = hashS.get(s[i], 0) + 1
-        hashT[t[i]] = hashT.get(t[i], 0) + 1
+        seenS[s[i]] = seenS.get(s[i], 0) + 1
+        seenT[t[i]] = seenT.get(t[i], 0) + 1
 
-    # Iterate through one of the hash maps and see if the values are equal for each given key
-    for c in hashS:
-        # Check if the hash map values for a given key is not the same for the two hash maps
-        if hashS[c] != hashT.get(c, 0):
+    for c in seenS:
+        if seenS[c] != seenT.get(c, 0):
             return False
 
     return True
 
 
-# Time Complexity: O(s + t)
-# Memory Complexity: O(1)
-def isAnagramII(s: str, t: str) -> bool:
-    return sorted(s) == sorted(t)
+# Algorithm(s) Used: Two Passes, Hash Map
+# Time Complexity: O(n) = O(s)
+# Space Complexity: O(n)
+def isAnagramIV(s: str, t: str) -> bool:
+    if len(s) != len(t):
+        return False
+
+    mapper = {}
+
+    for i in range(len(s)):
+        mapper[s[i]] = mapper.get(s[i], 0) + 1
+
+    for i in range(len(t)):
+        mapper[t[i]] = mapper.get(t[i], 0) - 1
+
+    return all([x == 0 for x in mapper.values()])
 
 
-# Time Complexity: O(n)
-# Memory Complexity: O(1)
-def isAnagramIII(s: str, t: str) -> bool:
-    from collections import Counter
+if __name__ == "__main__":
+    test_cases = [
+        ("anagram", "nagaram", True),
+        ("rat", "car", False),
+        ("a", "a", True),
+        ("ab", "ba", True),
+        ("abc", "ab", False),
+        ("aa", "bb", False),
+        ("listen", "silent", True),
+    ]
 
-    return Counter(s) == Counter(t)
+    funcs = [
+        isAnagramI,
+        isAnagramII,
+        isAnagramIII,
+        isAnagramIV
+    ]
+
+    for func in funcs:
+        for s, t, expected in test_cases:
+            assert func(s, t) == expected
