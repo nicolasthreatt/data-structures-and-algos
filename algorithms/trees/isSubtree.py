@@ -1,4 +1,5 @@
-'''
+"""
+Subtree of Another Tree
 https://leetcode.com/problems/subtree-of-another-tree/
 
 Given the roots of two binary trees root and subRoot, return true if there is a subtree of root
@@ -8,19 +9,19 @@ A subtree of a binary tree tree is a tree that consists of a node in tree and al
 The tree tree could also be considered as a subtree of itself.
 
 Example 1:
-Input: root = [3,4,5,1,2], subRoot = [4,1,2]
-Output: true
+    Input: root = [3,4,5,1,2], subRoot = [4,1,2]
+    Output: true
 
 Example 2:
-Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
-Output: false
+    Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
+    Output: false
 
 Constraints:
     * The number of nodes in the root tree is in the range [1, 2000].
     * The number of nodes in the subRoot tree is in the range [1, 1000].
     * -10^4 <= root.val <= 10^4
     * -10^4 <= subRoot.val <= 10^4
-'''
+"""
 
 from typing import Optional
 
@@ -33,7 +34,21 @@ class TreeNode:
         self.right = right
 
 
-# Algorithm Used: Recursion
+# Helper function to see if a tree contains a specific subtree
+def isSameTree(root: Optional[TreeNode], subRoot: Optional[TreeNode]):
+    if not root and not subRoot:
+        return True
+
+    if root and subRoot and root.val == subRoot.val:
+        return (
+            isSameTree(root.left, subRoot.left) and
+            isSameTree(root.right, subRoot.right)
+        )
+
+    return False
+
+
+# Algorithm Used: Depth First Search, Recursion
 # Time Complexity: O(root * subRoot)
 # Space Complexity: O(1)
 def isSubtree(root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
@@ -61,15 +76,42 @@ def isSubtree(root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
     )
 
 
-# Helper function to see if a tree contains a specific subtree
-def isSameTree(root: Optional[TreeNode], subRoot: Optional[TreeNode]):
-    if not root and not subRoot:
-        return True
+if __name__ == "__main__":
+    def build_first_root():
+        # root = [3,4,5,1,2], subRoot = [4,1,2]
+        root = TreeNode(3)
+        root.left = TreeNode(4)
+        root.right = TreeNode(5)
+        root.left.left = TreeNode(1)
+        root.left.right = TreeNode(2)
+        return root
 
-    if root and subRoot and root.val == subRoot.val:
-        return (
-            isSameTree(root.left, subRoot.left) and
-            isSameTree(root.right, subRoot.right)
-        )
+    def build_first_subroot():
+        sub = TreeNode(4)
+        sub.left = TreeNode(1)
+        sub.right = TreeNode(2)
+        return sub
 
-    return False
+    r1 = build_first_root()
+    s1 = build_first_subroot()
+    assert isSubtree(r1, s1) == True
+
+    def build_second_root():
+        # root = [3,4,5,1,2,null,null,null,null,0]
+        root = TreeNode(3)
+        root.left = TreeNode(4)
+        root.right = TreeNode(5)
+        root.left.left = TreeNode(1)
+        root.left.right = TreeNode(2)
+        root.left.right.left = TreeNode(0)
+        return root
+
+    def build_second_subroot():
+        sub = TreeNode(4)
+        sub.left = TreeNode(1)
+        sub.right = TreeNode(2)
+        return sub
+
+    r2 = build_second_root()
+    s2 = build_second_subroot()
+    assert isSubtree(r2, s2) == False
