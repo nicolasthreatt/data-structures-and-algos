@@ -1,7 +1,235 @@
+Tree Algorithms
+
+
 Binary Trees
+    + Overview:
+        * Binary Tree which each node has at most two childeren (left and right)
+        * Used to implement dynamic sets, associative arrays, and perform efficient searching
+        * Binary Search Trees (BST):
+            > Value of the node's left subtree is less than the value
+            > Value of the node's right subtree is greater than the value
+    + Sample Code:
+        class TreeNode:
+            def __init__(self, val=0, left=None, right=None):
+                self.val = val
+                self.left = left
+                self.right = right
 
-Binary Search Trees
 
-Pre-Order Traversal
+Insert Node
+    + Overview:
+        * Recursively traverse down the tree
+        *   > If the traversed value is less than key, keep traversing left
+        *   > If the traversed value is greater than key, keep traversing right
+        * Tranversing when end when there is no child node
+    + Time Complexity: O(h), where h is the height of tree
+    + Sample Code:
+        def insert_node_bst(root: Optional[TreeNode], k: int) -> Optional[TreeNode]:
+            if root is None:
+                return Node(k)
+            if k < root.val:
+                root.left = insert_node_bst(root.left, k)
+            else:
+                root.right = insert_node_bst(root.right, k)
+            return root
 
-In-
+
+Delete Node
+    + Overview:
+        * Recursively traverse down the tree
+            > If the traversed value is less than key, keep traversing left
+            > If the traversed value is greater than key, keep traversing right
+        * Delete node with the minimum value from the right child subtree
+    + Time Complexity: O(h), where h is the height of tree
+    + Sample Code:
+        def delete_node_bst(root: Optional[TreeNode], k: int) -> Optional[TreeNode]:
+            if root is None:
+                return Node(k)
+            if k < root.val:
+                root.left = delete_node_bst(root.left, k)
+            elif k > root.val:
+                root.right = delete_node_bst(root.right, k)
+            else: # key == root.val
+                if not root.left:
+                    return root.right
+                elif not root.right:
+                    return root.left
+                curr = root.right
+                while curr.left:  # Find minimum val from right subtree
+                    curr = curr.left
+                root.val = curr.val
+                root.right = delete_node_bst(root.right, root.val)
+            return root
+
+
+Breath First Search (BFS)
+    + Overview:
+        * Searches tree or graph level by level (top-down)
+            > Visiting all nodes at the current depth before moving onto the next level
+        * Typically implemented using a queue to keep track of nodes to visit
+        * Useful for finding shortest path in trees or unweighted graphs or exploring nodes
+          in the order of their distance from the root.
+        * Queue (FIFO)
+    + Time Complexity: O(h), where h is the height of tree
+    + Example Problems:
+        * Find the minimum depth of a binary tree
+        * Clone a graph
+        * Find the shortest path in a binary matrix
+        * Word ladder (transform one word to another by changing one letter at a time)
+    + Sample Code:
+        def bfs_queue(root: Optional[TreeNode]):
+            queue = []   # FIFO
+            queue.append(root)
+            while queue:
+                n = len(queue)
+                for _ in range(n):
+                    node = queue.pop(0)
+                    if node.left:
+                        queue.append(node.left)
+                    if node.right:
+                        queue.append(node.right)
+
+
+Depth First Search (DFS)
+    + Overview:
+        * Searchs bottom-up
+        * Explores as far as possible down one path before backtracking
+        * Can be implemented recursively or using a stack
+        * Great for problems that involve:
+            > Backtracking
+            > Exploring all combinations
+            > Checking connectivity
+    + Time Complexity:
+        * O(h), where h is the height of tree
+    + Example Problems:
+        * Path Sum in a binary tree
+        * Check if a binary tree is a valid binary search tree.
+        * Find all root-to-leaf paths that sum to a target value.
+        * Compute the maximum depth of a binary tree.
+        * Find the lowest common ancestor of two nodes in a binary tree.
+
+
+Depth First Search (DFS) - Pre-Order Traversal
+    + Overview:
+        * Node -> Left -> Right
+    + Time Complexity:
+        O(n), where n is the number of nodes
+    + Sample Code (Iterative):
+        def dfs_preorder_iterative(root: Optional[TreeNode], val: List):
+            if not root: return []
+            stack = [root]
+            while stack:
+                node = stack.pop()
+                val.append(node.val)
+                if node.right:
+                    stack.append(node.right)
+                if node.left:
+                    stack.append(node.left)
+    + Sample Code (Recursive):
+        def dfs_preorder_recursive(node: Optional[TreeNode], val: List):
+            if not node: return
+            val.append(node)
+            dfs_preorder(node.left)
+            dfs_preorder(node.right)
+
+
+Depth First Search (DFS) - Post-Order Traversal
+    + Overview:
+        * Left -> Right -> Node
+    + Time Complexity:
+        O(n), where n is the number of nodes
+    + Sample Code (Iterative):
+        def dfs_postorder_iterative(Optional[node]) -> List:
+            nodes = []
+            stack = [(root, False)]
+            while stack:
+                current, visited = stack.pop()
+                if current:
+                    if visited:
+                        nodes.append(current.val)
+                    else:
+                        stack.append((current, True))
+                        stack.append((current.right, False))
+                        stack.append((current.left, False))
+            return nodes
+    + Sample Code (Recursive):
+        def dfs_postorder_recursive(node: Optional[TreeNode], val: List):
+            if not node: []
+            dfs_postorder(node.left)
+            dfs_postorder(node.right)
+            val.append(node)
+
+
+Depth First Search (DFS) - Inorder Traversal
+    + Overview:
+        * Left -> Node -> Right
+        * Recursive
+        * Iterative
+            > Stack (LIFO)
+    + Time Complexity:
+        O(n), where n is the number of nodes
+    + Sample Code (Iterative):
+        def dfs_inorder_iterative(node: TreeNode) -> List:
+            nodes = []
+            stack = []
+            current = root
+            while current or stack:
+                while current:
+                    stack.append(current)
+                    current = current.left
+                current = stack.pop()
+                nodes.append(current.val)
+                current = current.right
+            return nodes
+    + Sample Code (Recursive):
+        def dfs_inorder_recursive(node: Optional[TreeNode], val: List):
+            if not node: return
+            dfs_inorder(node.left)
+            val.append(node)
+            dfs_inorder(node.right)
+
+
+Tree Diameter (Longest Path in a Tree)
+    + Overview:
+        * Longest path between any two nodes in a tree
+        * Path may or may not pass through the root
+        * Use DFS to compute left_height and right_height at each node
+        * Diameter = max(diameter, left_height + right_height)
+    + Time Complexity:
+        O(n), where n is the number of nodes
+    + Sample Code:
+        def __init(self):
+            self.diameter = 0
+        def tree_diameter_recursive(root: Optional[TreeNode]) -> int:
+            def dfs(node):
+                if not node:
+                    return 0
+                left = dfs(node.left)
+                right = dfs(node.right)
+                self.diameter = max(self.diameter, left + right)
+                return 1 + max(left, right)
+            dfs(root)
+            return self.diameter
+
+
+Lowest Common Ancestor (LCA) in a Binary Tree
+    + Overview:
+        * Lowest (deepest) node that has both nodes `p` and `q` as descendants
+        * Works on any binary tree (not just BST)
+            > If root is None, return None
+            > If root is p or q, return root
+            > Search let and right
+            > If both left and right return a value, root is LCA 
+    + Time Complexity:
+        O(n), where n is the number of nodes
+    + Sample Code:
+        def lowest_common_ancestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+            if not root:
+                return root
+            if root in [p, q]:
+                return root
+            left = lowest_common_ancestor(root.left, p, q)
+            right = lowest_common_ancestor(root.right, p, q)
+            if left and right:
+                return root
+            return left if left else right

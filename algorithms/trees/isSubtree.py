@@ -69,7 +69,7 @@ def isSubtree(root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
     if isSameTree(root, subRoot):
         return True
 
-    # Recurisvely check if the left or right trees contains the specified subtree. (Iterative Case)
+    # Recurisvely check if the left or right trees contains the specified subtree
     return (
         isSubtree(root.left, subRoot) or
         isSubtree(root.right, subRoot)
