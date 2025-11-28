@@ -1,4 +1,4 @@
-"""
+/*
 Clone Graph
 https://leetcode.com/problems/clone-graph/
 
@@ -47,41 +47,55 @@ Constraints:
     * Node.val is unique for each node.
     * There are no repeated edges and no self-loops in the graph.
     * The Graph is connected and all copies can be visited starting from the given node.
-"""
+*/
+package algorithms.graph;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-# Definition for a Node.
-class Node:
-    def __init__(self, val=0, neighbors=None):
-        self.val = val
-        self.neighbors = neighbors if neighbors is not None else []
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node() {
+        val = 0;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val, ArrayList<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+}
 
+// Algorithm(s) Used: Graph, Depth First Search, Map
+// Time Complexity: O(V + E)
+// Space Complexity: O(V)
+public class CloneGraph {
+    private HashMap<Node, Node> copies = new HashMap<>();
 
-# Algorithm Used: Graph, Depth First Search, Hashmap
-# Time Complexity: O(n), where n is the number of copies + edges in the graph
-# Space Complexity: O(n), where n is the number of copies + edges in the graph
-def cloneGraph(node: Node) -> Node:
-    copies = {} # {old_node: new_node}
+    public Node cloneGraph(Node node) {
+        // Base Case - No Node
+        if (node == null) return null;
 
-    def clone(node: Node) -> Node:
-        # Base Case - No Node
-        if not node:
-            return None
+        // Base Case - Node Has Already Been Copied
+        if (copies.containsKey(node)) return copies.get(node);
 
-        # Base Case - Node Has Already Been Copied
-        if node in copies:
-            return copies[node]
+        // Now it's known that a copy of the node does not exist
+        // Create copy of node then add it to the old to new copies map
+        Node copy = new Node(node.val);
+        copies.put(node, copy);
 
-        # Now it's known that a copy of the node does not exist
-        # Create copy of node then add it to the old to new copies map
-        copy = Node(node.val)
-        copies[node] = copy
+        // Recursively clone all the neighbors of the current node
+        for (Node neighbor : node.neighbors) {
+            copy.neighbors.add(cloneGraph(neighbor));
+        }
 
-        # Recursively clone all the neighbors of the current node.
-        for neighbor in node.neighbors:
-            copy.neighbors.append(clone(neighbor))
-
-        # Return the copy of the node after all its neighbors have been cloned.
-        return copy
-
-    return clone(node)
+        return copy;
+    }
+    
+}
