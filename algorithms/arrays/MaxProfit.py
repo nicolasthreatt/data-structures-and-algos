@@ -28,47 +28,70 @@ Constraints:
     1 <= prices.length <= 10^5
     0 <= prices[i] <= 10^4
 """
+
 from typing import List
 
 
-# Algorithm Used: Kadane, Two Pointers
-# Time Complexity: O(n)
-# Space Complexity: O(1)
-def maxProfitI(prices: List[int]) -> int:
-    l, r = 0, 1 # left=buy day, right=sell day
-    max_profit = 0
+class MaxProfit:
 
-    # Apply Sliding Window Algorithm
-    while r < len(prices):
-        # Check to see if current window is profitable
-        if prices[l] < prices[r]:
-            profit = prices[r] - prices[l]
-            max_profit = max(max_profit, profit)
-        # Shift left pointer to right if the sell prices is lower than the buy price
-        else:
-            l = r
-        r += 1
-    return max_profit
+    # Algorithm Used: Sliding Window, Two Pointers
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def maxProfitI(self, prices: List[int]) -> int:
+        max_profit = 0
+
+        l = 0
+        for r in range(1, len(prices)):
+            buy = prices[l]
+            sell = prices[r]
+            if buy < sell:
+                profit = sell - buy
+                max_profit = max(max_profit, profit)
+            else:
+                l = r
+
+        return max_profit
 
 
-# Algorithm Used: Kadane, Two Pointers
-# Time Complexity: O(n)
-# Space Complexity: O(1)
-def maxProfitII(prices: List[int]) -> int:
-    if (len(prices) <= 1):
-        return 0
-    
-    max_profit = 0
+    # Algorithm Used: Greedy
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def maxProfitII(self, prices: List[int]) -> int:
+        if (len(prices) <= 1):
+            return 0
 
-    buy = prices[0]
-    for i in range(len(prices)):
-        max_profit = max(max_profit, prices[i] - buy)
-        buy = min(buy, prices[i])
-    
-    return max_profit
+        sell = 0
+        buy = prices[0]
+
+        for i in range(len(prices)):
+            price = prices[i]
+            sell = max(sell, price - buy)
+
+            buy = min(buy, price)
+
+        return sell
+
+
+    # Algorithm Used: Dynammic Programming (1-D)
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def maxProfitIII(self, prices: List[int]) -> int:
+        if len(prices) == 1:
+            return 0
+
+        sell = 0
+        buy = -prices[0]
+
+        for price in prices[1:]:
+            sell = max(sell, price + buy)
+            buy = max(buy, -price)
+
+        return sell
 
 
 if __name__ == "__main__":
+    Solution = MaxProfit()
+
     test_cases = [
         ([7,1,5,3,6,4], 5),
         ([7,6,4,3,1], 0),
@@ -83,7 +106,7 @@ if __name__ == "__main__":
         ([6,1,3,2,8,4], 7),
     ]
 
-    for func in [maxProfitI, maxProfitII]:
+    for func in [Solution.maxProfitI, Solution.maxProfitII, Solution.maxProfitIII]:
         for prices, expected in test_cases:
             result = func(prices)
             assert result == expected

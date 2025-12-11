@@ -30,7 +30,7 @@ Constraints:
 */
 package algorithms.arrays;
 
-public class maxProfit {
+public class MaxProfit {
 
     // Algorithm(s) Used: Kadane, Two Pointers
     // Time Complexity: O(n)
@@ -50,21 +50,42 @@ public class maxProfit {
         return max_profit;
     }
 
-    // Algorithm(s) Used: Kadane, Two Pointers
+    // Algorithm(s) Used: Greedy
     // Time Complexity: O(n)
     // Space Complexity: O(1)
     public int maxProfitII(int[] prices) {
         if (prices.length <= 1) return 0;
 
-        int max_profit = 0;
-
+        int sell = 0;
         int buy = prices[0];
+
         for (int i = 1; i < prices.length; i++) {
-            max_profit = Math.max(max_profit, prices[i] - buy);
-            buy = Math.min(buy, prices[i]);
+            int price = prices[i];
+
+            sell = Math.max(sell, price - buy);
+            buy = Math.min(buy, price);
         }
 
-        return max_profit;
+        return sell;
     }
-    
+
+    // Algorithm(s) Used: Dynammic Programming (1-D)
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+    public int maxProfitIII(int[] prices) {
+        if (prices.length <= 1) return 0;
+
+        int sell = 0;
+        int buy = -prices[0];
+
+        for (int i = 1; i < prices.length; i += 1) {
+            int price = prices[1];
+
+            int profit = price + buy;
+            sell = Math.max(sell, profit);
+            buy = Math.max(buy, -price);
+        }
+
+        return sell;
+    }   
 }
