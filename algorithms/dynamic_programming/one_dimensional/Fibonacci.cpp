@@ -29,50 +29,51 @@ Example 3:
 Constraints:
     * 0 <= n <= 30
 */
-package algorithms.dynamic_programming.one_dimensional;
 
-import java.util.HashMap;
+#include <iostream>
+#include <cassert>
+#include <vector>
 
-public class Fibonacci {
+using namespace std;
 
-    private HashMap<Integer, Integer> memo = new HashMap<>();
+class Fibonacci {
+private:
+    unordered_map<int, int> memo = {};
 
-    // Algorithm(s) Used: Recursion
+public:
+
+    // Algorithm(s) Used: Recursiion
     // Time Complexity: O(2^n)
     // Space Complexity: O(n)
-    public int fibonacciI(int n) {
+    int fibonacciI(int n) {
         if (n <= 1) return n;
 
         return fibonacciI(n - 1) + fibonacciI(n - 2);
     }
 
-    // Algorithm(s) Used: Recursion, Memoization
+    // Algorithm(s) Used: Recursiion, Memoization
     // Time Complexity: O(n)
     // Space Complexity: O(n)
-    public int fibonacciII(int n) {
+    int fibonacciII(int n) {
         if (n <= 1) return n;
-        if (memo.containsKey(n)) return memo.get(n);
+        if (memo.contains(n)) return memo[n];
 
-        int fib = fibonacciII(n - 1) + fibonacciI(n - 2);
+        int fib = fibonacciII(n - 1) + fibonacciII(n - 2);
 
-        memo.put(n, fib);
+        memo[n] = fib;
         return fib;
     }
 
     // Algorithm(s) Used: Dynamic Programming (1-D), Bottom-Up
     // Time Complexity: O(n)
     // Space Complexity: O(n)
-    public int fibonacciIII(int n) {
+    int fibonacciIII(int n) {
         if (n <= 1) return n;
 
-        int[] fib = new int[n];
-
-        for (int i = 0; i < n + 1; i++) {
-            if (i <= 1) {
-                fib[i] = 0;
-            } else {
-                fib[i] = fib[i - 1] + fib[i - 2];
-            }
+        vector<int> fib = {0, 1};  // memo
+        
+        for (int i = 2; i < n + 1; i++) {
+            fib.push_back(fib.at(i - 1) + fib.at(i - 2));
         }
 
         return fib[n];
@@ -81,10 +82,10 @@ public class Fibonacci {
     // Algorithm(s) Used: Dynamic Programming (1-D), Bottom-Up
     // Time Complexity: O(n)
     // Space Complexity: O(1)
-    public int fibonacciIV(int n) {
+    int fibonacciIV(int n) {
         if (n <= 1) return n;
 
-        int prev = 0, curr = 0;
+        int prev = 0, curr = 1;
 
         for (int i = 2; i < n + 1; i++) {
             int tmp = prev;
@@ -94,4 +95,39 @@ public class Fibonacci {
 
         return curr;
     }
+};
+
+int main() {
+    Fibonacci Solution;
+
+    vector<pair<int, int>> test_cases = {
+        {0, 0},
+        {1, 1},
+        {2, 1},
+        {3, 2},
+        {4, 3},
+        {5, 5},
+        {6, 8},
+        {7, 13},
+        {10, 55},
+        {15, 610},
+        {20, 6765},
+        {30, 832040},
+    };
+
+    vector<int (Fibonacci::*)(int)> funcs = {
+        &Fibonacci::fibonacciI,
+        &Fibonacci::fibonacciII,
+        &Fibonacci::fibonacciIII,
+        &Fibonacci::fibonacciIV
+    };
+
+    for (auto func : funcs) {
+        for (auto [n, expected] : test_cases) {
+            int result = (Solution.*func)(n);
+            assert(result == expected);
+        }
+    }
+
+    return 0;
 }
