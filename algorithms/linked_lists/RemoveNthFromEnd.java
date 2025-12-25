@@ -59,7 +59,7 @@ public class RemoveNthFromEnd {
         // Base Case: If list is empty or has one node, return None
         if (head == null) return null;
 
-        // Find total length of the list
+        // Find total length of the list (1st Pass)
         int length = 0;
         ListNode curr = head;
         while (curr != null) {
@@ -70,7 +70,7 @@ public class RemoveNthFromEnd {
         // Remove first node if needed
         if (length == n) return head.next;
 
-        // Find node before the one to remove
+        // Find node before the one to remove (2nd Pass)
         curr = head;
         for (int i = 0; i < length - n - 1; i++) {
             curr = curr.next;
@@ -97,7 +97,7 @@ public class RemoveNthFromEnd {
             head = head.next;
         } else {
             ListNode curr = head;
-            for (int i = 0; i < n - 2; i++) { // n-2 because we stop one node before the one to remove
+            for (int i = 0; i < n - 2; i++) { // Stop one node before the one to remove
                 curr = curr.next;
             }
             curr.next = curr.next.next;
@@ -114,20 +114,19 @@ public class RemoveNthFromEnd {
         // Base Case: If list is empty or has one node, return None
         if (head == null) return null;
 
-        // Create dummy node
+        // Dummy node
         ListNode dummy = new ListNode(0);
         dummy.next = head;
 
-        // Initialize two pointers
+        // Two Pointers
         ListNode slow = dummy;
         ListNode fast = dummy;
 
-        // Move fast pointer n+1 steps ahead
+        // Move FAST n+1 steps ahead so SLOW ends up one node before the one to remove
         for (int i = 0; i < n + 1; i++) {
             fast = fast.next;
         }
 
-        // Move both pointers until fast reaches the end
         while (fast != null) {
             slow = slow.next;
             fast = fast.next;

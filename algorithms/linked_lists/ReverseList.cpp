@@ -24,6 +24,7 @@ Follow up:
     - A linked list can be reversed either iteratively or recursively.
     - Could you implement both?
 */
+
 #include <cassert>
 #include <vector>
 
@@ -38,42 +39,46 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-// Algorithm(s) Used: Recursion
-// Time Complexity: O(n)
-// Space Complexity: O(n)
-ListNode* reverseListI(ListNode* head) {
-    if (head == nullptr) return nullptr;
+class ReverseList {
+public:
 
-    ListNode *reverse = head;
+    // Algorithm(s) Used: Recursion
+    // Time Complexity: O(n)
+    // Space Complexity: O(n)
+    ListNode* reverseListI(ListNode* head) {
+        if (head == nullptr) return nullptr;
 
-    if (head->next != nullptr) {
-        reverse = reverseListI(head->next);
-        head->next->next = head;
-    }
-    head->next = nullptr; // End new reversed list 
+        ListNode *reverse = head;
 
-    return reverse;
-}
+        if (head->next != nullptr) {
+            reverse = reverseListI(head->next);
+            head->next->next = head; // Reverse pointer - Next node now points to current node
+        }
+        head->next = nullptr; // End new reversed list 
 
-// Algorithm(s) Used: Two Pointers
-// Time Complexity: O(n)
-// Space Complexity: O(1)
-ListNode* reverseListII(ListNode* head) {
-    if (head == nullptr) return nullptr;
-
-    ListNode *prev = nullptr;
-
-    while (head != nullptr) {
-        ListNode *tmp = head->next;
-
-        head->next = prev;
-        prev = head;
-
-        head = tmp;
+        return reverse;
     }
 
-    return prev;
-}
+    // Algorithm(s) Used: Two Pointers
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+    ListNode* reverseListII(ListNode* head) {
+        if (head == nullptr) return nullptr;
+
+        ListNode *prev = nullptr;
+
+        while (head != nullptr) {
+            ListNode *tmp = head->next;
+
+            head->next = prev;
+            prev = head;  // Reverse pointer - Next node now points to current node
+
+            head = tmp;
+        }
+
+        return prev;
+    }
+};
 
 // Helper to build linked list from vector
 ListNode* build_list(const vector<int>& values) {
@@ -108,7 +113,10 @@ void free_list(ListNode* head) {
 }
 
 int main() {
-    vector<pair<vector<int>, vector<int>>> test_cases = {
+    ReverseList Solution;
+
+    // (input list, expected reversed list)
+    vector<tuple<vector<int>, vector<int>>> test_cases = {
         {{1, 2, 3, 4, 5}, {5, 4, 3, 2, 1}},
         {{1, 2}, {2, 1}},
         {{}, {}},
@@ -116,12 +124,22 @@ int main() {
         {{3, 2, 0, -4}, {-4, 0, 2, 3}}
     };
 
-    for (auto func : {reverseListI, reverseListII}) {
-        for (auto& [input, expected] : test_cases) {
+    vector<ListNode* (ReverseList::*)(ListNode*)> funcs = {
+        &ReverseList::reverseListI,
+        &ReverseList::reverseListII
+    };
+
+    for (auto func : funcs) {
+        for (auto& tc : test_cases) {
+            vector<int> input, expected;
+            tie(input, expected) = tc;
+
             ListNode* head = build_list(input);
-            ListNode* reversed = func(head);
+            ListNode* reversed = (Solution.*func)(head);
+
             vector<int> output = list_to_vector(reversed);
             assert(output == expected);
+
             free_list(reversed);
         }
     }

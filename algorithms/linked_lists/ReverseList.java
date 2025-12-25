@@ -46,7 +46,7 @@ public class ReverseList {
         ListNode reverse = head;
         if (reverse.next != null) {
             reverse = reverseListI(head.next);
-            head.next.next = head;
+            head.next.next = head;  // Reverse pointer - Next node now points to current node
         }
         head.next = null; // End new reversed list 
 
@@ -65,7 +65,7 @@ public class ReverseList {
             ListNode tmp = head.next;
 
             head.next = prev;
-            prev = head;
+            prev = head;  // Reverse pointer - Next node now points to current node
 
             head = tmp;
         }
