@@ -51,7 +51,7 @@ class MinOperations:
                 needed = prev_num - nums[i] #+ 1
                 operations += needed  # Local Optimal Choice
             else:
-                prev_num = nums[i]
+                prev_num = nums[i]  # Update to keep increasing
 
         return operations
 
