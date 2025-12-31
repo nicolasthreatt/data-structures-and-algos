@@ -1,0 +1,69 @@
+/*
+Swapping Nodes in a Linked List
+https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+
+You are given the head of a linked list, and an integer k.
+
+Return the head of the linked list after swapping the values of the
+kth node from the beginning and the kth node from the end (the list is 1-indexed).
+
+Example 1:
+    Input: head = [1,2,3,4,5], k = 2
+    Output: [1,4,3,2,5]
+
+Example 2:
+    Input: head = [7,9,6,6,7,8,3,0,9,5], k = 5
+    Output: [7,9,6,6,8,7,3,0,9,5]
+
+Constraints:
+    * The number of nodes in the list is n.
+    * 1 <= k <= n <= 10^5
+    * 0 <= Node.val <= 100
+*/
+
+package algorithms.linked_lists;
+
+// Definition for singly-linked list.
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+public class SwapNodes {
+
+    // Algorithm(s) Used: Single Pass, Two Pointers
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+    public ListNode swapNodesI(ListNode head, int k) {
+        if (head.next == null) {
+            return head;
+        }
+
+        // Find the kth node to be removed from the START
+        ListNode curr = head;
+        for (int i = 1; i < k; ++i) {  // 1-indexed based
+            curr = curr.next;
+        }
+
+        // Set LEFT pointer at CURR to store kth node from the START
+        ListNode left = curr;
+
+        // Find the kth node to be removed from the END
+        // When loop terminates, RIGHT will be kth node from the END
+        ListNode right = head;
+        while (curr.next != null) {
+            curr = curr.next;
+            right = right.next;
+        }
+
+        // Swap values of the two pointer nodes
+        int tmp = left.val;
+        left.val = right.val;
+        right.val = tmp;
+
+        return head;
+    }
+}
