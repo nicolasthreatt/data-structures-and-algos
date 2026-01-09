@@ -1,0 +1,117 @@
+Dynamic Programming (DP) Notes
+
+- Introduction
+    + Dynamic Programming solves problems by breakingthem into OVERLAPPING SUBPROBLEMS
+    + Stores results of subproblems to avoid recomputation
+    + Primarily used for optimization and counting problems
+    + Prioritizes TIME over SPACE
+
+- Exaplanation
+    +  Dynamic Programming is based on two key properties:
+        1. Optimal Substructure - Optimal solution can be constructed from optimal solutions of subproblems
+        2. Overalapping Subproblems - Same subproblems are solved multiple times
+    + Solution are built either:
+        1. Top-Down (Memoization) - Recursion + Cache
+        2. Bottom-Up (Tabulation) - Iterative tablle filling
+
+- Common Use Cases
+    + Problems asking for:
+        1. Minimum/Maximum value
+        2. Number of ways
+        3. Boolean can/cannot
+    + Often appears when brute force or backtracking is too slow
+
+- Core Steps
+    + Define the STATE - What does dp[i] represent?
+    + Define the TRANSITION - How does one state relate to smaller states?
+    + Define BASE CASES
+    + Decide computation order
+
+- Example
+    + Coin Change (MINIMUM COINS)
+        * State: dp[x] = Minimum coins needed to make amount x
+        * Transtion: dp[x] = min(dp[x - coin] + 1)
+        * Base Case: dp[0] = 0
+    + Coin Change (NUMBER OF WAYS)
+        * State: dp[x] = Number of ways to form amount x
+        * Transition:
+        * Base Case: dp[0] = 0
+
+- Types of Dynamic Programming
+    1. One-Dimensional
+        + Climb Stairs
+        + House Robber
+        + Jump Game (DP Formulation)
+    2. Two-Dimensional
+        + Grid Path Problems
+        + Longest Common Subsequences (LCS)
+        + Edit Distance
+    3. Knapsack
+        + 0/1 Knapsack
+        + Subset Sum
+    4. Intervals
+        + Matrix Chain Multiplication
+        + Burst Ballons
+    5. Fibonacci Sequence
+
+- Time Complexity
+    + Usually O(#states * #transtions)
+    + Common Examples:
+        * O(n)
+        * O(n^2)
+        * O(n * capacity)
+
+- Space Complexity
+    + O(#states)
+    + Often reducible using space optimization
+
+- Pros
+    + Guarantees optimal solution
+    + Avoids redundant computation
+    + Highly systematic and reuseable approach
+    + Works when greedy fails
+
+- Cons
+    + Higher memory usage
+    + Harder to design and reason about
+    + State defintion can be tricky
+    + Inefficient if state space is larger
+
+- Dynamic Programming Triggers
+    + Maximum / Minimum / Best / Optimal
+    + How many ways
+    + Can you reach
+    + Is it possible
+    + Decisions at index i depends on previous indices
+    + Constraints allows (O^2) or similar
+    + Greedy feels tempting but unsure
+
+- Common Patterns
+    + Take / Not Take
+        * Knapsack
+        * House Robber
+    + Prefix-Based Decisions
+        * dp[i] depends on dp[i - 1], dp[i - 2], ...,
+    + Grid Traversal
+        * From TOP-LEFT to BOTTOM-RIGHT
+    + State Compression
+        * Reducing Dynamic Programming dimensions
+
+- Dynamic Programming vs. Greedy
+    + Both solve optimization problems
+    + GREEDY
+        * Makes LOCAL decisions
+        * Fast and simple
+        * May fail to find optimal solution
+    + DYNAMIC PROGRAMMING
+        * Considers all relevant subproblems
+        * Guarantees optimality
+        * Higher time and space cost
+
+- Dynamic Programming vs. Backtracking
+    + BACKTRACKING
+        * Explores all possibilities
+        * Often exponential
+    + DYNAMIC PROGRAMMING
+        * Prunes repeated work via memoization
+        * Turns exponential -> polynomial
