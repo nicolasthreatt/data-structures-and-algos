@@ -1,0 +1,126 @@
+Array Algorithms
+
+- Binary Search
+    + Overview:
+        * Used to search for a target value within a SORTED array or find the position of an element by halving
+          the search space with each iteration/comparison
+        * The search space is narrowed by comparing the MIDDLE element (mid = (left + right) // 2) with the target and
+          adjusting the pointers (left and right).
+        * Each iteration, the middle
+    + Time Complexity: O(log(n))
+    + Example Problems:
+        * Seaching for a target value in a sorted array
+        * Finding the smallest or largest value satisfying a condition in a sorted array
+        * Solving optimization problems like finding the smallest/maximum subarray with specific properties (sliding window)
+    + Sample Code:
+        def binary_search(arr, target):
+            left, right = 0, len(arr) - 1
+            while left <= right:  # The loop condition ensures we're within the bounds
+                mid = (left + right) // 2  # Find the middle element
+                if arr[mid] == target:  # Target found at the middle
+                    return mid
+                elif arr[mid] < target:  # Target is larger than mid, move the left pointer
+                    left = mid + 1
+                else:  # Target is smaller than mid, move the right pointer
+                    right = mid - 1
+            return -1  # Target not found
+
+- Hash Map/Set
+    + Overview:
+        * Data structure that stores key-value pairs (similar to python dictionary), allowing for efficient
+          retrieval, insertion, and deletion of elements based on the key.
+        * The key is hashed using a hash function to determine the index at which the correspond value is stored.
+        * Hash Sets only store keys (w/o values), and is typically used for checking membership or uniqueness.
+    + Time Complexity: O(1) on average, O(n) on worst case
+    + Example Problems:
+        * Storing information or configurations where fast lookups by a unique indenifier (key) are needed.
+        * Implementing counting or frequency maps (e.g., counting characters in a string).
+        * Checking if eleents in one collection exist in another collection.
+    + Sample Code:
+        def have_common_elements(list1, list2):
+            set1 = set(list1)
+            for element in list2:
+                if element in set1:  # Check if element exists in the set
+                    return True  # Common element found
+            return False
+
+- Kadane's Algorithm
+    + Overview
+        * Dynamic Programming Technique
+        * Used to find the MAXIUMUM SUM SUBARRAY in a given array of integers,
+          where the subarray can be non-continguous
+        * Involves iterating through the array while maintaining two values:
+            1. One for the the maximum sum found so far
+            2. Another for the maximum sum ending at the current element
+        * Keep adding elements to curent subarray, and if sum turns negative,
+           reset current sum and start new subarray 
+    + Time Complexity: O(n)
+    + Example Problems:
+        * Find the max sum subarray in an array of integers
+        * Max sum of a continguous subarray in an array with both positive and negative numbers
+    + Sample Code:
+        def max_subaray_sum(arr):
+            max_sum = float("-inf")
+            current_sum = 0
+            for num in arr:
+                current_sum = max(num, current_sum + num)
+                max_sum = max(max_sum, current_sum)
+            return max_sum
+
+- Prefix Sum
+    + Overview:
+    + Time Complexity: O(n)
+    + Space Complexity:
+        * O(n) - If storing the prefix sum array
+        * O(1) - If performing in-place modification
+    + Sample Code (Store Prefix Sum Array)
+    + Sample Code (In-place Modify Prefix Sum Array)
+
+- Sliding Window
+    + Overview:
+        * Involves maintaining a "window", a continguous subarray or sequence using left and right pointers,
+          and sliding acrros the array/string to example all possible subarrays efficiently.
+        * Window size can be fixed or dynamic (right - left + 1).
+        * Useful when need to calculate something over subarrays (e.g., sum, maximum, etc.) without repeatedly
+          recalculating for overlapping parts of the array/string
+    + Time Complexity: O(n)
+    + Example Problems:
+        * Find longest substring.
+        * Find minimum length subarray with a sum greater than or equal to a target.
+        * Tracking maximums or minimum in a subarray.
+    + Sample Code:
+        def longest_substring_without_repeating_chars(s):
+            char_set = set()  # To store characters in the current window
+            max_length = 0  # To track the longest length
+            left = 0  # Left pointer
+            for right in range(len(s)):  # Right pointer
+                while s[right] in char_set:
+                    char_set.remove(s[left])  # Remove the leftmost character
+                    left += 1  # Shrink the window from the left
+                char_set.add(s[right])  # Add the current character to the set
+                max_length = max(max_length, right - left + 1)  # Update the max length
+            return max_length
+
+- Two Pointers
+    + Overview:
+        * Involves using two variables/indinces (left and right) to traverse through an array or list,
+          often from opposie ends or in a linear fashion.
+        * One pointer moves forward, while the other moves backword or both move in the same direction
+          but at different speeds.
+    + Time Complexity: O(n)
+    + Example Problems:
+        * Sorting an array/string
+        * Searching an arrary/string
+        * Pairing elements
+    + Sample Code:
+        def has_pair_with_sum(arr, target):
+            left, right = 0, len(arr) - 1
+            while left < right:
+                current_sum = arr[left] + arr[right]
+                if current_sum == target:
+                    return True  # Found the pair
+                elif current_sum < target:
+                    left += 1  # Move the left pointer to the right to increase the sum
+                else:
+                    right -= 1  # Move the right pointer to the left to decrease the sum
+            return False  # No pair found
