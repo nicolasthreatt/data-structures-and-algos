@@ -3,7 +3,7 @@ Remove Linked List Elements
 https://leetcode.com/problems/remove-linked-list-elements/
 
 Given the head of a linked list and an integer val,
-remove all the nodes of the linked list that has Node.val == val, and return the new head
+remove all the nodes of the linked list that has Node.val == val, and return the new head.
 
 Example 1:
     Input: head = [1,2,6,3,4,5,6], val = 6
@@ -22,6 +22,7 @@ Constraints:
     * 1 <= Node.val <= 50
     * 0 <= val <= 50
 """
+
 from typing import Optional
 
 
@@ -32,44 +33,43 @@ class ListNode:
         self.next = next
 
 
-# Algorithm(s) Used: Dummy Node, Two Pointers
-# Time Complexity: O(n)
-# Space Complexity: O(1)
-def removeElementsI(head: Optional[ListNode], val: int) -> Optional[ListNode]:
-    if not head:
-        return None
+class RemoveElements:
 
-    dummy = ListNode()
-    dummy.next = head
+    # Algorithm(s) Used: Dummy Node, Two Pointers
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def removeElementsI(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        if not head:
+            return None
 
-    curr = dummy
+        dummy = ListNode(0, head)
 
-    while curr.next:
-        if curr.next.val == val:
-            curr.next = curr.next.next
-        else:
-            curr = curr.next
+        curr = dummy
+        while curr.next:
+            if curr.next.val == val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
 
-    return dummy.next
+        return dummy.next
 
+    # Algorithm(s) Used: Dummy Node
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def removeElementsII(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        if not head:
+            return None
 
-# Algorithm(s) Used: Dummy Node
-# Time Complexity: O(n)
-# Space Complexity: O(1)
-def removeElementsII(head: Optional[ListNode], val: int) -> Optional[ListNode]:
-    if not head:
-        return None
+        dummy = ListNode(0, head)
 
-    dummy = ListNode(0, head)
+        head = dummy
+        while head.next:
+            if head.next.val == val:
+                head.next = head.next.next
+            else:
+                head = head.next
 
-    head = dummy
-    while head.next:
-        if head.next.val == val:
-            head.next = head.next.next
-        else:
-            head = head.next
-
-    return dummy.next
+        return dummy.next
 
 
 # Helper function to build linked list from array
@@ -97,6 +97,8 @@ def list_to_array(head):
 
 
 if __name__ == "__main__":
+    Solution = RemoveElements()
+
     # (input_list, val_to_remove, expected_output_list)
     test_cases = [
         ([1,2,6,3,4,5,6], 6, [1,2,3,4,5]),
@@ -106,9 +108,12 @@ if __name__ == "__main__":
         ([4,1,4,2,4], 4, [1,2]),
     ]
 
-    functions = [removeElementsI, removeElementsII]
+    funcs = [
+        Solution.removeElementsI,
+        Solution.removeElementsII,
+    ]
 
-    for func in functions:
+    for func in funcs:
         for input_list, val, expected in test_cases:
             head = build_list(input_list)
             result = func(head, val)

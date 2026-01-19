@@ -65,34 +65,38 @@ struct ListNode {
 
 class GetIntersectionNode {
 public:
-
     // Algorithm(s) Used: Linked List Traversal
     // Time Complexity: O(n)
-    // Space Complexity: O(n)
+    // Space Complexity: O(1)
     ListNode *getIntersectionNodeI(ListNode *headA, ListNode *headB) {
         if (headA == nullptr || headB == nullptr) return nullptr;
 
-        ListNode *a = headA, *b = headB;
+        ListNode *a = headA;
+        ListNode *b = headB;
+
         while (a != nullptr || b != nullptr) {
             if (a == b) return a;
             if (a != nullptr) a = a->next; else a = headB;
             if (b != nullptr) b = b->next; else b = headA;
         }
+
         return nullptr;
-        
     }
 
-        // Algorithm(s) Used: Linked List Traversal
-        // Time Complexity: O(n)
-        // Space Complexity: O(n)
+    // Algorithm(s) Used: Linked List Traversal
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
     ListNode *getIntersectionNodeII(ListNode *headA, ListNode *headB) {
         if (headA == nullptr || headB == nullptr) return nullptr;
 
-        ListNode *a = headA, *b = headB;
+        ListNode *a = headA;
+        ListNode *b = headB;
+
         while (a != b) {
             if (a != nullptr) a = a->next; else a = headB;
             if (b != nullptr) b = b->next; else b = headA;
         }
+
         return a;
     }
 };
@@ -138,6 +142,8 @@ void free_list(ListNode* head, ListNode* stop = nullptr) {
 }
 
 int main() {
+    GetIntersectionNode Solution;
+
     // <listA, listB, skipA, skipB, intersectionVal>
     vector<tuple<vector<int>, vector<int>, int, int, int>> test_cases = {
         {{4,1,8,4,5}, {5,6,1,8,4,5}, 2, 3, 8},
@@ -147,16 +153,17 @@ int main() {
         {{1,2,3},     {4,5},        -1, -1, -1}
     };
 
-    GetIntersectionNode solultion;
+    vector<ListNode* (GetIntersectionNode::*)(ListNode*, ListNode*)> funcs = {
+        &GetIntersectionNode::getIntersectionNodeI,
+        &GetIntersectionNode::getIntersectionNodeII,
+    };
 
-    for (auto func : { &GetIntersectionNode::getIntersectionNodeI,
-                    &GetIntersectionNode::getIntersectionNodeII }) {
+    for (auto func : funcs) {
         for (auto& [listA, listB, skipA, skipB, expectedVal] : test_cases) {
-
             auto [headA, headB, expectedNode] =
                 build_intersecting_lists(listA, listB, skipA, skipB);
 
-            ListNode* result = (solultion.*func)(headA, headB);
+            ListNode* result = (Solution.*func)(headA, headB);
 
             if (expectedNode == nullptr) {
                 assert(result == nullptr);
@@ -165,7 +172,6 @@ int main() {
                 assert(result->val == expectedVal);
             }
 
-            // Free memory without double-free on intersection
             free_list(headB, expectedNode);
             free_list(headA);
         }

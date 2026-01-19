@@ -37,36 +37,41 @@ class ListNode:
         self.next = next
 
 
-# Algorithm Used: Dummy Node
-# Time Complexity: O(list1 + list2) = O(n + m)
-# Memory Complexity: O(1)
-def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-    dummy = ListNode()
-    tail = dummy
+class MergeTwoLists:
 
-    # Iterate through both list while they both have values
-    # Whichever node contains the lesser value add it to the tail and update tail's next pointer
-    while list1 and list2:
-        if list1.val < list2.val:
+    # Algorithm Used: Dummy Node
+    # Time Complexity: O(n + m)
+    # Memory Complexity: O(1)
+    def mergeTwoListsI(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        tail = dummy
+
+        # Iterate through both list while they both have values
+        # Whichever node contains the lesser value add it to the tail
+        while list1 and list2:
+            if list1.val < list2.val:
+                tail.next = list1
+                list1 = list1.next
+            else:
+                tail.next = list2
+                list2 = list2.next
+
+            tail = tail.next
+
+        # Remember the while loop above only iterates while both linked list have nodes.
+        # There is a possibility that one of the nodes still has data.
+        # Attach the additional data from the node to the end of the tail pointer
+        if list1:
             tail.next = list1
-            list1 = list1.next
-        else:
+        elif list2:
             tail.next = list2
-            list2 = list2.next
-        tail = tail.next
 
-    # Remember the while loop above only iterates while both linked list have nodes.
-    # There is a possibility that one of the nodes still has data.
-    # Attach the additional data from the node to the end of the tail pointer
-    if list1:
-        tail.next = list1
-    elif list2:
-        tail.next = list2
-
-    return dummy.next
+        return dummy.next
 
 
 if __name__ == "__main__":
+    Solution = MergeTwoLists()
+
     def build_linked_list(values: List) -> Optional[ListNode]:
         dummy = tail = ListNode()
         for v in values:
@@ -90,9 +95,16 @@ if __name__ == "__main__":
         ([1, 3, 5], [2, 4, 6], [1, 2, 3, 4, 5, 6]),
     ]
 
-    for list1_nodes, list2_nodes, expected in test_cases:
-        l1 = build_linked_list(list1_nodes)
-        l2 = build_linked_list(list2_nodes)
-        result = mergeTwoLists(l1, l2)
-        result_list = linked_list_to_list(result)
-        assert result_list == expected
+    funcs = [
+        Solution.mergeTwoListsI,
+    ]
+
+    for func in funcs:
+        for list1_nodes, list2_nodes, expected in test_cases:
+            l1 = build_linked_list(list1_nodes)
+            l2 = build_linked_list(list2_nodes)
+
+            result = func(l1, l2)
+            result_list = linked_list_to_list(result)
+
+            assert result_list == expected

@@ -20,23 +20,15 @@ Constraints:
     * -100 <= Node.val <= 100
     * -200 <= x <= 200
  */
-package algorithms.linked_lists;
 
-// Definition for singly-linked list.
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
+package algorithms.linked_lists;
 
 public class Partition {
 
     // Algorithm Used: Dummy Node
     // Time Complexity: O(n)
     // Space Complexity: O(1)
-    public ListNode partition(ListNode head, int x) {
+    public ListNode partitionI(ListNode head, int x) {
         ListNode dummyLesser = new ListNode();
         ListNode dummyGreater = new ListNode();
 

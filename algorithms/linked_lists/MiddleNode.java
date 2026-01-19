@@ -19,23 +19,15 @@ Constraints:
     * The number of nodes in the list is in the range [1, 100].
     * 1 <= Node.val <= 100
 */
-package algorithms.linked_lists;
 
-// Definition for singly-linked list.
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
+package algorithms.linked_lists;
 
 public class MiddleNode {
     
     // Algorithm(s) Used: Floyd's Tortoise & Hare
     // Time Complexity: O(n)
     // Space Complexity: O(1)
-    public ListNode middleNode(ListNode head) {
+    public ListNode middleNodeI(ListNode head) {
         ListNode slow = head, fast = head;
 
         while (fast != null && fast.next != null) {
@@ -45,4 +37,4 @@ public class MiddleNode {
         
         return slow;
     }
-}
+};

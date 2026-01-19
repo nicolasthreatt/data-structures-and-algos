@@ -29,7 +29,6 @@ struct ListNode {
     int val;
     ListNode *next;
     ListNode() : val(0), next(nullptr) {}
-    
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
@@ -162,11 +161,12 @@ int main() {
 
     PalindromeLinkedList Solution;
 
-    for (auto func : {
-            &PalindromeLinkedList::isPalindromeI,
-            &PalindromeLinkedList::isPalindromeII
-        })
-    {
+    vector<bool (PalindromeLinkedList::*)(ListNode*)> funcs = {
+        &PalindromeLinkedList::isPalindromeI,
+        &PalindromeLinkedList::isPalindromeII
+    };
+
+    for (auto func : funcs) {
         for (auto& [input_list, expected] : test_cases) {
             ListNode* head = build_list(input_list);
 

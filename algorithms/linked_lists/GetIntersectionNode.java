@@ -48,7 +48,17 @@ Constraints:
 Follow up:
     Could you write a solution that runs in O(m + n) time and use only O(1) memory?
 */
+
 package algorithms.linked_lists;
+
+// Definition for singly-linked list.
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+};
 
 public class GetIntersectionNode {
 
@@ -58,12 +68,15 @@ public class GetIntersectionNode {
     public ListNode getIntersectionNodeI(ListNode headA, ListNode headB) {
         if (headA == null || headB == null) return null;
         
-        ListNode a = headA, b = headB;
+        ListNode a = headA;
+        ListNode b = headB;
+
         while (a != null || b != null) {
             if (a == b) return a;
             if (a != null) a = a.next; else  a = headB;
             if (b != null) b = b.next; else  b = headA;
         }
+
         return null;
     }
 
@@ -72,8 +85,10 @@ public class GetIntersectionNode {
     // Space Complexity: O(1)
     public ListNode getIntersectionNodeII(ListNode headA, ListNode headB) {
         if (headA == null || headB == null) return null;
+        
+        ListNode a = headA;
+        ListNode b = headB;
 
-        ListNode a = headA, b = headB;
         while (a != b) {
             if (a != null) a = a.next; else  a = headB;
             if (b != null) b = b.next; else  b = headA;
@@ -81,4 +96,4 @@ public class GetIntersectionNode {
 
         return a;
     }
-}
+};

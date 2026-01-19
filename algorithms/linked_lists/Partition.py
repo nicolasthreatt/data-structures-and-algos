@@ -31,32 +31,37 @@ class ListNode:
         self.next = next
 
 
-# Algorithms Used: Dummy Nodes
-# Time Complexity: O(n)
-# Space Complexity: O(1)
-def partition(head: Optional[ListNode], x: int) -> Optional[ListNode]:
-        dummy_lesser = lesser_tail = ListNode()
-        dummy_greater = greater_tail = ListNode()
+class Partition:
 
-        while head:
-            if head.val < x:
-                lesser_tail.next = head
-                lesser_tail = lesser_tail.next
-            else:
-                greater_tail.next = head
-                greater_tail = greater_tail.next
-            head = head.next
+    # Algorithms Used: Dummy Nodes
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def partitionI(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+            dummy_lesser = tail_lesser = ListNode()
+            dummy_greater = tail_greater = ListNode()
 
-        # End the 'greater' list to avoid potential cycles
-        greater_tail.next = None
+            while head:
+                if head.val < x:
+                    tail_lesser.next = head
+                    tail_lesser = tail_lesser.next
+                else:
+                    tail_greater.next = head
+                    tail_greater = tail_greater.next
 
-        # Link the 'lesser' list with the 'greater' list
-        lesser_tail.next = dummy_greater.next
+                head = head.next
 
-        return dummy_lesser.next
+            # End the 'greater' list to avoid potential cycles
+            tail_greater.next = None
+
+            # Link the 'lesser' list with the 'greater' list
+            tail_lesser.next = dummy_greater.next
+
+            return dummy_lesser.next
 
 
 if __name__ == "__main__":
+    Solution = Partition()
+
     def build_linked_list(values: List) -> Optional[ListNode]:
         dummy = tail = ListNode()
         for v in values:
@@ -81,8 +86,14 @@ if __name__ == "__main__":
         ([3, 3, 3], 3, [3, 3, 3]),
     ]
 
-    for nums, x, expected in test_cases:
-        head = build_linked_list(nums)
-        result = partition(head, x)
-        result_list = linked_list_to_list(result)
-        assert result_list == expected
+    funcs = [
+        Solution.partitionI
+    ]
+
+    for func in funcs:
+        for nums, x, expected in test_cases:
+            head = build_linked_list(nums)
+            result = func(head, x)
+
+            result_list = linked_list_to_list(result)
+            assert result_list == expected

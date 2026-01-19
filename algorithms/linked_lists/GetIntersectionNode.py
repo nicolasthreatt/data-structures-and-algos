@@ -48,6 +48,7 @@ Constraints:
 Follow up:
     Could you write a solution that runs in O(m + n) time and use only O(1) memory?
 """
+
 from typing import Optional
 
 
@@ -58,38 +59,39 @@ class ListNode:
         self.next = next
 
 
-# Algorithm Used: Linked List Traversal
-# Time Complexity: O(n + m)
-# Space Complexity: O(1)
-def getIntersectionNodeI(headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-    if not headA or not headB:
+class GetIntersectionNode:
+
+    # Algorithm Used: Linked List Traversal
+    # Time Complexity: O(n + m)
+    # Space Complexity: O(1)
+    def getIntersectionNodeI(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        if not headA or not headB:
+            return None
+
+        a, b = headA, headB
+        while a or b:
+            if a == b:
+                return a
+
+            a = a.next if a else headB
+            b = b.next if b else headA
+
         return None
 
-    a, b = headA, headB
-    while a or b:
-        if a == b:
-            return a
+    # Algorithm Used: Linked List Traversal
+    # Time Complexity: O(n + m)
+    # Space Complexity: O(1)
+    def getIntersectionNodeII(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        if not headA or not headB:
+            return None
 
-        a = a.next if a else headB
-        b = b.next if b else headA
+        a, b = headA, headB
 
-    return None
+        while a != b:
+            a = a.next if a else headB
+            b = b.next if b else headA
 
-
-# Algorithm Used: Linked List Traversal
-# Time Complexity: O(n + m)
-# Space Complexity: O(1)
-def getIntersectionNodeII(headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-    if not headA or not headB:
-        return None
-
-    a, b = headA, headB
-
-    while a != b:
-        a = a.next if a else headB
-        b = b.next if b else headA
-
-    return a
+        return a
 
 
 # Helper function to build a plain linked list (no cycle)
@@ -128,8 +130,9 @@ def build_intersecting_lists(listA, listB, skipA, skipB):
     return headA, headB, nodesA[skipA]
 
 
-
 if __name__ == "__main__":
+    Solution = GetIntersectionNode()
+
     # (listA, listB, skipA, skipB, expected_intersection_value)
     test_cases = [
         ([4, 1, 8, 4, 5], [5, 6, 1, 8, 4, 5], 2, 3, 8),
@@ -139,9 +142,12 @@ if __name__ == "__main__":
         ([1, 2, 3], [4, 5], -1, -1, None),
     ]
 
-    functions = [getIntersectionNodeI, getIntersectionNodeII]
+    funcs = [
+        Solution.getIntersectionNodeI,
+        Solution.getIntersectionNodeII
+    ]
 
-    for func in functions:
+    for func in funcs:
         for listA, listB, skipA, skipB, expected_val in test_cases:
             headA, headB, expected_node = build_intersecting_lists(listA, listB, skipA, skipB)
 

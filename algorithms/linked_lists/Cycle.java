@@ -29,12 +29,13 @@ Example 3:
  
 Constraints:
     * The number of the nodes in the list is in the range [0, 104].
-    * -105 <= Node.val <= 105
+    * -10^5 <= Node.val <= 10^5
     * pos is -1 or a valid index in the linked-list.
 
 Follow up:
     * Can you solve it using O(1) (i.e. constant) memory?
 */
+
 package algorithms.linked_lists;
 
 import java.util.HashSet;
@@ -47,11 +48,11 @@ class ListNode {
     ListNode() {}
     ListNode(int val) { this.val = val; }
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
+};
 
 public class Cycle {
 
-    // Algorithm(s) Used: Hashmap
+    // Algorithm(s) Used: Hash Set
     // Time Complexity: O(n)
     // Space Complexity: O(n)
     public boolean hasCycleI(ListNode head) {
@@ -82,4 +83,4 @@ public class Cycle {
 
         return false;
     }
-}
+};

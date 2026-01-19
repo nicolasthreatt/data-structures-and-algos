@@ -27,28 +27,22 @@ Follow up: Could you do this in one pass?
 
 package algorithms.linked_lists;
 
-
-// Definition for singly-linked list.
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
-
-
 public class RemoveNthFromEnd {
 
-    // Helper to reverse a list
+    // Algorithm(s) Used: Revsere Linked List, Iteration
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
     private ListNode reverse(ListNode node) {
         ListNode prev = null;
+
         while (node != null) {
             ListNode nxt = node.next;
+
             node.next = prev;
             prev = node;
             node = nxt;
         }
+
         return prev;
     }
 
@@ -115,8 +109,7 @@ public class RemoveNthFromEnd {
         if (head == null) return null;
 
         // Dummy node
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
+        ListNode dummy = new ListNode(0, head);
 
         // Two Pointers
         ListNode slow = dummy;
@@ -137,4 +130,4 @@ public class RemoveNthFromEnd {
 
         return dummy.next;
     }
-}
+};

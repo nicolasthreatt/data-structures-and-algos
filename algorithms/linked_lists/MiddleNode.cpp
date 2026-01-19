@@ -31,26 +31,32 @@ struct ListNode {
     int val;
     ListNode *next;
     ListNode() : val(0), next(nullptr) {}
-    
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-// Algorithm(s) Used: Floyd's Tortoise & Hare
-// Time Complexity: O(n)
-// Space Complexity: O(1) 
-ListNode* middleNode(ListNode* head) {
-    ListNode *slow = head, *fast = head;
+class MiddleNode {
 
-    while (fast != nullptr && fast->next != nullptr) {
-        slow = slow->next;
-        fast = fast->next->next;
+public:
+    // Algorithm(s) Used: Floyd's Tortoise & Hare
+    // Time Complexity: O(n)
+    // Space Complexity: O(1) 
+    ListNode* middleNodeI(ListNode* head) {
+        ListNode *slow = head;
+        ListNode *fast = head;
+
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        return slow;
     }
-
-    return slow;
-}
+};
 
 int main() {
+    MiddleNode Solution;
+
     auto build = [&](const vector<int>& vals) -> ListNode* {
         ListNode dummy;
         ListNode* tail = &dummy;
@@ -79,11 +85,18 @@ int main() {
         {{6,1,4},         {1,4}},     // Odd count
     };
 
-    for (auto& [input, expected] : tests) {
-        ListNode* head = build(input);
-        ListNode* mid = middleNode(head);
-        vector<int> output = to_vec(mid);
-        assert(output == expected);
+    vector<ListNode* (MiddleNode::*)(ListNode*)> funcs = {
+        &MiddleNode::middleNodeI,
+    };
+
+    for (auto& func : funcs) {
+        for (auto& [input, expected] : tests) {
+            ListNode* head = build(input);
+            ListNode* mid = (Solution.*func)(head);
+
+            vector<int> output = to_vec(mid);
+            assert(output == expected);
+        }
     }
 
     return 0;

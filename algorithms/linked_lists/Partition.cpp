@@ -36,34 +36,40 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-// Algorithm(s) Used: Dummy Nodes
-// Time Complexity: O(n)
-// Space Complexity: O(1)
-ListNode* partition(ListNode* head, int x) {
-    ListNode *dummy_lesser = new ListNode();
-    ListNode *dummy_greater = new ListNode();
+class Partition {
 
-    ListNode *tail_lesser = dummy_lesser;
-    ListNode *tail_greater = dummy_greater;
+public:
+    // Algorithm(s) Used: Dummy Nodes
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+    ListNode* partitionI(ListNode* head, int x) {
+        ListNode *dummy_lesser = new ListNode();
+        ListNode *dummy_greater = new ListNode();
 
-    while (head != nullptr) {
-        if (head->val < x) {
-            tail_lesser->next = head;
-            tail_lesser = tail_lesser->next;
-        } else {
-            tail_greater->next = head;
-            tail_greater = tail_greater->next;
+        ListNode *tail_lesser = dummy_lesser;
+        ListNode *tail_greater = dummy_greater;
+
+        while (head != nullptr) {
+            if (head->val < x) {
+                tail_lesser->next = head;
+                tail_lesser = tail_lesser->next;
+            } else {
+                tail_greater->next = head;
+                tail_greater = tail_greater->next;
+            }
+            head = head->next;
         }
-        head = head->next;
+
+        tail_greater->next = nullptr;
+        tail_lesser->next = dummy_greater->next;
+
+        return dummy_lesser->next;
     }
-
-    tail_greater->next = nullptr;
-    tail_lesser->next = dummy_greater->next;
-
-    return dummy_lesser->next;
-}
+};
 
 int main() {
+    Partition Solution;
+    
     auto build = [&](const vector<int>& vals) -> ListNode* {
         ListNode dummy;
         ListNode* tail = &dummy;
@@ -92,11 +98,17 @@ int main() {
         {{3,3,3},       3, {3,3,3}},
     };
 
-    for (auto& [nums, x, expected] : tests) {
-        ListNode* head = build(nums);
-        ListNode* result = partition(head, x);
-        vector<int> output = to_vec(result);
-        assert(output == expected);
+    vector<ListNode* (Partition::*)(ListNode*, int)> funcs = {
+        &Partition::partitionI,
+    };
+
+    for (auto& func : funcs) {
+        for (auto& [nums, x, expected] : tests) {
+            ListNode* head = build(nums);
+            ListNode* result = (Solution.*func)(head, x);
+            vector<int> output = to_vec(result);
+            assert(output == expected);
+        }
     }
 
     return 0;

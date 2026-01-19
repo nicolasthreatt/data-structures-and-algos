@@ -38,14 +38,13 @@ struct ListNode {
 };
 
 class RemoveElements {
-public:
 
+public:
     // Algorithm(s) Used: Dummy Node, Two Pointers
     // Time Complexity: O(n)
     // Time Complexity: O(1)
     ListNode* removeElementsI(ListNode* head, int val) {
-        ListNode* dummy = new ListNode();
-        dummy->next = head;
+        ListNode* dummy = new ListNode(0, head);
 
         ListNode* curr = dummy;
         while (curr->next != nullptr) {
@@ -112,6 +111,8 @@ void free_list(ListNode* head, ListNode* stop = nullptr) {
 }
 
 int main() {
+    RemoveElements Solution;
+
     // <input_list, val_to_remove, expected_output_list>
     vector<tuple<vector<int>, int, vector<int>>> test_cases = {
         {{1,2,6,3,4,5,6}, 6, {1,2,3,4,5}},
@@ -121,22 +122,19 @@ int main() {
         {{4,1,4,2,4},      4, {1,2}}
     };
 
-    RemoveElements solution;
+    vector<ListNode* (RemoveElements::*)(ListNode*, int)> funcs = {
+        &RemoveElements::removeElementsI,
+        &RemoveElements::removeElementsII,
+    };
 
-    for (auto func : {
-            &RemoveElements::removeElementsI,
-            &RemoveElements::removeElementsII
-        })
-    {
+    for (auto func : funcs) {
         for (auto& [input_list, val, expected_list] : test_cases) {
-
             auto [head, nodes] = build_list(input_list);
 
-            ListNode* result = (solution.*func)(head, val);
+            ListNode* result = (Solution.*func)(head, val);
             vector<int> result_vec = list_to_vector(result);
 
             assert(result_vec == expected_list);
-
             free_list(result);
         }
     }

@@ -102,9 +102,9 @@ if __name__ == "__main__":
         ([3, 2, 0, -4], [-4, 0, 2, 3]),
     ]
 
-    functions = [Solution.reverseListI, Solution.reverseListII]
+    funcs = [Solution.reverseListI, Solution.reverseListII]
 
-    for func in functions:
+    for func in funcs:
         for values, expected in test_cases:
             head = build_linked_list(values)
             reversed_head = func(head)

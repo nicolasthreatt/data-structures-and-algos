@@ -24,16 +24,8 @@ Follow up:
     - A linked list can be reversed either iteratively or recursively.
     - Could you implement both?
 */
-package algorithms.linked_lists;
 
-// Definition for singly-linked list.
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
+package algorithms.linked_lists;
 
 public class ReverseList {
 
@@ -72,4 +64,4 @@ public class ReverseList {
 
         return prev;
     }
-}
+};

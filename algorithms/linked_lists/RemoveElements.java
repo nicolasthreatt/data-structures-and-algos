@@ -22,6 +22,7 @@ Constraints:
     * 1 <= Node.val <= 50
     * 0 <= val <= 50
 */
+
 package algorithms.linked_lists;
 
 public class RemoveElements {
@@ -30,8 +31,7 @@ public class RemoveElements {
     // Time Complexity: O(n)
     // Space Complexity: O(1)
     public ListNode removeElementsI(ListNode head, int val) {
-        ListNode dummy = new ListNode();
-        dummy.next = head;
+        ListNode dummy = new ListNode(0, head);
 
         ListNode curr = dummy;
         while (curr.next != null) {
@@ -62,4 +62,4 @@ public class RemoveElements {
 
         return dummy.next;
     }
-}
+};

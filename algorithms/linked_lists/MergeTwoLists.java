@@ -26,24 +26,16 @@ Constraints:
     * -100 <= Node.val <= 100
     * Both list1 and list2 are sorted in non-decreasing order.
  */
-package algorithms.linked_lists;
 
-// Definition for singly-linked list.
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
+package algorithms.linked_lists;
 
 public class MergeTwoLists {
 
     // Algorithm Used: Dummy Node
-    // Time Complexity: O(list1 + list2)
+    // Time Complexity: O(n + m)
     // Space Complexity: O(1)
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode dummy = new ListNode(); // Starting point of the new list
+    public ListNode mergeTwoListsI(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
         ListNode tail = dummy;
 
         // Merge the two lists together while both are non-empty
@@ -67,4 +59,4 @@ public class MergeTwoLists {
 
         return dummy.next;
     }
-}
+};

@@ -18,23 +18,15 @@ Constraints:
 
 Follow up: Could you do it in O(n) time and O(1) space?
 */
+
 package algorithms.linked_lists;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// Definition for singly-linked list.
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
-
 public class PalindromeLinkedList {
 
-    // Algorithm(s) Used: Reverse Linked List
+    // Algorithm(s) Used: Reverse Linked List. Iteration
     // Time Complexity: O(n)
     // Space Complexity: O(1)
     private ListNode reverse(ListNode node) {
@@ -73,10 +65,9 @@ public class PalindromeLinkedList {
             left += 1;
             right -= 1;
         }
-        
+
         return true;
     }
-
 
     // Algorithm(s) Used: Floyd's Tortoise & Hare, Reverse Linked List
     // Time Complexity: O(n)
@@ -100,5 +91,4 @@ public class PalindromeLinkedList {
 
         return true;
     }
-
-}
+};

@@ -29,66 +29,64 @@ Example 3:
  
 Constraints:
     * The number of the nodes in the list is in the range [0, 104].
-    * -105 <= Node.val <= 105
+    * -10^5 <= Node.val <= 10^5
     * pos is -1 or a valid index in the linked-list.
 
 Follow up:
     * Can you solve it using O(1) (i.e. constant) memory?
 """
+
 from typing import List, Optional
 
 
 # Definition for singly-linked list.
 class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
-# Algorithm Used: Hashmap
-# Time Complexity: O(n)
-# Memory Complexity: O(n)
-def hasCycleI(head: Optional[ListNode]) -> bool:
+class Cycle:
 
-    # Initialize a hash map
-    hashMap = set()
+    # Algorithm Used: Hash Set
+    # Time Complexity: O(n)
+    # Memory Complexity: O(n)
+    def hasCycleI(self, head: Optional[ListNode]) -> bool:
+        hashMap = set()
 
-    # Iterate through the linked list
-    # Check to see if the current node is in the hash map
-    #   - If so, there is a loop and return True
-    #   - If not, add node to hash map and update current pointer
-    current = head
-    while current:
-        if current in hashMap:
-            return True
+        # Iterate through the linked list
+        # Check to see if the current node is in the hash map
+        #   - If so, there is a loop and return True
+        #   - If not, add node to hash map and update current pointer
+        current = head
+        while current:
+            if current in hashMap:
+                return True
+            
+            hashMap.add(current)
+            current = current.next
         
-        hashMap.add(current)
-        current = current.next
-    
-    return False
+        return False
 
+    # Algorithm Used: Two Pointers, Floyd's Tortoise & Hare
+    # Time Complexity: O(n)
+    # Memory Complexity: O(1)
+    def hasCycleII(self, head: Optional[ListNode]) -> bool:
+        slow, fast = head, head
 
-# Algorithm Used: Two Pointers, Floyd's Tortoise & Hare
-# Time Complexity: O(n)
-# Memory Complexity: O(1)
-def hasCycleII(head: Optional[ListNode]) -> bool:
+        # Iterate through linked list with fast pointer
+        # Through each iteration:
+        #   - Update slow pointer 1 position
+        #   - Update next pointer 2 poisitions
+        # If there is a loop slow and next pointers will be equal
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
 
-    # Initialize the slow and fast pointers to the head
-    slow, fast = head, head
+            if slow == fast:
+                return True
 
-    # Iterate through linked list with fast pointer
-    # Through each iteration:
-    #   - Update slow pointer 1 position
-    #   - Update next pointer 2 poisitions
-    # If there is a loop slow and next pointers will be equal
-    while fast and fast.next:
-        slow = slow.next
-        fast = fast.next.next
-
-        if slow == fast:
-            return True
-
-    return False
+        return False
 
 
 # Helper function to build and construct linked list
@@ -107,6 +105,8 @@ def build_list(values: List[int], pos: int) -> ListNode:
 
 
 if __name__ == "__main__":
+    Solution = Cycle()
+
     test_cases = [
         ([3, 2, 0, -4], 1, True),
         ([1, 2], 0, True),
@@ -117,8 +117,8 @@ if __name__ == "__main__":
     ]
 
     functions = [
-        hasCycleI,
-        hasCycleII,
+        Solution.hasCycleI,
+        Solution.hasCycleII,
     ]
 
     for func in functions:

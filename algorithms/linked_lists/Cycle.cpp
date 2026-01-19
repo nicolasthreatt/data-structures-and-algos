@@ -51,36 +51,42 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-// Algorithm(s) Used: Hashmap
-// Time Complexity: O(n)
-// Space Complexity: O(n)
-bool hasCycleI(ListNode *head) {
-    set<ListNode*> nodes;
+class Cycle {
+public:
+    // Algorithm(s) Used: Hash Set
+    // Time Complexity: O(n)
+    // Space Complexity: O(n)
+    bool hasCycleI(ListNode *head) {
+        set<ListNode*> nodes;
 
-    ListNode *curr = head;
-    while (curr != nullptr) {
-        if (nodes.contains(curr)) return true;
-        nodes.insert(curr);
-        curr = curr->next;
+        ListNode *curr = head;
+        while (curr != nullptr) {
+            if (nodes.contains(curr)) {
+                return true;
+            }
+            nodes.insert(curr);
+            curr = curr->next;
+        }
+
+        return false;
     }
 
-    return false;
-}
+    // Algorithm(s) Used: Two Pointers, Floyd's Tortoise & Hare
+    // Time Complexity: O(n)
+    // Space Complexity: O(n)
+    bool hasCycleII(ListNode *head) {
+        ListNode *slow = head;
+        ListNode *fast = head;
 
-// Algorithm(s) Used: Two Pointers, Floyd's Tortoise & Hare
-// Time Complexity: O(n)
-// Space Complexity: O(n)
-bool hasCycleII(ListNode *head) {
-    ListNode *slow = head, *fast = head;
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) return true;
+        }
 
-    while (fast != nullptr && fast->next != nullptr) {
-        slow = slow->next;
-        fast = fast->next->next;
-        if (slow == fast) return true;
+        return false;
     }
-
-    return false;
-}
+};
 
 // Helper function to build and construct linked list
 ListNode* build_list(const vector<int>& values, int pos) {
@@ -96,9 +102,11 @@ ListNode* build_list(const vector<int>& values, int pos) {
         nodes.back()->next = nodes[pos];
 
     return nodes[0];
-}
+};
 
 int main() {
+    Cycle Solution;
+
     vector<tuple<vector<int>, int, bool>> test_cases = {
         {{3,2,0,-4}, 1, true},
         {{1,2}, 0, true},
@@ -108,9 +116,9 @@ int main() {
         {{1,2,3}, 2, true},
     };
 
-    vector<bool(*)(ListNode*)> functions = {
-        hasCycleI,
-        hasCycleII,
+    vector<bool(Cycle::*)(ListNode*)> functions = {
+        &Cycle::hasCycleI,
+        &Cycle::hasCycleII,
     };
 
     for (auto func : functions) {
@@ -120,9 +128,10 @@ int main() {
             bool expected = get<2>(tc);
 
             ListNode* head = build_list(values, pos);
-            assert(func(head) == expected);
+            bool result = (Solution.*func)(head);
+            assert(result == expected);
         }
     }
 
-    return 0; // All tests passed
+    return 0;
 }

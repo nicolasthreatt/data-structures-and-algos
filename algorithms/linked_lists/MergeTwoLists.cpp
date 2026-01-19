@@ -26,6 +26,7 @@ Constraints:
     * -100 <= Node.val <= 100
     * Both list1 and list2 are sorted in non-decreasing order.
 */
+
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -41,34 +42,37 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-// Algorithm Used: Dummy Node
-// Time Complexity: O(n)
-// Space Complexity: O(1)
-ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-    ListNode* dummy = new ListNode();
-    ListNode* tail = dummy;
+class MergeTwoLists {
+public:
+    // Algorithm Used: Dummy Node
+    // Time Complexity: O(n + m)
+    // Space Complexity: O(1)
+    ListNode* mergeTwoListsI(ListNode* list1, ListNode* list2) {
+        ListNode* dummy = new ListNode();
+        ListNode* tail = dummy;
 
-    // Merge the two lists together while both are non-empty
-    while (list1 != nullptr && list2 != nullptr) {
-        if (list1->val < list2->val) {
-            tail->next = list1;
-            list1 = list1->next;
-        } else {
-            tail->next = list2;
-            list2 = list2->next;
+        // Merge the two lists together while both are non-empty
+        while (list1 != nullptr && list2 != nullptr) {
+            if (list1->val < list2->val) {
+                tail->next = list1;
+                list1 = list1->next;
+            } else {
+                tail->next = list2;
+                list2 = list2->next;
+            }
+            tail = tail->next;
         }
-        tail = tail->next;
-    }
 
-    // Append the remaining nodes (only one of these will be non-null)
-    if (list1 != nullptr) {
-        tail->next = list1;
-    } else if (list2 != nullptr) {
-        tail->next = list2;
-    }
+        // Append the remaining nodes (only one of these will be non-null)
+        if (list1 != nullptr) {
+            tail->next = list1;
+        } else if (list2 != nullptr) {
+            tail->next = list2;
+        }
 
-    return dummy->next;
-}
+        return dummy->next;
+    }
+};
 
 // Helper function that creates a linked list from an initializer list of integers
 ListNode* createList(initializer_list<int> vals) {
@@ -101,52 +105,49 @@ void freeList(ListNode* head) {
 }
 
 int main() {
-    {
-        ListNode* l1 = createList({1,2,4});
-        ListNode* l2 = createList({1,3,4});
-        ListNode* expected = createList({1,1,2,3,4,4});
-        ListNode* result = mergeTwoLists(l1, l2);
-        assert(listsEqual(result, expected));
-        freeList(result);
-        freeList(expected);
-    }
+    MergeTwoLists Solution;
 
-    {
-        ListNode* l1 = nullptr;
-        ListNode* l2 = nullptr;
-        ListNode* expected = nullptr;
-        ListNode* result = mergeTwoLists(l1, l2);
-        assert(listsEqual(result, expected));
-    }
+    auto build = [&](const vector<int>& vals) -> ListNode* {
+        ListNode dummy;
+        ListNode* tail = &dummy;
+        for (int v : vals) {
+            tail->next = new ListNode(v);
+            tail = tail->next;
+        }
+        return dummy.next;
+    };
 
-    {
-        ListNode* l1 = nullptr;
-        ListNode* l2 = createList({0});
-        ListNode* expected = createList({0});
-        ListNode* result = mergeTwoLists(l1, l2);
-        assert(listsEqual(result, expected));
-        freeList(result);
-        freeList(expected);
-    }
+    auto to_vec = [&](ListNode* head) -> vector<int> {
+        vector<int> out;
+        while (head) {
+            out.push_back(head->val);
+            head = head->next;
+        }
+        return out;
+    };
 
-    {
-        ListNode* l1 = createList({1,3,5});
-        ListNode* l2 = createList({2,4,6,8});
-        ListNode* expected = createList({1,2,3,4,5,6,8});
-        ListNode* result = mergeTwoLists(l1, l2);
-        assert(listsEqual(result, expected));
-        freeList(result);
-        freeList(expected);
-    }
+    vector<tuple<vector<int>, vector<int>, vector<int>>> tests = {
+        {{1,2,4}, {1,3,4}, {1,1,2,3,4,4}},
+        {{},      {},      {}},
+        {{},      {0},     {0}},
+        {{1,3,5}, {2,4,6,8}, {1,2,3,4,5,6,8}},
+        {{1,2,3}, {10,11}, {1,2,3,10,11}},
+    };
 
-    {
-        ListNode* l1 = createList({1,2,3});
-        ListNode* l2 = createList({10,11});
-        ListNode* expected = createList({1,2,3,10,11});
-        ListNode* result = mergeTwoLists(l1, l2);
-        assert(listsEqual(result, expected));
-        freeList(result);
-        freeList(expected);
+    vector<ListNode* (MergeTwoLists::*)(ListNode*, ListNode*)> funcs = {
+        &MergeTwoLists::mergeTwoListsI,
+    };
+
+    for (auto& func : funcs) {
+        for (auto& [v1, v2, expected] : tests) {
+            ListNode* l1 = build(v1);
+            ListNode* l2 = build(v2);
+
+            ListNode* result = (Solution.*func)(l1, l2);
+            vector<int> output = to_vec(result);
+
+            assert(output == expected);
+        }
     }
 
     return 0;
