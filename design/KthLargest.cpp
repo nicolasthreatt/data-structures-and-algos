@@ -50,23 +50,22 @@ private:
     // priority_queue<int> max_heap;
 
 public:
-    // Algorithm(s) Used: Heap
-    // Time Complexity: (klog(k))
+    // Algorithm(s) Used: Min Heap
+    // Time Complexity: O(klog(k))
     // Space Complexity: O(k)
     KthLargest(int k, vector<int>& nums) {
         this->k = k;
         for (int num : nums) add(num);  // Iterate through "stream"
     }
 
-    // Algorithm(s) Used: Heap
-    // Time Complexity: (log(k))
+    // Algorithm(s) Used: Min Heap
+    // Time Complexity: O(log(k))
     // Space Complexity: O(k)
     int add(int val) {
+        min_heap.push(val);  // Always add the new value
 
-        // Add to heap if under k items or val exceeds current kth-largest
-        if (min_heap.size() < k || min_heap.top() < val) {
-            min_heap.push(val);
-            if (min_heap.size() > k) min_heap.pop();  // If heap became too large, remove top element
+        if (min_heap.size() > k) {
+            min_heap.pop();  // Remove smallest element if size exceeds k
         }
 
         return min_heap.top();
@@ -75,13 +74,13 @@ public:
 
 int main() {
     vector<int> nums = {4, 5, 8, 2};
-    KthLargest kthLargest(3, nums);
+    KthLargest Solution(3, nums);
 
-    assert(kthLargest.add(3)  == 4);
-    assert(kthLargest.add(5)  == 5);
-    assert(kthLargest.add(10) == 5);
-    assert(kthLargest.add(9)  == 8);
-    assert(kthLargest.add(4)  == 8);
+    assert(Solution.add(3)  == 4);
+    assert(Solution.add(5)  == 5);
+    assert(Solution.add(10) == 5);
+    assert(Solution.add(9)  == 8);
+    assert(Solution.add(4)  == 8);
 
     return 0;
 }

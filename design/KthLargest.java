@@ -42,21 +42,26 @@ import java.util.PriorityQueue;
 public class KthLargest {
     private int k;
     private PriorityQueue<Integer> minHeap;
+    // PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
 
+    // Algorithm(s) Used: Min Heap
+    // Time Complexity: O(klog(k))
+    // Space Complexity: O(k)
     public KthLargest(int k, int[] nums) {
         this.k = k;
         minHeap = new PriorityQueue<>(k);
 
-        // Iterate through "stream"
-        for (int num : nums) add(num);
+        for (int num : nums) add(num);  // Iterate through "stream"
     }
-    
+
+    // Algorithm(s) Used: Min Heap
+    // Time Complexity: O(log(k))
+    // Space Complexity: O(k)
     public int add(int val) {
-        // Add to heap if under k items or val exceeds current kth-largest
-        // NOTE: poll() = Removes AND Retrieves head of queue
-        if (minHeap.size() < k || minHeap.poll() < val) {
-            minHeap.add(val);
-            if (minHeap.size() > k) minHeap.remove(); // If heap became too large, remove top element
+        minHeap.add(val);      // Add new value to heap
+
+        if (minHeap.size() > k) {
+            minHeap.poll();    // If heap became too large, remove top/smallest element
         }
 
         return minHeap.peek(); // NOTE: peek() = Only Retrieves head of queue

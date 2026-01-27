@@ -28,26 +28,31 @@ Constraints:
 
 using namespace std;
 
-// Algorithm(s) Used: Min Heap
-// Time Complexity: O(nlog(k))
-// Space Complexity: O(k)
-int findKthLargest(vector<int>& nums, int k) {
-    priority_queue<int, vector<int>, greater<int>> minHeap;
-    // priority_queue<int> max_heap;
+class FindKthLargest {
+public:
+    // Algorithm(s) Used: Min Heap
+    // Time Complexity: O(nlog(k))
+    // Space Complexity: O(k)
+    int findKthLargestI(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+        // priority_queue<int> max_heap;
 
-    for (int num : nums) {
-        if (minHeap.size() < k || minHeap.top() < num) {
-            minHeap.push(num);
-            if (minHeap.size() > k) {
-                minHeap.pop();
+        for (int num : nums) {
+            if (minHeap.size() < k || minHeap.top() < num) {
+                minHeap.push(num);
+                if (minHeap.size() > k) {
+                    minHeap.pop();
+                }
             }
         }
-    }
 
-    return minHeap.top();
-}
+        return minHeap.top();
+    }
+};
 
 int main() {
+    FindKthLargest Solution;
+
     vector<tuple<vector<int>, int, int>> test_cases = {
         {{3,2,1,5,6,4}, 2, 5},
         {{3,2,3,1,2,4,5,5,6}, 4, 4},
@@ -57,11 +62,19 @@ int main() {
         {{7,10,4,3,20,15}, 3, 10},
     };
 
+    vector<int(FindKthLargest::*)(vector<int>&, int)> funcs = {
+        &FindKthLargest::findKthLargestI,
+        // &FindKthLargest::findKthLargestII
+    };
+
     for (auto &tc : test_cases) {
         vector<int> nums;
         int k, expected;
         tie(nums, k, expected) = tc;
-        assert(findKthLargest(nums, k) == expected);
+        for (auto &func : funcs) {
+            int result = (Solution.*func)(nums, k);
+            assert(result == expected);
+        }
     }
 
     return 0;

@@ -24,22 +24,23 @@ package algorithms.heap;
 
 import java.util.PriorityQueue;
 
-public class findKthLargest {
+public class FindKthLargest {
 
     // Algorithm(s) Used: Min Heap
-    // Time Complexity:
+    // Time Complexity: O(nlog(k))
     // Space Complexity: O(k)
     public int findKthLargestI(int[] nums, int k) {
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
 
         for (int num : nums) {
             minHeap.add(num);
+
             if (minHeap.size() > k) {
-                minHeap.remove();
+                minHeap.remove();  // Remove smallest element if heap is greater than k
             }
         }
 
-        return minHeap.peek();
+        return minHeap.peek();     // HEAD of min heap is always the kth largest element
     }
     
 }

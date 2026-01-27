@@ -40,73 +40,32 @@ import heapq
 from typing import List
 
 
-# Algorithm(s) Used: Min Heap of size k
+# Algorithm(s) Used: Min Heap
+# Time Complexity: O(log(k))
+# Space Complexity: O(k)
 class KthLargest:
-    """KthLargest class which represents the kth largest element in a stream using a min heap.
-
-    Attributes:
-        minHeap: A min heap of size k.
-        k: An integer representing the kth largest element to be searched.
-
-    Args:
-        k: An integer representing the kth largest element to be searched.
-        nums: A list of integers representing the input array.
-    """
-
     def __init__(self, k: int, nums: List[int]):
-        """Initializes the attributes for KthLargest class.
-
-        Time Complexity:
-            O(klog(k))
-
-        Space Complexity:
-            O(k)
-        """
-
-        # Create a min heap for the input array
-        self.minHeap = nums
-        heapq.heapify(self.minHeap)
-
-        # Record the kth largest element to be searched
         self.k = k
+        self.minHeap = nums
 
-        # Remove the smallest elements from the min heap until the size of the min heap is k
-        # NOTE: This will leave the k largest elements in the min heap AND
-        #       leave the kth largest element at the TOP of the min heap.
-        while len(self.minHeap) > k:
+        heapq.heapify(self.minHeap)   # In Python, heapq always implements a min-heap
+        while len(self.minHeap) > k:  # Remove smallest elements until only k elements remain
             heapq.heappop(self.minHeap)
 
     def add(self, val: int) -> int:
-        """Adds a value to the min heap and returns the kth largest element.
-
-        Args:
-            val: An integer representing the value to be added to the min heap.
-
-        Returns:
-            An integer representing the kth largest element in the min heap.
-
-        Time Complexity:
-            O(log(k))
-
-        Space Complexity:
-            O(k)
-        """
-        # Add the value to the min heap
         heapq.heappush(self.minHeap, val)
 
-        # Pop the smallest value from the heap if the size of the heap is greater than k
         if len(self.minHeap) > self.k:
-            heapq.heappop(self.minHeap)
+            heapq.heappop(self.minHeap)  # Remove TOP of min heap if more than k elements
 
-        # Return the kth largest element in the min heap, which is always the TOP element
-        return self.minHeap[0]
+        return self.minHeap[0]           # TOP of min heap is always the kth largest element
 
 
 if __name__ == "__main__":
-    kthLargest = KthLargest(3, [4, 5, 8, 2])
+    Solution = KthLargest(3, [4, 5, 8, 2])
 
-    assert kthLargest.add(3) == 4
-    assert kthLargest.add(5) == 5
-    assert kthLargest.add(10) == 5
-    assert kthLargest.add(9) == 8
-    assert kthLargest.add(4) == 8
+    assert Solution.add(3) == 4
+    assert Solution.add(5) == 5
+    assert Solution.add(10) == 5
+    assert Solution.add(9) == 8
+    assert Solution.add(4) == 8
